@@ -1,11 +1,13 @@
+
+
+'use strict';
+
 var express = require('express');
+var admin = require("firebase-admin");
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.send('New releases Api');
-});
 
-module.exports = router;
-
+exports.initialize = function(req, res){
+	console.log("Inside New Releases API");
+};
 

@@ -27,7 +27,7 @@ exports.initialize = function(req, res){
 
   	  console.log("Value from Products Table "+ snapshot.val());
   	  returnJson.products = snapshot.val();
-  
+
 	})
 	.then(getCombos,error);
 };
@@ -45,7 +45,7 @@ function getCombos(snapshot){
 
   	  console.log("Value from Combos Table "+ snapshot.val());
   	  returnJson.combos = snapshot.val();
-  
+
 	}).then(sendJson,error);
 };
 

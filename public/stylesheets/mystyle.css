@@ -1,0 +1,324 @@
+
+$green: #008744;
+$blue: #0057e7;
+$red: #d62d20;
+$yellow: #ffa700;
+$white: #eee;
+
+// scaling... any units
+$width: 100px;
+
+body{
+@include linear-gradient(90deg, #360033 10%, #0b8793 90%);
+}
+
+.top_header{
+
+    float: left;
+    display: inline-block;
+
+
+
+}
+
+
+.myclass{
+    max-width: 50px;
+}
+#product_count,#total_inv_cost,#total_combo{
+    margin-left: 25px;
+    padding-left: 10px;
+}
+
+
+#unit1{
+    border: 2px black;
+}
+
+.c_class{
+    display: inline-block;
+    float: left;
+}
+.pric_text{
+    width: 50px;
+    max-width: 50px;
+    border: #3221ff;
+}
+
+.first_container,.second_container,.third_contaier{
+    margin-left: 30px;
+    margin-top: 10px;
+    width:200px;
+    margin-bottom: 10px;
+    display: inline-block;
+    float: left;
+}
+
+.top_section{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: inline;
+}
+
+.add_book_card{
+
+    margin-top: 20px;
+    margin-left: 10%;
+
+}
+
+
+.left_side{
+    margin-bottom: 60px;
+}
+
+.pid_container{
+    float: left;
+    display: inline-block;
+    vertical-align: top;
+
+
+}
+
+.submit_button{
+    margin-left: 20px;
+    margin-top: 100px;
+    width: 200px;
+}
+
+#add_form{
+    padding-left: 20px;
+}
+
+#pid_text_para{
+    text-align: center;
+    align-items:center;
+
+}
+
+
+.left_side,.right_side{
+    display: inline-block;
+    float: left;
+    margin-left: 50px;
+    margin-top: 10px;
+}
+
+
+
+#unit_one_text,#price_one_text,#time_value1 {
+    display: inline-block;
+    float: left;
+    vertical-align: top;
+}
+
+
+
+.table_body{
+    max-width: 300px;
+}
+.image_card{
+    margin-top: 30px;
+}
+.pricing_container1{
+    display: inline-block;
+    float: left;
+}
+
+.pricing_card{
+    min-width: 100px;
+
+}
+
+.select_class{
+    border: 0 solid #e0e0e0;
+    border-bottom-width: 1px;
+    color:#36353F;
+    font-family: 'Roboto', sans-serif;
+
+
+    outline: 0;
+    margin-top:1px;
+
+
+    text-transform:capitalize;
+}
+
+
+.image_form_class{
+    margin-left: 10px;
+}
+#submit_button{
+    margin-top: 20px;
+    margin-left: 16px;
+
+}
+.submit_button_class{
+    margin-left: 200px;
+}
+
+.pricing_inner_container{
+    display: inline-block;
+    float: left;
+}
+.add_book_card{
+    margin-bottom: 100px;
+}
+#pid_div{
+    margin-left: 10px;
+}
+
+#top_rate{
+    margin-bottom: 10px;
+}
+
+.l_class{
+    max-width: 40px;
+}
+
+#pid_div,#pid_text_para{
+    display: inline-block;
+    float: left;
+
+}
+
+.pricing_inner_container{
+    margin-left: 30px;
+}
+
+
+.pricing_container1{
+    display: inline-block;
+    float: left;
+}
+
+
+#unit_one_text,#price_one_text,#time_value1,#unit_two_text,#unit_three_text,#price_two_text,#price_three_text,#time_value2,#time_value13{
+    margin-left: 5px;
+}
+
+
+.add_more_button{
+    margin: 10px 32px;
+    padding-left: 10px;
+}
+
+.c_class{
+    max-width: 80px;
+
+}
+/*Search Page Styling*/
+
+.search_top_contaier{
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-top: 2%;
+    max-width: 100%;
+
+}
+
+.searchbutton{
+    max-width: 350px;
+
+
+}
+
+.SearchRootEditBox{
+
+    max-width: 100%;
+
+
+}
+/*Create Combo Page*/
+
+.c_combo_holder{
+    min-width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5%;
+}
+
+.combo_top_holder{
+   margin-left: 10%;
+}
+
+
+// demo-specific
+.showbox {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 5%;
+}
+// end demo-specific
+
+.loader {
+  position: relative;
+  margin: 0 auto;
+  width: $width;
+  &:before {
+    content: '';
+    display: block;
+    padding-top: 100%;
+  }
+}
+
+.circular {
+  animation: rotate 2s linear infinite;
+  height: 100%;
+  transform-origin: center center;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.path {
+  stroke-dasharray: 1, 200;
+  stroke-dashoffset: 0;
+  animation: dash 1.5s ease-in-out infinite, color 6s ease-in-out infinite;
+  stroke-linecap: round;
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
+  }
+}
+
+@keyframes color {
+  100%,
+  0% {
+    stroke: $red;
+  }
+  40% {
+    stroke: $blue;
+  }
+  66% {
+    stroke: $green;
+  }
+  80%,
+  90% {
+    stroke: $yellow;
+  }
+}
