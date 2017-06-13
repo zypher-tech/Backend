@@ -12,7 +12,7 @@ var userSchema = {
   password:'',
   userName:'',
   delLat:'',
-  defLon:''
+  defLon:'',
   isToiAccepted:'',
   rating:'',
   wishlists:[],

@@ -1,14 +1,13 @@
-var express = require('express');
+ var express = require('express');
 var router = express.Router();
+var admin = require("firebase-admin");
 
-var response ;
-var request ;
-var email;
-var pass;
-var userCount =0;
+
+
 // Get a database reference to our blog
 var db = admin.database();
-
+var response ;
+var request ;
 
 exports.saveUserToken = function (req,res) {
     response = res;
@@ -19,6 +18,6 @@ exports.saveUserToken = function (req,res) {
     var usersRef = db.ref("users");
     usersRef.orderByChild("userId").equalTo(userId)
     .once("value",function(snap){
-      
+
     })
 };

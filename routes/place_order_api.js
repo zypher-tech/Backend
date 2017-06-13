@@ -1,20 +1,26 @@
 var express = require('express');
 var router = express.Router();
+var admin = require("firebase-admin");
+
 
 
 // Get a database reference to our blog
 var db = admin.database();
-const router = express.Router();
 var request ;
 var response;
+var db = admin.database();
+var ordersRef = db.ref("orders/");
+var order_count = 0;
 
 var orderSchema = {
+	isAccepted:'',
 	orderId : '',
 	userId :'',
-	userName:'',
-	userPhoneNumber:'',
-	userDefLat:'',
-	userDefLon :'',
+	firstName:'',
+	lastName:'',
+	phoneNumber:'',
+	orderLat:'',
+	orderLon :'',
 	products:[
 	  {
 	  	pid:'',
@@ -31,7 +37,7 @@ var orderSchema = {
 	},
 	payment:{
 		amount:'',
-		isCod:''
+		isCod:'',
 		codCollected:''
 	},
 	timingEngine:{
@@ -51,7 +57,9 @@ var orderSchema = {
 	}
 
 }
-
+var orderFailed = {
+	isAccepted:''
+}
 
 // A Order has been Received From user
 //Check Whether Product is available
@@ -64,62 +72,81 @@ var orderSchema = {
 exports.placeOrderForuser = function(req, res){
 
 	response = res;
-	console.log("inside Home");
- 	var db = admin.database();
- 	var ordersRef = db.ref("orders");
- 	var order_count = 0;
- 	// Genereate New Order Id
- 	ordersRef.on('child_added',function(snap){
- 		order_count++;
+	request = req;
+	console.log("Placing Order");
 
- 	})
- 	.then(inserOrder,error)
+
+
+
+	order_count++;
+ 	// Genereate New Order Id
+	ordersRef.once("value")
+			.then(function (snapshot) {
+
+				//incremnet Count
+				snapshot.forEach(function (singleData) {
+						// var bookName = singleData.key;
+						order_count++;
+
+
+			 }).then(insertOrder())
+			 .catch(errorHanlder());
+			 //insert at count_order
+
+
+
+
+ 	});
 
 
 
 };
 
-function inserOrder(){
+function insertOrder(){
+	console.log("Initlizing Order Id");
+orderSchema.orderId = order_count;
+ orderSchema.userId = request.body.userId;
+ orderSchema.firstName = request.body.firstName;
+ orderSchema.lastName  = request.body.lastName;
+ orderSchema.orderLat = request.body.orderLat;
+ orderSchema.orderLon = request.body.orderLon;
+ orderSchema.phoneNumber = request.body.phoneNumber;
+ //get the List of products
+ var productsChosenCount = request.body.products.length;
+ for (var i =0;i < productsChosenCount;i++) {
+	 //Individual Products in Response
+	 var pid = request.body.products[i].pid;
 
-	var db = admin.database();
- 	var ordersRef = db.ref("orders");
-
- 	// get User Related Indo
- 	orderSchema.orderId = order_count;
- 	orderSchema.userName = response.userId;
- 	orderSchema.userPhoneNumber = response.userPhoneNumber;
- 	orderSchema.userDefLat = response.userLat;
- 	orderSchema.userDefLon = response.userDefLon;
- 	//get the List of products
- 	var productsChosenCount = response.products.length;
- 	for (var i =0;i < productsChosenCount;i++) {
- 		//Individual Products in Response
- 		var pid = response.products[i].pid;
-
- 		//Insert into this Order
- 		//Prepare Packing
- 		//Add to PartnerBroadcast Tables
+	 //Insert into this Order
+	 //Prepare Packing
+	 //Add to PartnerBroadcast Tables
 
 
- 		orderSchema.products.product[i].pid = pid;
- 		preparePacking(pid);
- 		orderSchema.products.product[i].productName = response.products[i].productName;
- 		orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
- 	}
- 	// update Order Status
- 	orderSchema.orderStatus = '1';
 
- 	//Timing Related Attiribs
- 	// orderSchema.timingEngine.orderAcceptedAt = Date.now();
- 	ordersRef.child(orderSchema.orderId).set(orderSchema);
-}
+	 orderSchema.products[i].pid = pid;
+ // 	preparePacking(pid);
+	 orderSchema.products[i].productName = request.body.products[i].productName;
+ // 	orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
+
+ }
+ // update Order Status
+ orderSchema.orderStatus = '1';
+ //Timing Related Attiribs
+ // orderSchema.timingEngine.orderAcceptedAt = Date.now();
+ ordersRef.child(orderSchema.orderId).set(orderSchema).then(function(snap){
+	 	  orderSchema.isAccepted = '1';
+			console.log("Order Inserted ");
+			response.send(orderSchema);
+ });
+};
 
 
 
 /*This Function gives a Cloud Message to Admin Panel to Pack the Product */
 function preparePacking(pid){
 
-}
-function error(){
-	console.log("Error "+error);
+};
+function errorHanlder(){
+     orderFailed.isAccepted  ='0';
+		 response.send(orderFailed);
 };

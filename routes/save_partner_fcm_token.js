@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+var admin = require("firebase-admin");
+// Get a database reference to our blog
+var db = admin.database();
 var response ;
 var request ;
 // Get a database reference to our blog

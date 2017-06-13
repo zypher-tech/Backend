@@ -1,0 +1,102 @@
+[debug] [2017-06-12T11:32:30.239Z] ----------------------------------------------------------------------
+[debug] [2017-06-12T11:32:30.242Z] Command:      /usr/bin/nodejs /usr/local/bin/firebase deploy
+[debug] [2017-06-12T11:32:30.242Z] CLI Version:  3.9.1
+[debug] [2017-06-12T11:32:30.242Z] Platform:     linux
+[debug] [2017-06-12T11:32:30.242Z] Node Version: v4.2.6
+[debug] [2017-06-12T11:32:30.243Z] Time:         Mon Jun 12 2017 17:02:30 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:30.243Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-06-12T11:32:30.254Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-06-12T11:32:30.254Z] > authorizing via signed-in user
+[debug] [2017-06-12T11:32:30.256Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/bookaholic-786  
+ Mon Jun 12 2017 17:02:30 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:34.059Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-12T11:32:34.060Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/bookaholic-786/tokens  
+ Mon Jun 12 2017 17:02:34 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:37.055Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'bookaholic-786'...
+[info] 
+[info] i  deploying database, functions, hosting
+[info] ✔  database: rules ready to deploy.
+[debug] [2017-06-12T11:32:44.055Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "dependencies": {
+    "firebase-admin": "~4.2.1",
+    "firebase-functions": "^0.5.7"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-06-12T11:32:44.057Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/bookaholic-786?view=CONSUMER_VIEW  
+ Mon Jun 12 2017 17:02:44 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:44.057Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/bookaholic-786?view=CONSUMER_VIEW  
+ Mon Jun 12 2017 17:02:44 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:48.681Z] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-06-12T11:32:51.948Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2017-06-12T11:32:51.949Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/bookaholic-786  
+ Mon Jun 12 2017 17:02:51 GMT+0530 (IST)
+[debug] [2017-06-12T11:32:51.950Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/bookaholic-786/apiKeys  
+ Mon Jun 12 2017 17:02:51 GMT+0530 (IST)
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[debug] [2017-06-12T11:33:40.475Z] Error fetching server API key: 
+[debug] [2017-06-12T11:33:53.513Z] Error: read ECONNRESET
+[error] 
+[error] Error: Server Error. read ECONNRESET
+[debug] [2017-06-12T11:34:41.624Z] ----------------------------------------------------------------------
+[debug] [2017-06-12T11:34:41.627Z] Command:      /usr/bin/nodejs /usr/local/bin/firebase deploy
+[debug] [2017-06-12T11:34:41.627Z] CLI Version:  3.9.1
+[debug] [2017-06-12T11:34:41.627Z] Platform:     linux
+[debug] [2017-06-12T11:34:41.627Z] Node Version: v4.2.6
+[debug] [2017-06-12T11:34:41.628Z] Time:         Mon Jun 12 2017 17:04:41 GMT+0530 (IST)
+[debug] [2017-06-12T11:34:41.628Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2017-06-12T11:34:41.639Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2017-06-12T11:34:41.639Z] > authorizing via signed-in user
+[debug] [2017-06-12T11:34:41.641Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/projects/bookaholic-786  
+ Mon Jun 12 2017 17:04:41 GMT+0530 (IST)
+[debug] [2017-06-12T11:34:47.154Z] <<< HTTP RESPONSE 200
+[debug] [2017-06-12T11:34:47.156Z] >>> HTTP REQUEST GET https://admin.firebase.com/v1/database/bookaholic-786/tokens  
+ Mon Jun 12 2017 17:04:47 GMT+0530 (IST)
+[debug] [2017-06-12T11:34:49.531Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'bookaholic-786'...
+[info] 
+[info] i  deploying database, functions, hosting
+[info] ✔  database: rules ready to deploy.
+[debug] [2017-06-12T11:34:56.564Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "dependencies": {
+    "firebase-admin": "~4.2.1",
+    "firebase-functions": "^0.5.7"
+  },
+  "private": true
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[info] i  runtimeconfig: ensuring necessary APIs are enabled...
+[debug] [2017-06-12T11:34:56.565Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/bookaholic-786?view=CONSUMER_VIEW  
+ Mon Jun 12 2017 17:04:56 GMT+0530 (IST)
+[debug] [2017-06-12T11:34:56.566Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/bookaholic-786?view=CONSUMER_VIEW  
+ Mon Jun 12 2017 17:04:56 GMT+0530 (IST)
+[debug] [2017-06-12T11:35:39.919Z] <<< HTTP RESPONSE 200
+[info] ✔  runtimeconfig: all necessary APIs are enabled
+[debug] [2017-06-12T11:35:43.059Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2017-06-12T11:35:43.062Z] >>> HTTP REQUEST GET https://appengine.googleapis.com/v1/apps/bookaholic-786  
+ Mon Jun 12 2017 17:05:43 GMT+0530 (IST)
+[debug] [2017-06-12T11:35:43.064Z] >>> HTTP REQUEST GET https://apikeys.googleapis.com/v1/projects/bookaholic-786/apiKeys  
+ Mon Jun 12 2017 17:05:43 GMT+0530 (IST)
+[debug] [2017-06-12T11:36:12.937Z] Error fetching server API key: 
+[info] 
+
+There was an issue deploying your functions. Verify that your project has a Google App Engine instance setup at https://console.cloud.google.com/appengine and try again. If this issue persists, please contact support.
+[debug] [2017-06-12T11:36:24.375Z] Error: socket hang up
+[error] 
+[error] Error: Server Error. socket hang up
