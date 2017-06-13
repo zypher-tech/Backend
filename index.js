@@ -11,7 +11,8 @@ exports.home_page =functions.https.onRequest((request, response) => {
 exports.orderIsRecevied = functions.database.ref('/orders/{pushId}')
     .onWrite(snapshot => {
       // Grab the current value of what was written to the Realtime Database.
+      console.log("inside Order Received Functions");
       console.log("Order Received : "+snapshot.data.val());
-      
+
 
     });
