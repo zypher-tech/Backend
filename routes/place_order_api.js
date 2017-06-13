@@ -99,9 +99,6 @@ exports.placeOrderForuser = function(req, res){
  	});
 
 
-	// Aorder Changed Here
-
-
 
 };
 
