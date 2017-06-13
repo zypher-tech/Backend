@@ -9,7 +9,7 @@ var db = admin.database();
 var request ;
 var response;
 var db = admin.database();
-var ordersRef = db.ref("orders/");
+var ordersRef = db.ref("orders");
 var order_count = 0;
 
 var orderSchema = {
@@ -103,7 +103,7 @@ exports.placeOrderForuser = function(req, res){
 };
 
 function insertOrder(){
-	console.log("Initlizing Order Id");
+	console.log("Initlizing Order Id "+order_count);
 orderSchema.orderId = order_count;
  orderSchema.userId = request.body.userId;
  orderSchema.firstName = request.body.firstName;
@@ -112,6 +112,8 @@ orderSchema.orderId = order_count;
  orderSchema.orderLon = request.body.orderLon;
  orderSchema.phoneNumber = request.body.phoneNumber;
  //get the List of products
+ console.log("otside loop");
+
  var productsChosenCount = request.body.products.length;
  for (var i =0;i < productsChosenCount;i++) {
 	 //Individual Products in Response
@@ -131,6 +133,7 @@ orderSchema.orderId = order_count;
  }
  // update Order Status
  orderSchema.orderStatus = '1';
+ console.log("setting OrderID");
  //Timing Related Attiribs
  // orderSchema.timingEngine.orderAcceptedAt = Date.now();
  ordersRef.child(orderSchema.orderId).set(orderSchema).then(function(snap){
