@@ -178,7 +178,7 @@ AdminManager.prototype.setPid = function (db) {
     var bookRef = db.ref('books');
     var count =0;
     count++;
-    
+
     bookRef.once("value")
         .then(function (snapshot) {
 
@@ -492,7 +492,7 @@ AdminManager.prototype.getDetails = function(pid,fromWhere) {
     if (fromWhere == 0) {
         // For Search page
     pop('Inside Get Details for Pid of '+pid);
-    var bookReff = firebase.database().ref().child('products/books/');
+    var bookReff = firebase.database().ref().child('books');
     bookReff.orderByChild("pid").equalTo(pid)
         .on('child_added',function (e) {
             //These are the Messages , show it to Them
@@ -520,9 +520,9 @@ AdminManager.prototype.searchProduct = function (data) {
     //Get the Resuls back
     //Display Custom List
 
-    var bookRefs = this.database.ref('products/books/');
+    var bookRefs = this.database.ref('books');
 
-    pop('Loading Child');
+
     //Strings(pName) are matched, if Hit
     // Push it window.pid(Array)
     bookRefs.on("child_added", function (snapshot, prevChildKey) {
@@ -531,14 +531,29 @@ AdminManager.prototype.searchProduct = function (data) {
         var singleBook = snapshot.val();
         //If matching occurs, get The Job Done
 
-        if (singleBook.pName.includes(mSearchQueryText)) {
+
+        try {
+
+            if (singleBook.pName.includes(mSearchQueryText)) {
 
 
-            pop(this);
-            // Names Match
-            // Push to Pid Array
-            this.getDetails(singleBook.pid,0);
+
+                // Names Match
+                // Push to Pid Array
+                this.getDetails(singleBook.pid,0);
+            }
+          else{
+            //DO no thing
+          }
+
+        } catch (e) {
+          console.log("Error "+e);
+
+        } finally {
+          //Do nothing;
         }
+
+
 
     }.bind(this));
 
