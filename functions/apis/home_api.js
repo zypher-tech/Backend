@@ -20,7 +20,7 @@ const router = express.Router();
 exports.initialize = function(req, res){
 
 	response = res;
-	console.log("inside Home");
+	console.log("inside Home API");
  	var db = admin.database();
  	var ref = db.ref("books");
 	ref.once("value", function(snapshot) {
