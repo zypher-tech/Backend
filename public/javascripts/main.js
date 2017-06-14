@@ -37,7 +37,7 @@ function AdminManager() {
     this.publiserName  = document.getElementById('pubname');
     this.baseCategory = document.getElementById('base_category');
     this.subCateogry  = document.getElementById('sub_category');
-   
+
     this.ISBN  = document.getElementById('isbn10');
     this.ISBN13 = document.getElementById('isbn13');
     this.MRP  = document.getElementById('mrp');
@@ -46,7 +46,7 @@ function AdminManager() {
     this.isTopRated = document.getElementById('top_rate');;
     this.searchTags = document.getElementById('tags') ;
 
-    //prcing 
+    //prcing
     this.unit1 = document.getElementById('unit_one_text');
     this.unit2 = document.getElementById('unit_two_text');
     this.unit3 = document.getElementById('unit_three_text');
@@ -83,8 +83,8 @@ function AdminManager() {
 
 
 
-    
-    
+
+
     //Search Functionality
     pop('Search initliazed');
     this.editbox = document.getElementById('search_editbox');
@@ -92,7 +92,7 @@ function AdminManager() {
     this.searchButton.addEventListener('click',this.searchProduct.bind(this));
     this.lists = document.getElementById('lists1');
 
-    //create Combo 
+    //create Combo
     this.comboName  = document.getElementById('combo_name');
     // this.comboDescription = document.getElementById('');
     this.comboDesc = document.getElementById('combo_desc');
@@ -139,7 +139,7 @@ function AdminManager() {
 
 
 
-    //Edit Functionality 
+    //Edit Functionality
     this.ePid =  document.getElementById('e_pid_text');
     this.ePname=  document.getElementById('e_pname');
     this.ePublisherName=  document.getElementById('epubname');
@@ -166,7 +166,7 @@ function AdminManager() {
 
 
 
-}
+};
 
 
 
@@ -175,10 +175,10 @@ AdminManager.prototype.setPid = function (db) {
     pop('set PId Method');
 
     var rootRef = db.ref();
-    var bookRef = db.ref('products/books/');
+    var bookRef = db.ref('books');
     var count =0;
     count++;
-    pop('loading');
+    
     bookRef.once("value")
         .then(function (snapshot) {
 
@@ -205,7 +205,7 @@ function pop(data) {
 
     console.log(data);
 
-}
+};
 
 
 var pricing= {
@@ -246,7 +246,7 @@ AdminManager.prototype.insertProduct = function (event) {
     pop(this.productEntitiy.imageURL);
     this.validateFields();
 
-}
+};
 /**
  * Created by nandhu on 25/4/17.
  */
@@ -263,7 +263,7 @@ AdminManager.prototype.matched_PID_Array = [];
 AdminManager.prototype.comboEntity = {
     // comboId : '',
     comboName:'',
-  
+
     comboDescription:'',
     // products : {
     //     "p1":{
@@ -307,7 +307,7 @@ AdminManager.prototype.comboEntity = {
       tag1:'fdsaf',
         tag2:'afssd',
     }
-}
+};
 AdminManager.prototype.productEntitiy = {
     pid:'',
     pName:'',
@@ -427,23 +427,23 @@ AdminManager.prototype.isSignedIn = function () {
 
     // pop('checking Login'); todo:add 0Login Here
     // firebase.auth().onAuthStateChanged(function(user) {
-    
+
     //     if (user) {
     //         // User is signed in.
-    
+
     //             pop('user Signed In- Main Page');
-    
-    
-    
-    
+
+
+
+
     //     } else {
     //         // User is signed out.
     //         pop('user Signed Out');
     //         window.location.href = './Login.html';
-    
-    
+
+
     //     }
-    
+
     // });
 
 };
@@ -474,13 +474,13 @@ AdminManager.prototype.showProduct =  function (imageUrl,productName,pid,MRP,des
                  this.lists.appendChild(container);
                }
 
-}
+};
 
 
 
 
 /*
-*this function is used from different Pages 
+*this function is used from different Pages
 *and results are dispatched accordingly.
 1. 0 - function callfrom Search page
 2.  1 - function call from Edit Books Page
@@ -542,7 +542,7 @@ AdminManager.prototype.searchProduct = function (data) {
 
     }.bind(this));
 
-}
+};
 
 // The search Item view
  AdminManager.SEARCH_ITEM =  '<div class="mdl-card mdl-shadow--8dp " style="width: 80%">'+
@@ -573,7 +573,7 @@ function validateText(text) {
     else {
         return true;
     }
-}
+};
 
 
 function validateNumber(munit1) {
@@ -583,7 +583,7 @@ function validateNumber(munit1) {
     else{
         return true;
     }
-}
+};
 AdminManager.prototype.validateFields  = function (){
     pop('validating Fields');
 
@@ -893,10 +893,10 @@ AdminManager.prototype.clearFields = function () {
 AdminManager.prototype.resetEverything = function () {
     this.clearFields();
     this.setPid(this.database);
-}
+};
 function dateSelected(date,ui) {
    pop(date);
-}
+};
 function resetSubCategoriesOptions() {
     pop('clearing options');
     $('#sub_category').empty();
@@ -906,7 +906,7 @@ function resetSubCategoriesOptions() {
     //
     //    mSubCategory.remove(i);
     // }
-}
+};
 function populateCompetitiveCateogires() {
 
     // pop('here');
@@ -927,7 +927,7 @@ function populateCompetitiveCateogires() {
         mSubCategory.appendChild(options);
 
     }
-}
+};
 var populateGeneralCategories = function () {
     resetSubCategoriesOptions();
     var categories = ["Sub Category","Science Ficton","Drama","Action and Adventure","Romance","Mystery","Horror","Self help","Health",
@@ -1042,7 +1042,7 @@ AdminManager.prototype.validateComboFields = function(event){
     else{
         this.comboEntity.comboDescription = cDesc;
     }
-    
+
 
     var product1 = AdminManager.COMBO_PRODUCT_ITEM_1;
     var product2 = AdminManager.COMBO_PRODUCT_ITEM_2;
@@ -1222,22 +1222,19 @@ function baseCategorySelected(data){
         default:
             break;
     }
-}
+};
 
 function fileUploaded(event){
         pop('in Function');
-}
+};
 
 function popAlert(data) {
     alert(data);
-}
+};
 
 
 
 window.onload = function (event){
     console.log('Initializing Admin manager');
     window.admin = new AdminManager();
-}
-
-
-
+};

@@ -8,7 +8,7 @@ var admin = require("firebase-admin");
 var db = admin.database();
 var request ;
 var response;
-var db = admin.database();
+
 var ordersRef = db.ref("orders");
 var order_count = 0;
 
@@ -22,12 +22,7 @@ var orderSchema = {
 	orderLat:'',
 	orderLon :'',
 	products:[
-	  {
-	  	pid:'',
-        productName:'',
-		imageUrl:''
-	   },
-	   {}
+
 	],
 	orderStatus:'',
 	rider:{
@@ -56,10 +51,10 @@ var orderSchema = {
 
 	}
 
-}
+};
 var orderFailed = {
 	isAccepted:''
-}
+};
 
 // A Order has been Received From user
 //Check Whether Product is available

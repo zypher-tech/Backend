@@ -95,3 +95,17 @@ exports.home =functions.https.onRequest((request, response) => {
 
 		homemod.initialize(request,response);
   });
+
+
+
+// Save Order Manager Receiver Token
+
+/* A token is Receieved from this service
+	save it to to a Path
+	on Receiving a order , get the tokenId from Tree and Pass the Notification
+ *
+*/
+
+exports.saveOrderManagerToken = functions.https.onRequest((request, response) => {
+
+  });

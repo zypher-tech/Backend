@@ -19,8 +19,14 @@ admin.initializeApp({
 
 
 // view engine setup
+app.set('views', __dirname + 'public/views');
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'html');
+
+// view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+
+
 
 
 
@@ -31,49 +37,26 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-//Defining Routes
 
-//Home Controllers
-//product Controllers
-//Admin Controllers
+// The Root Page TODO :  this is is the Webpage
 
+app.get('/',function(req,res){
 
+  res.render('coming_soon.html');
 
-//For Website
-var index = require('./routes/index');
-
-//Equivalent Mobile API
-
-var home = require('./routes/home_api');
-
-//The Admin Panel, Renders HTML , NO API
-
-var showAdminPage = require('./routes/admin_panel_provider');
-
-if (showAdminPage == null) {
-	console.log("Admin Null");
-}
-var showProduct = require('./routes/show_product_api');
-var newReleases  = require('./routes/new_releases_api');
-var offers = require('./routes/offers_api');
-var placeOrder = require('./routes/place_order_api');
-var saveUserFckToken = require('./routes/save_user_fcm_token')
-var saveRiderFcmToken = require('./routes/save_partner_fcm_token');
-var searchProduct = require('./routes/search_product_api');
-var newUser = require('./routes/new_user_api');
-var login = require('./routes/login_api');
-var register = require('./routes/register_api');
-var orderBroadcastApi =require('./routes/broadcast_order_api');
-
-
-
-
-
-app.get('/home', function(req, res) {
-	home.initialize(req,res);
 });
 
 
+app.get('/adminpanel',function(req,res){
+  res.render('admin_panel.html');
+})
+
+
+
+
+app.get('/orderspanel',function(req,res){
+  res.render('orders_page.html');
+});
 /*
    show a Product Based on Product Id from Request Object
 

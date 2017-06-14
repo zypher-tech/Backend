@@ -20,7 +20,7 @@ function Login() {
 
 
 
-}
+};
 
 Login.prototype.doLogin = function () {
     var email = this.email.value;
@@ -41,7 +41,7 @@ Login.prototype.doLogin = function () {
             console.log(errorMessage);
         // ...
     });
-}
+};
 
 
 
@@ -50,7 +50,8 @@ function pop(data) {
 
     console.log(data);
 
-}
+};
+
 Login.prototype.checkSigin = function () {
 
     console.log('cehcking Sigin in');
@@ -76,7 +77,7 @@ Login.prototype.checkSigin = function () {
 window.onload = function () {
     console.log('Insdide Login Function');
     window.login = new Login();
-}
+};
 
 Login.prototype.checkSetup = function () {
     if (!window.firebase || !(firebase.app instanceof Function) || !window.config) {
