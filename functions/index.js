@@ -13,13 +13,7 @@ var orderSchema = {
 	phoneNumber:'',
 	orderLat:'',
 	orderLon :'',
-	products:[
-	{
-		pid:'',
-		productName:''
-	}
-	
-	],
+	products:[],
 	orderStatus:'',
 	rider:{
 		riderId:'',
@@ -59,32 +53,36 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}')
     .onWrite(snapshot => {
       // Grab the current value of what was written to the Realtime Database.
       console.log("inside Order Received Functions");
-    
+
       console.log("snapshot.data.val().orderId : "+snapshot.data.val().orderId);
 
       //Whil
       orderSchema.orderId  = snapshot.data.val().orderId;
       orderSchema.firstName = snapshot.data.val().firstName;
       orderSchema.lastName = snapshot.data.val().lastName;
-     
+
       orderSchema.phoneNumber = snapshot.data.val().phoneNumber;
       orderSchema.orderLat = snapshot.data.val().orderLat;
       orderSchema.orderLon = snapshot.data.val().orderLon;
       orderSchema.payment.amount = snapshot.data.val().payment.amount;
       orderSchema.timingEngine.orderAcceptedAt = snapshot.data.val().timingEngine.orderAcceptedAt;
- 
+
      console.log("Products count  "+snapshot.data.val().products.length);
-
-
       var productsCount  = snapshot.data.val().products.length;
-      for (var i = 0;productsCount ;i++) {
-      	orderSchema.products[i].pid = snapshot.data.val().products[i].pid;
-      	orderSchema.products[i].productName = snapshot.data.val().products[i].productName;
+      for (var i = 0;i<productsCount ;i++) {
 
-      	  
+        //looping through products
+       var pidval = snapshot.data.val().products[i].pid;
+        var productNameval =  snapshot.data.val().products[i].productName;
+        orderSchema.products.push({pid: pidval, productName: productNameval});
+        // orderSchema.products[i].pid = pid;
+        // orderSchema.products[i].productName = productName;
       }
 
-      console.log("Got Order variables "+orderSchema.phoneNumber);
+      
+
+      console.log("Got Order variables The products is : "+orderSchema.products[0].productName);
+
 
 
 
@@ -94,7 +92,6 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}')
 
 /*Home Page*/
 exports.home =functions.https.onRequest((request, response) => {
-  
+
 		homemod.initialize(request,response);
   });
-

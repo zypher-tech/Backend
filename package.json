@@ -26,7 +26,8 @@
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2",
     "firebase-functions": "^0.5.7"
-     
-
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
