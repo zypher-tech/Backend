@@ -1,6 +1,7 @@
 
 var express = require('express');
 var admin = require("firebase-admin");
+var db = admin.database();
 
 
 
@@ -28,7 +29,7 @@ exports.saveToken = function(req,res) {
  	 	}
  	 	else if(fromWhere == '2'){
  	 		//Riders
-			
+
 
  	 		saveRiderToken(receivedToken,profileId);
  	 	}
@@ -41,6 +42,22 @@ exports.saveToken = function(req,res) {
 function saveUserToken(receivedToken,profileId){
 	  console.log("Saving User Token");
 	  var usersRef  = db.ref("users");
+	  console.log("user ID "+profileId);
+	  var proPath = '/users/'+profileId;
+	   var profileRef = db.ref(proPath);
+
+	  try{
+	  		profileRef.on("value",snap=>{
+	  	 	console.log("Name Obtained Fuck yeah "+snap.val().firstName);
+	  	});
+
+		} 
+		catch (e) {
+					console.log("Error "+e);
+		} finally {
+
+
+		}
 
 };
 

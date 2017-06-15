@@ -77,33 +77,15 @@ var tokenManager = require('./apis/token_manager');
 
 // User Related Modules
 
-var registerNewUser = require('./apis/register_new_user');
+var newUserHandler = require('./apis/register_new_user');
 var loginHandler = require('./apis/login_handler');
+var genreView = require('./apis/genres_viewer_api');
 var addtoCart = require('./apis/add_to_cart');
 
 
 
 
 // //Order Related Modules
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*Home Page*/
 exports.home =functions.https.onRequest((request, response) => {
@@ -118,16 +100,22 @@ exports.showProduct = functions.https.onRequest((request, response) => {
 	});
 
 
-
-// Save Order Manager Receiver Token
-
-/* A token is Receieved from this service
-	save it to to a Path
-	on Receiving a order , get the tokenId from Tree and Pass the Notification
- *
-*/
+exports.saveFCMToken = functions.https.onRequest((req,res) => {
+	 	//First get from where FCM is Received
+	 	tokenManager.saveToken(req,res);
+	});
 
 
+exports.registerNewUser =  functions.https.onRequest((req,res) => {
+
+		newUserHandler.register(req,res);
+	});
+
+exports.genreViewer =  functions.https.onRequest((req,res) => {
+
+	genreView.showByGenres(req,res);
+
+});
 
 /*A Database Trigger Function , This Function is Called Whenever a new  Order is Inserted*/
 
@@ -173,16 +161,13 @@ function broadcast(order){
 };
 
 
-// /*Save user FCM TOken*/
-// exports.saveFCMToken = functions.https.onRequest((req,res) => {
-//  	//First get from where FCM is Received
-//  	tokenManager.saveToken(req,res);
-// });
+/*Save user FCM TOken
+ * It handles 3 Types of  Token Management
+ pass in "tokenId","profileId","fromWhere":0-->user,1-->rider,2-->partner
 
-// exports.registerNewUser =  functions.https.onRequest((req,res) => {
+*/
 
-// 	registerNewUser.register(req,res);
-// });
+
 
 
 // // The General Error Handler
