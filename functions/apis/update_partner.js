@@ -14,6 +14,6 @@ exports.broadcastToPartner = function(order) {
   //Get the Order Varabels
   // Contruct Notification Body
   // send as FCM Token
-  console.log("Order Receieved , Broadcasting to Partner "+order.orderId);
+  console.log("Order Receieved , Broadcasting to Partner "+ order.orderId);
 
 };

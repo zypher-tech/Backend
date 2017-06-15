@@ -17,4 +17,18 @@ exports.broadcastToRiders = function(order) {
   // send as FCM Token
 
   console.log("Order Receieved , Broadcasting to Riders "+ order.orderId);
-};
+
+  var ridersRef = db.ref("riders");
+  try {
+    ridersRef.on("child_added",snap => {
+        var riderName = snap.val().riderName;
+        console.log("Rider Name "+riderName);
+
+    });
+
+  } catch (e) {
+      console.log('error '+e);
+  } finally {
+
+  }
+  };

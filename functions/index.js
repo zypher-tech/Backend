@@ -168,8 +168,8 @@ function broadcast(order){
       console.log("broadcast OrderId :"+order.orderId);
 			var updateRider = require('./apis/update_rider');
 			var updatePartner = require('./apis/update_partner');
-      updatePartner.broadcastToPartner(orderSchema);
-      updateRider.broadcastToRider(orderSchema);
+      // updatePartner.broadcastToPartner(orderSchema);
+      updateRider.broadcastToRiders(orderSchema);
 };
 
 
