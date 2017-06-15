@@ -45,13 +45,18 @@ function saveUserToken(receivedToken,profileId){
 	  console.log("user ID "+profileId);
 	  var proPath = '/users/'+profileId;
 	   var profileRef = db.ref(proPath);
+	   var tokenScheme = {
+	   	tokenId:receivedToken
+	   };
 
 	  try{
-	  		profileRef.on("value",snap=>{
-	  	 	console.log("Name Obtained Fuck yeah "+snap.val().firstName);
-	  	});
+	  	
+	  	profileRef.child("tokenId").set(tokenScheme).then(function(snap){
 
-		} 
+	  		console.log("Pushed token  "+snap.val());
+	  	})
+	  	;
+	  }
 		catch (e) {
 					console.log("Error "+e);
 		} finally {
