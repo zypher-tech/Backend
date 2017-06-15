@@ -34,7 +34,7 @@ exports.saveToken = function(req,res) {
  	 	else{
  	 			res.send(failedStatus);
  	 	}
- };
+};
 
 
 function saveUserToken(receivedToken,profileId){

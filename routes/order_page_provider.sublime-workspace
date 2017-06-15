@@ -1,0 +1,692 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"upat",
+				"updatePartner"
+			],
+			[
+				"pass",
+				"password"
+			],
+			[
+				"user",
+				"userId"
+			],
+			[
+				"u",
+				"userCount"
+			],
+			[
+				"us",
+				"userSchema"
+			],
+			[
+				"usere",
+				"usersRef"
+			],
+			[
+				"req",
+				"req"
+			],
+			[
+				"toke",
+				"token_manager"
+			],
+			[
+				"prod",
+				"productName"
+			],
+			[
+				"order",
+				"orderSchema"
+			],
+			[
+				"orde",
+				"orderSchema"
+			],
+			[
+				"or",
+				"orderFulfillment"
+			],
+			[
+				"userL",
+				"userDefLon"
+			],
+			[
+				"orderC",
+				"order_count"
+			],
+			[
+				"rese",
+				"resetEverything"
+			],
+			[
+				"cons",
+				"console"
+			],
+			[
+				"show",
+				"showAdmin"
+			],
+			[
+				"co",
+				"console"
+			],
+			[
+				"res",
+				"response"
+			],
+			[
+				"adM",
+				"adminPanel"
+			],
+			[
+				"pr",
+				"products"
+			],
+			[
+				"re",
+				"returnJson"
+			],
+			[
+				"p",
+				"pid"
+			],
+			[
+				"l",
+				"log"
+			],
+			[
+				"r",
+				"routes"
+			],
+			[
+				"home",
+				"homeApi"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"shw",
+				"showbox"
+			],
+			[
+				"func",
+				"functions"
+			],
+			[
+				"boo",
+				"booksRef"
+			],
+			[
+				"par",
+				"partnerId"
+			],
+			[
+				"rid",
+				"ridersRef"
+			],
+			[
+				"from",
+				"fromWhere"
+			],
+			[
+				"bo",
+				"body"
+			],
+			[
+				"datab",
+				"database"
+			],
+			[
+				"fun",
+				"functions"
+			],
+			[
+				"dat",
+				"database"
+			],
+			[
+				"book",
+				"bookRefs"
+			],
+			[
+				"epr",
+				"ePricing1"
+			],
+			[
+				"euni",
+				"eUnit1"
+			],
+			[
+				"pricing",
+				"pricing3"
+			],
+			[
+				"e",
+				"eUnit3"
+			],
+			[
+				"ep",
+				"ePdesc"
+			],
+			[
+				"pid",
+				"pid2find"
+			],
+			[
+				"Admin",
+				"AdminManager"
+			],
+			[
+				"add",
+				"addEventListener"
+			],
+			[
+				"cunit",
+				"cunit2"
+			],
+			[
+				"reset",
+				"resetComboFields"
+			],
+			[
+				"ComE",
+				"comboEntity"
+			],
+			[
+				"com",
+				"comboName"
+			],
+			[
+				"valida",
+				"validateNumber"
+			],
+			[
+				"c_pricin",
+				"c_pricing1"
+			],
+			[
+				"comboPr",
+				"comboPricingOne"
+			],
+			[
+				"un",
+				"unit1"
+			],
+			[
+				"c",
+				"cpricing1"
+			],
+			[
+				"cpr",
+				"c_pricing"
+			],
+			[
+				"timUni",
+				"cTimeUnit1"
+			],
+			[
+				"cTime",
+				"cTimeUnit1"
+			],
+			[
+				"comE",
+				"comboEntity"
+			],
+			[
+				"cuni",
+				"cunit1"
+			],
+			[
+				"prot",
+				"prototype"
+			],
+			[
+				"Adm",
+				"AdminManager"
+			],
+			[
+				"tr",
+				"try"
+			],
+			[
+				"Settgn",
+				"setting"
+			],
+			[
+				"f",
+				"function"
+			],
+			[
+				"pa",
+				"page"
+			],
+			[
+				"m",
+				"mode"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 32.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 392.0
+	},
+	"console":
+	{
+		"height": 114.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/home/nandhu/Desktop/Dev/functions/apis/register_new_user.js",
+		"/home/nandhu/Desktop/Dev/functions/apis/show_product.js",
+		"/home/nandhu/Desktop/Dev/functions/apis/login_handler.js",
+		"/home/nandhu/Desktop/Dev/routes/place_order_api.js",
+		"/home/nandhu/Desktop/Dev/functions/apis/home_api.js",
+		"/home/nandhu/Desktop/Dev/functions/apis/token_manager.js",
+		"/home/nandhu/Desktop/Dev/package.json",
+		"/home/nandhu/Desktop/Dev/public/javascripts/order_manager.js",
+		"/home/nandhu/Desktop/Dev/server.js",
+		"/home/nandhu/Desktop/Dev/views/orders_page.html",
+		"/home/nandhu/Desktop/Dev/public/javascripts/login.js",
+		"/home/nandhu/Desktop/Dev/public/javascripts/main.js",
+		"/home/nandhu/Desktop/Dev/functions/index.js",
+		"/home/nandhu/Desktop/Dev/functions/package.json",
+		"/home/nandhu/Desktop/Dev/index.js",
+		"/home/nandhu/Desktop/Dev/routes/register_api.js",
+		"/home/nandhu/Desktop/Dev/node_modules/googleapis/apis/cloudfunctions/v1.js",
+		"/home/nandhu/Downloads/bookaholic-786-2-export.json",
+		"/home/nandhu/Desktop/Dev/routes/home_api.js",
+		"/home/nandhu/Desktop/Dev/routes/show_product_api.js",
+		"/home/nandhu/Desktop/Dev/routes/admin_panel_provider.js",
+		"/home/nandhu/Desktop/Dev/public/admin_panel.html",
+		"/home/nandhu/Desktop/Dev/routes/new_releases_api.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/functions/index.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/app.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/package.json",
+		"/home/nandhu/Desktop/Dev/routes/login_api.js",
+		"/home/nandhu/Desktop/Dev/bookaholic-786-firebase-adminsdk-izd89-be4149cddc.json",
+		"/home/nandhu/Desktop/Dev/firebase.json",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/public/javascripts/main.js",
+		"/home/nandhu/node_modules/firebase/app.js",
+		"/home/nandhu/Desktop/Bookshelf sample/nodejs-getting-started/6-pubsub/books/api.js",
+		"/home/nandhu/Desktop/Bookshelf sample/nodejs-getting-started/6-pubsub/books/crud.js",
+		"/home/nandhu/Desktop/Dev/routes/index.js",
+		"/home/nandhu/Desktop/Dev/routes/offers_api.js",
+		"/home/nandhu/Desktop/Dev/routes/add_to_cart_api.js",
+		"/home/nandhu/Desktop/Bookshelf sample/nodejs-getting-started/6-pubsub/app.js",
+		"/home/nandhu/Desktop/Dev/routers/index.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/routes/users.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/routes/index.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/routes/login.js",
+		"/home/nandhu/Desktop/Dev/routers/viewproduct.js",
+		"/home/nandhu/Desktop/Dev/app.yaml",
+		"/home/nandhu/Desktop/Dev/app.js",
+		"/home/nandhu/Desktop/Bookshelf sample/nodejs-getting-started/package.json",
+		"/home/nandhu/Desktop/Bookshelf sample/nodejs-getting-started/1-hello-world/app.js",
+		"/home/nandhu/projects/Backend/back/app.js",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/bin/www",
+		"/home/nandhu/projects/friendlychat/web/README.md",
+		"/home/nandhu/Production/BookAholic/Server/public/index.html",
+		"/home/nandhu/Production/bk Proptotypes/FrontEnd/DashBoard/Dashboard/replay-inventory-platform-firebase-adminsdk-nj1qu-ea2ecbd4fd.json",
+		"/home/nandhu/Production/BookAholic/Backend/package.json",
+		"/home/nandhu/Production/BookAholic/Server/public/particles.json",
+		"/home/nandhu/Production/BookAholic/Server/public/js/app.js",
+		"/home/nandhu/Production/BookAholic/Server/firebase.json",
+		"/home/nandhu/Production/BookAholic/Server/functions/index.js",
+		"/home/nandhu/Production/FrontEnd/DashBoard/Dashboard/functions/index.js",
+		"/home/nandhu/Production/BookAholic/Firebase Server/firebase.json",
+		"/home/nandhu/Production/BookAholic/Firebase Server/functions/index.js",
+		"/home/nandhu/Production/BookAholic/Firebase Server/.firebaserc",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/values/dimens.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/values/integer.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/animator/active_raise.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/top_image.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/java/com/strictlyindian/rentsmart/Fragments/BrosweProductFragments.java",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/data/BaseDataManager.java",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/data/api/dribbble/TeamMembersDataManager.java",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/java/com/strictlyindian/rentsmart/Fragments/MainFragment.java",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/data/prefs/DribbblePrefs.java",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/browse_product_frag.xml",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/data/api/dribbble/DribbbleService.java",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/data/PaginatedDataManager.java",
+		"/home/nandhu/Production/FrontEnd/DashBoard/Dashboard/public/javascripts/main.js",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/profile_frag.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/drawable/ic_phone_black_24dp.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/account_frag.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/java/com/strictlyindian/rentsmart/Fragments/ProfileFragment.java",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/java/com/strictlyindian/rentsmart/MainActivity.java",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/content_main.xml",
+		"/home/nandhu/AndroidStudioProjects/final/InstaMaterial/app/src/main/res/values/styles.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/java/com/strictlyindian/rentsmart/Activity/SplashActivity.java",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/activity_splash.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/values/attrs.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/activity_main.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/layout/app_bar_main.xml",
+		"/home/nandhu/AndroidStudioProjects/Rentsmart/app/src/main/res/drawable/home_selector.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/values-v22/styles.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/values-v21/styles.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/values-v15/styles.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/values/styles.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/java/com/elf/elfstudent/Activities/HomeActivity.java",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/java/com/elf/elfstudent/Adapters/SubjectHomeAdapter.java",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/java/com/elf/elfstudent/Adapters/SubjectListAdapter.java",
+		"/home/nandhu/AndroidStudioProjects/plaid/app/src/main/java/io/plaidapp/ui/DribbbleShot.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/java/com/strictlyindian/replay/Fragment/ViewProductFragment.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/layout/product_frag_container.xml",
+		"/home/nandhu/Production/FrontEnd/DashBoard/Dashboard/public/stylesheets/mystyle.css",
+		"/home/nandhu/Production/FrontEnd/DashBoard/Dashboard/public/index.html",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/test/java/com/elf/elfstudent/homeActivity.java",
+		"/home/nandhu/AndroidStudioProjects/final/ELFStudent/testing/src/main/java/com/example/testing/ListFrag.java",
+		"/home/nandhu/AndroidStudioProjects/final/ELFStudent/testing/src/main/java/com/example/testing/MainActivity.java",
+		"/home/nandhu/AndroidStudioProjects/final/ELFStudent/app/src/main/java/com/elfstudent/Adpater/SubjectGridAdapter.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/java/com/strictlyindian/replay/Activity/ViewProductActivity.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/java/com/strictlyindian/replay/Activity/ProductDescriptionActivity.java",
+		"/home/nandhu/Production/FrontEnd/DashBoard/Dashboard/routes/index.js",
+		"/home/nandhu/projects/friendlychat/web/database-rules.json",
+		"/home/nandhu/projects/friendlychat/web/index.html",
+		"/home/nandhu/Downloads/Source/website/Tabs/styles.css",
+		"/home/nandhu/AndroidStudioProjects/final/InstaMaterial/app/src/main/res/layout/item_photo.xml",
+		"/home/nandhu/AndroidStudioProjects/final/InstaMaterial/app/src/main/java/io/github/froger/instamaterial/ui/view/RevealBackgroundView.java",
+		"/home/nandhu/AndroidStudioProjects/final/InstaMaterial/app/src/main/java/io/github/froger/instamaterial/ui/activity/MainActivity.java",
+		"/home/nandhu/AndroidStudioProjects/final/InstaMaterial/app/src/main/java/io/github/froger/instamaterial/ui/activity/UserProfileActivity.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/layout/profile_view_fragment.xml",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/layout/profile_activity.xml",
+		"/home/nandhu/AndroidStudioProjects/final/ELF/app/src/main/java/com/elf/Adapter/SubjectGridAdapter.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/java/com/strictlyindian/replay/Activity/BrowseProductsActivity.java",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/layout/questionview.xml",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/res/layout/test_write_activity.xml",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/java/com/strictlyindian/replay/Adapters/HomePageTopAdapter.java",
+		"/home/nandhu/ELFStudent/ELFStudent/app/src/main/java/com/elf/elfstudent/Activities/TestWriteActivity.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/layout/browse_products_activity.xml",
+		"/home/nandhu/Documents/My Projects/final/ELF/app/src/main/res/layout/activity_elf_main.xml",
+		"/home/nandhu/Documents/My Projects/final/ELF/app/src/main/res/layout/grid_home.xml",
+		"/home/nandhu/Documents/My Projects/final/ELF/app/src/main/res/layout/home_frag.xml",
+		"/home/nandhu/Desktop/iosched/server/src/main/webapp/WEB-INF/cron.xml",
+		"/home/nandhu/Desktop/iosched/server/src/main/java/com/google/samples/apps/iosched/server/schedule/server/APIUpdater.java",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/layout/view_product.xml",
+		"/home/nandhu/AndroidStudioProjects/Re-Play/app/src/main/res/values/attrs.xml"
+	],
+	"find":
+	{
+		"height": 27.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"resetSubCategoriesOptions",
+			"reset",
+			"/**",
+			"setResultAndFinish",
+			"setResultAndFinish()",
+			"  setResultAndFinish();",
+			"chromeFader",
+			"shotDescription",
+			"insetProductutton",
+			"select_class",
+			"l_class",
+			"Na",
+			"var",
+			"validateFields",
+			"insertProduct",
+			"Search",
+			"saveComboImage",
+			"SearchProduct",
+			"getDetails",
+			"showProduct",
+			"displa",
+			"fillEditBoxes",
+			"updateProductbutton",
+			"getDetails",
+			"searchProduct",
+			"searchP",
+			"populateEditBoxes",
+			"clearFields",
+			"resetEverything",
+			"validateFields",
+			"comboEntity",
+			"validateFields",
+			"insertProduct",
+			"cTimeUnit1",
+			"comboEntity",
+			"insertComboProduct",
+			"saveComboImage",
+			"validateComboFields",
+			"insertComboProduct",
+			"AdminManager",
+			"setImageUrl",
+			"displa",
+			"messageList",
+			"messages",
+			"signInSnackbar",
+			"must-signin-snackbar",
+			"signInSnackbar",
+			"saveImageMessage",
+			"checkSetup",
+			"mediaCapture",
+			"saveImageMessage",
+			"click",
+			"image-form",
+			"submitImage",
+			"submitImageButton",
+			"imageForm",
+			"firebase",
+			"enableOrDisableAnalyticsAsNecessary",
+			"HEADER_HIDE_ANIM_DURATION",
+			"mActionBarAutoHideSignal",
+			"mActionBarAutoHideSensivity",
+			"onMainContentScrolled",
+			"firstVisibleItem",
+			"heights",
+			"mHideableHeaderViews",
+			"ARGB_EVALUATOR",
+			"onActionBarAutoShowOrHide",
+			"autoShowOrHideActionBar",
+			"onMainContentScrolled",
+			"main",
+			"SortOrder",
+			"ACTION_LIKE_BUTTON_CLICKED",
+			"btnLike",
+			"flingListener",
+			"commentFooter",
+			"commentsList",
+			"likesCount",
+			">",
+			"updateLayoutManager",
+			"getPlaylistType",
+			"updateLayoutManager",
+			"FilterAuthoriser",
+			"DialogContent",
+			"login",
+			"spacing_xlarge",
+			"setupCommenting();",
+			"fab_dribbble_fav",
+			"fab_size",
+			"scrim",
+			"trySetupSwipeRefresh",
+			"setupAccountBox",
+			"BezelImageView",
+			"DrawShadowFrameLayout",
+			"setSelectedNavDrawerItem",
+			"mHandler",
+			"createBackStack",
+			"goToNavDrawerItem",
+			"onNavDrawerItemClicked",
+			"   onNavDrawerItemClicked(itemId);",
+			"navdrawer_item_view",
+			"isSeparator",
+			"mDrawerItemsListContainer",
+			"mNavDrawerItems",
+			"onNavDrawerStateChanged",
+			"HeaderBar",
+			"NAVDRAWER_ITEM_MY_SCHEDULE",
+			"populateNavDrawer",
+			"subtitle_on_primary",
+			"navview_account_list_top_padding",
+			"drawer_layout",
+			"navview_start_padding",
+			"body",
+			"updateSwipeRefreshProgressBarTop",
+			"drawer_layout",
+			"NAVDRAWER_ITEM_INVALID",
+			"setupNavDrawer",
+			"  setupNavDrawer",
+			"  setupNavDrawer()",
+			"updateSwipeRefreshProgressBarTop",
+			"getActionBarToolbar",
+			"trySetupSwipeRefresh",
+			"background",
+			"isLoggedIn",
+			"background",
+			"bacground",
+			"bacgroundli",
+			"mHideableHeaderViews",
+			"updateSwipeRefreshProgressBarTop"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": true,
+		"wrap": false
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 27.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "order_page_provider.sublime-project",
+	"replace":
+	{
+		"height": 50.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 202.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

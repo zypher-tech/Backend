@@ -26,9 +26,9 @@ var userSchema = {
 var failed = {
 	status :'0'
 };
-var userCount = 0;
 
 
+/*Getting user variables*/
 
 exports.register =  function(req,res) {
 
@@ -41,44 +41,49 @@ exports.register =  function(req,res) {
 	userSchema.phoneNumber = req.body.phoneNumber;
 
  	userSchema.usersRef  = db.ref("users");
+ 	var userCount = 0;
+
  	
 
- 	//Get the Count of users
- 	usersRef.once("value",snap => {
- 		snap.forEach(snapshot=>{
- 			userCount++;
- 		});
+ 	// //Looping throug user for getting Count
+ 	// usersRef.once("value",snap => {
+ 	// 	snap.forEach(snapshot=>{
+ 	// 		userCount++;
+ 	// 	});
+ 	// }).then(pushUser(userCount),error())
+ 	// .catch(error=>{
+ 	// 	//Bad 
+ 	// 	res.send(failed);
+ 	// 	console.log("Error at Registration: "+error);
 
 
- 	}).then(pushUser(),error())
- 	.catch(error=>{
- 		console.log("Bad Happened "+error);
-
- 	});
-
+ 	// });
 };
 
 
 
 
-function pushUser(){
+function pushUser(userCount){
 
 	console.log("pushing user at "+userCount);
+
+	//Adding Count to user Object
 	userSchema.userId = userCount;
 
+
+	//Pushing to User Ref
      var usersRef = db.ref("users");
      usersRef.child(userSchema.userId).set(userSchema)
-     .then(snap=>{
+     .then(snap => {
+
+     	//pushed, user object, is now "snap"
+     	//Appending operation status to result
      		userSchema.status = '1';
      		res.send(userSchema);
      })
      .catch(function(error){
-     	console.log("Error "+error);
+     	console.log("Error at Pushing Registartion "+error);
      	res.send(failed);
 
-     })
-
-
-
-
-}
+     });
+};
