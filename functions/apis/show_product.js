@@ -16,8 +16,7 @@ exports.sendProduct = function(req,res) {
 
 	//First Get the Pid that the user Wants to see
 	var pid = req.body.pid;
-
-		ordersRef.once("value")
+	ordersRef.once("value")
 			.then(function (snapshot) {
 
 				//incremnet Count
@@ -35,3 +34,6 @@ exports.sendProduct = function(req,res) {
 			 });
 			});
 };
+
+
+

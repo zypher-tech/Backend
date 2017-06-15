@@ -4,6 +4,9 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
+
+var db = admin.database();
+
 var orderSchema = {
 	isAccepted:'',
 	orderId : '',
@@ -46,8 +49,50 @@ var orderFailed = {
 	isAccepted:''
 }
 
+var showProduct = require('./apis/show_product');
+
 
 var homemod = require('./apis/home_api');
+
+var tokenManager = require('./apis/token_manager')
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Home Page*/
+exports.home =functions.https.onRequest((request, response) => {
+
+		homemod.initialize(request,response);
+  });
+
+/*View a Single Product */
+
+exports.showProduct = functions.https.onRequest((request, response) => {
+		showProduct.sendProduct(request,response);
+	});
+
+
+
+// Save Order Manager Receiver Token
+
+/* A token is Receieved from this service
+	save it to to a Path
+	on Receiving a order , get the tokenId from Tree and Pass the Notification
+ *
+*/
+
+
+
+/*A Database Trigger Function , This Function is Called Whenever a new  Order is Inserted*/
 
 exports.orderIsRecevied = functions.database.ref('/orders/{pushId}')
     .onWrite(snapshot => {
@@ -88,24 +133,8 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}')
 
     });
 
-
-
-/*Home Page*/
-exports.home =functions.https.onRequest((request, response) => {
-
-		homemod.initialize(request,response);
-  });
-
-
-
-// Save Order Manager Receiver Token
-
-/* A token is Receieved from this service
-	save it to to a Path
-	on Receiving a order , get the tokenId from Tree and Pass the Notification
- *
-*/
-
-exports.saveOrderManagerToken = functions.https.onRequest((request, response) => {
-
-  });
+ /*Save user FCM TOken*/
+exports.saveFCMToken = functions.https.onRequest((req,res) => {
+ 	//First get from where FCM is Received
+ 	tokenManager.saveToken(req,res);
+ });
