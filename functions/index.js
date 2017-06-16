@@ -65,10 +65,6 @@ var showProduct = require('./apis/show_product');
 
 
 var homemod = require('./apis/home_api');
-
-
-
-
 var tokenManager = require('./apis/token_manager');
 
 
@@ -87,19 +83,34 @@ var addtoCart = require('./apis/add_to_cart');
 
 // //Order Related Modules
 
-/*Home Page*/
+/*Home Page*
+	Pulls Data the Best Rated data from  books and Combos
+	no Request params
+*/
 exports.home =functions.https.onRequest((request, response) => {
 
 		homemod.initialize(request,response);
   });
 
-/*View a Single Product */
+/*View a Single Product
+	Req Params:
+		{"pid" : ""}
+ */
 exports.showProduct = functions.https.onRequest((request, response) => {
 
 		showProduct.sendProduct(request,response);
 	});
 
 
+
+/*This is used for all saving all Tokends of Kind
+ * request parms are 
+ 	{
+		"profileId":"",
+		"tokenId","",
+		"fromWhere": can be "0"- user ,"1" -- rider,"2"-->partner
+ 	}
+*/
 exports.saveFCMToken = functions.https.onRequest((req,res) => {
 	 	//First get from where FCM is Received
 	 	tokenManager.saveToken(req,res);
@@ -121,11 +132,11 @@ exports.genreViewer =  functions.https.onRequest((req,res) => {
 
 exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
       // Grab the current value of what was written to the Realtime Database.
-      console.log("inside Order Received Functions");
 
-      console.log("snapshot.data.val().orderId : "+snapshot.data.val().orderId);
 
-      //Whil
+      console.log("Broadcasting orderId : "+snapshot.data.val().orderId);
+
+      //
       orderSchema.orderId  = snapshot.data.val().orderId;
       orderSchema.firstName = snapshot.data.val().firstName;
       orderSchema.lastName = snapshot.data.val().lastName;
@@ -136,7 +147,7 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
       orderSchema.payment.amount = snapshot.data.val().payment.amount;
       orderSchema.timingEngine.orderAcceptedAt = snapshot.data.val().timingEngine.orderAcceptedAt;
       var productsCount  = snapshot.data.val().products.length;
-      console.log("products Count simple "+productsCount);
+      
       for (var i = 0;i<productsCount ;i++) {
 
         //looping through products
@@ -153,7 +164,7 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
 
 function broadcast(order){
 
-      console.log("broadcast OrderId :"+order.orderId);
+      	
 			var updateRider = require('./apis/update_rider');
 			var updatePartner = require('./apis/update_partner');
       // updatePartner.broadcastToPartner(orderSchema);

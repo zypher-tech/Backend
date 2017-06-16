@@ -39,27 +39,55 @@ exports.saveToken = function(req,res) {
 };
 
 
+
+
 function saveUserToken(receivedToken,profileId){
 	  console.log("Saving User Token");
-	  var usersRef  = db.ref("users");
-	  console.log("user ID "+profileId);
+	  
+	  
 	  var proPath = '/users/'+profileId;
+	  console.log("updating token for userId :"+profileId);
 	   var profileRef = db.ref(proPath);
-	   var tokenScheme = {
-	   	tokenId:receivedToken
-	   };
+
 
 	  try{
-	  	
-	  	profileRef.child("tokenId").set(tokenScheme).then(function(snap){
 
-	  		console.log("Pushed token  "+snap.val());
-	  	})
-	  	;
-	  }
+
+			
+			profileRef.update({
+  					"tokenId": receivedToken
+			});
+			profileRef.on("value",snap=>{
+				console.log("Snap Obtained "+snap.val());
+			});
+			
+
+
+	  		
+	  		// var updates = {};
+  			// updates['/tokenId'] = receivedToken;
+  			// console.log("Updating Token");
+  			// profileRef.update(updates).
+  			// then(function(snap){
+
+  			// 		console.log("Token updated snap"+snap);
+  			// 		console.log("Snap firstName +"+snap.firstName);
+  					
+
+  			// })
+  			// .catch(function(err){
+  			// 	console.log("Catching Error "+err);
+
+  			// });	
+
+	  		
+	   	}
+
 		catch (e) {
+
 					console.log("Error "+e);
-		} finally {
+		} 
+		finally {
 
 
 		}
@@ -71,8 +99,11 @@ function savePartnerToken(receivedToken,profileId){
 	  var partnersRef  = db.ref("users");
 
 };
+
 function saveRiderToken(receivedToken,profileId){
 	  console.log("Saving User Token");
 	  var ridersRef  = db.ref("users");
 
 };
+
+
