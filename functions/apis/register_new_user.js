@@ -42,9 +42,7 @@ exports.register =  function(req,res) {
 
  	userSchema.usersRef  = db.ref("users");
  	var userCount = 0;
-
  	
-
  	// //Looping throug user for getting Count
  	// usersRef.once("value",snap => {
  	// 	snap.forEach(snapshot=>{

@@ -5,6 +5,8 @@ var db = admin.database();
 
 
 
+var request ;
+var response;
 var failedStatus =  {
 
 	status : '0'
@@ -15,6 +17,7 @@ var failedStatus =  {
 
 exports.saveToken = function(req,res) {
 
+	response = res;
 	var fromWhere = req.body.fromWhere;
 	var receivedToked = req.body.tokenId;
 	var profileId = req.body.profileId;
@@ -38,32 +41,37 @@ exports.saveToken = function(req,res) {
  	 	}
 };
 
-
+var success = {
+	status : '1'
+};
 
 
 function saveUserToken(receivedToken,profileId){
 	  console.log("Saving User Token");
 	  
-	  
+	  //Append user Id to Profile directory
 	  var proPath = '/users/'+profileId;
-	  console.log("updating token for userId :"+profileId);
+
+	  //Refer the profile Path
+
 	   var profileRef = db.ref(proPath);
 
 
 	  try{
-
-
-			
+	  	  	//Update 
 			profileRef.update({
   					"tokenId": receivedToken
 			});
+
+			//Display
 			profileRef.on("value",snap=>{
-				console.log("Snap Obtained "+snap.val());
+				console.log("User Token Updated for user "+snap.val().userId);
+				response.send(success);
+
 			});
-			
-
-
 	  		
+
+	  		/*Procedure for Multiple Updates */
 	  		// var updates = {};
   			// updates['/tokenId'] = receivedToken;
   			// console.log("Updating Token");
@@ -85,25 +93,92 @@ function saveUserToken(receivedToken,profileId){
 
 		catch (e) {
 
-					console.log("Error "+e);
+					console.log("Error in saving User Token: "+e);
+					response.send(failedStatus);
 		} 
 		finally {
 
-
+			console.log("priniting finally");
 		}
 
 };
 
 function savePartnerToken(receivedToken,profileId){
-	  console.log("Saving User Token");
-	  var partnersRef  = db.ref("users");
+	  //Rider profile  Path
+	  var partnerPath = '/partners/'+profileId;
+
+	  //Refer the profile Path
+
+	   var partnerRef = db.ref(partnerPath);
+
+	     try{
+	  	  	//Update 
+			partnerRef.update({
+  					"tokenId": receivedToken
+			});
+
+			//Display
+			partnerRef.on("value",snap=>{
+				console.log("Token Updated for Rider Id:"+snap.val().userId);
+				response.send(success);
+
+			});
+		}
+
+
+		catch (e) {
+
+					console.log("Error in saving Rider  Token: "+e);
+					response.send(failedStatus);
+		} 
+		finally {
+
+			console.log("priniting finally");
+			
+		}
+	  		
+
+
+
 
 };
 
 function saveRiderToken(receivedToken,profileId){
-	  console.log("Saving User Token");
-	  var ridersRef  = db.ref("users");
+	  console.log("Saving Rider Token");
+	  
 
+	  //Rider profile  Path
+	  var riderPath = '/riders/'+profileId;
+
+	  //Refer the profile Path
+
+	   var riderRef = db.ref(riderPath);
+
+	     try{
+	  	  	//Update 
+			riderRef.update({
+  					"tokenId": receivedToken
+			});
+
+			//Display
+			riderRef.on("value",snap=>{
+				console.log("Token Updated for Rider Id:"+snap.val().userId);
+				response.send(success);
+
+			});
+		}
+
+
+		catch (e) {
+
+					console.log("Error in saving Rider  Token: "+e);
+					response.send(failedStatus);
+		} 
+		finally {
+
+			console.log("priniting finally");
+			
+		}
 };
 
 

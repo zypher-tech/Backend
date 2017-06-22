@@ -185,11 +185,13 @@ AdminManager.prototype.setPid = function (db) {
             snapshot.forEach(function (singleData) {
                 // var bookName = singleData.key;
                 count++;
-           });
+            };
+           var mPid  = document.getElementById('pid_text');
+           mPid.value = count;
+         );
 
-            pop(count);
-            var mPid  = document.getElementById('pid_text');
-            mPid.value = count;
+
+
             // this.setPidToEntity(count);
             // mPid.focus();
         });
@@ -261,7 +263,7 @@ AdminManager.prototype.matched_PID_Array = [];
 
 
 AdminManager.prototype.comboEntity = {
-    // comboId : '',
+    comboId : '',
     comboName:'',
 
     comboDescription:'',
@@ -282,6 +284,8 @@ AdminManager.prototype.comboEntity = {
     //         imageURL : ''
     //     }
     // },
+    ourPrice:'',
+    duration:'',
     c_pricing:{
         c_pricing1:{
             unit:'',
@@ -321,6 +325,7 @@ AdminManager.prototype.productEntitiy = {
     baseCategory:'',
     subCategory:'',
     genre:'',
+     ourPrice:'',
     //todo add quantity
     quantity : '',
     tags:{
@@ -331,13 +336,13 @@ AdminManager.prototype.productEntitiy = {
     details:{
         ISBN : '',
         ISBN13:'',
-        ourPrice:''
+
     },
     pricing:{
         pricing1:{
             unit:'',
             timeUnit:'',
-            price:''
+            price :''
 
         },  pricing2:{
             unit:'',

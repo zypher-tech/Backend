@@ -27,3 +27,6 @@ exports.showByGenres = function(req, res){
 	}
 
 };
+
+
+

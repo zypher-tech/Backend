@@ -12,6 +12,7 @@ var orderSchema = {
 	orderId : '',
 	userId :'',
 	firstName:'',
+	readingDuration:'',
 	lastName:'',
 	phoneNumber:'',
 	orderLat:'',
@@ -81,7 +82,10 @@ var addtoCart = require('./apis/add_to_cart');
 
 
 
+
+
 // //Order Related Modules
+var riderHandler = require
 
 /*Home Page*
 	Pulls Data the Best Rated data from  books and Combos
@@ -104,7 +108,7 @@ exports.showProduct = functions.https.onRequest((request, response) => {
 
 
 /*This is used for all saving all Tokends of Kind
- * request parms are 
+ * request parms are
  	{
 		"profileId":"",
 		"tokenId","",
@@ -117,6 +121,11 @@ exports.saveFCMToken = functions.https.onRequest((req,res) => {
 	});
 
 
+
+/*User Registration Handler
+
+	"firstName","lastName","emailAddress","password","phoneNumber"
+*/
 exports.registerNewUser =  functions.https.onRequest((req,res) => {
 
 		newUserHandler.register(req,res);
@@ -147,7 +156,7 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
       orderSchema.payment.amount = snapshot.data.val().payment.amount;
       orderSchema.timingEngine.orderAcceptedAt = snapshot.data.val().timingEngine.orderAcceptedAt;
       var productsCount  = snapshot.data.val().products.length;
-      
+
       for (var i = 0;i<productsCount ;i++) {
 
         //looping through products
@@ -164,7 +173,7 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
 
 function broadcast(order){
 
-      	
+
 			var updateRider = require('./apis/update_rider');
 			var updatePartner = require('./apis/update_partner');
       // updatePartner.broadcastToPartner(orderSchema);

@@ -19,9 +19,10 @@ var orderSchema = {
 	firstName:'',
 	lastName:'',
 	phoneNumber:'',
+	deliveryStatus:'',
 	orderLat:'',
 	orderLon :'',
-	products:[	
+	products:[
 
 	],
 	orderStatus:'',
@@ -118,7 +119,7 @@ function insertOrder(){
  		try{
 
 		 //Individual Products in Response
- 		
+
 	 	var pid = request.body.products[i].pid;
 
 	 	//Insert into this Order
@@ -129,8 +130,8 @@ function insertOrder(){
  		//parePacking(pid);
  		 orderSchema.products.push({pid: pid, productName: pName});
 
-	 	
-	 	
+
+
 	 }
 	 catch(err){
 	 	console.log("Error "+err);
