@@ -1,4 +1,3 @@
-
 'use strict';
 
 var express = require('express');
@@ -16,17 +15,17 @@ exports.getOrders = function(req, res){
   response = res;
   var riderId = req.body.riderId;
   var ordersRef = db.ref("orders");
-  ordersRef.on("value",snap=>{
-      snap.forEach(snapshot => {
-          if (snapshot.val().riderId == riderId) {
-
-            returnJson.orders.push(snapshot.val());
-
-
-          }
-      });
-  })
-  .then(sendResult,error);
+  // ordersRef.on("value",snap=>{
+  //     snap.forEach(snapshot => {
+  //         if (snapshot.val().riderId == riderId) {
+  //
+  //           returnJson.orders.push(snapshot.val());
+  //
+  //
+  //         }
+  //     });
+  // })
+  // .then(sendResult,error);
 };
 
 function sendResult(){

@@ -40,7 +40,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Enable Loggin
-var placeOrder = require('./routes/place_order_api');
+// var placeOrder = require('./routes/place_order_api');
 
 
 // The Root Page TODO :  this is is the Webpage
@@ -89,11 +89,11 @@ app.get('/newReleases',function(req, res) {
 
 
 
-app.post('/api/placeorder',function(req,res){
+// app.post('/api/placeorder',function(req,res){
 
-
-  placeOrder.placeOrderForuser(req,res);
-});
+//
+  // placeOrder.placeOrderForuser(req,res);
+// });
 
 
 app.get('/books/:pid',function(req, res) {

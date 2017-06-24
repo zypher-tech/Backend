@@ -3,94 +3,37 @@ const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-
-
+//The Root path of Db
 var db = admin.database();
 
-var orderSchema = {
-	isAccepted:'',
-	orderId : '',
-	userId :'',
-	firstName:'',
-	readingDuration:'',
-	lastName:'',
-	phoneNumber:'',
-	orderLat:'',
-	orderLon :'',
-	products:[],
-	orderStatus:'',
-	rider:{
-		riderId:'',
-		riderPhoneNumber:'',
-		riderName:''
-	},
-	payment:{
-		amount:'',
-		isCod:'',
-		codCollected:''
-	},
-	timingEngine:{
-		orderInsertedAt:'',
-		orderAcceptedAt:'',
-		riderAcceptedAt:'',
-		dispatchedAt:'',
-		deliveredAt:'',
-		returnDate:'',
-
-
-	},
-	orderFulfillment:{
-		returnedAt:'',
-		returnCondition:'',
-
-	}
-
-};
-var orderFailed = {
-	isAccepted:''
-};
-
-
-
-
+// Individual Modeules
 /*These are Individual Modules which take care of
-	specific tasks
-
-	Each module has only
-
-
-
-  one contructor accepting request,response as objects
+	*specific tasks
+	*Each module has only  one contructor accepting request,response as objects
 */
+var userOrderHandler = require('./apis/place_order_api');
 var showProduct = require('./apis/show_product');
-
-
 var homemod = require('./apis/home_api');
 var tokenManager = require('./apis/token_manager');
-
-
-
-
-
 // User Related Modules
 
-var newUserHandler = require('./apis/register_new_user');
-var loginHandler = require('./apis/login_handler');
-var genreView = require('./apis/genres_viewer_api');
-var addtoCart = require('./apis/add_to_cart');
-
-
-
-
-
-
+// var newUserHandler = require('./apis/register_new_user');
+// var loginHandler = require('./apis/login_handler');
+// var genreView = require('./apis/genres_viewer_api');
+// var userOrderHandler = require('./apis/place_order_api');
 // //Order Related Modules
-var riderHandler = require
+var riderHandler = require('./apis/rider_order_handler');
+
+// START OF FUCNTIONS ---------------------------->
 
 /*Home Page*
 	Pulls Data the Best Rated data from  books and Combos
 	no Request params
 */
+
+// ONE----->
+
+
 exports.home =functions.https.onRequest((request, response) => {
 
 		homemod.initialize(request,response);
@@ -100,12 +43,24 @@ exports.home =functions.https.onRequest((request, response) => {
 	Req Params:
 		{"pid" : ""}
  */
+
+ // TWO ------->
+
+ 
 exports.showProduct = functions.https.onRequest((request, response) => {
 
 		showProduct.sendProduct(request,response);
 	});
 
 
+
+// Place ORDER FOR USER
+// THREE ---->
+
+
+exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
+		userOrderHandler.placeOrderForuser(request,response);
+});
 
 /*This is used for all saving all Tokends of Kind
  * request parms are
@@ -115,6 +70,9 @@ exports.showProduct = functions.https.onRequest((request, response) => {
 		"fromWhere": can be "0"- user ,"1" -- rider,"2"-->partner
  	}
 */
+// FOUR-->
+
+
 exports.saveFCMToken = functions.https.onRequest((req,res) => {
 	 	//First get from where FCM is Received
 	 	tokenManager.saveToken(req,res);
@@ -122,21 +80,38 @@ exports.saveFCMToken = functions.https.onRequest((req,res) => {
 
 
 
+
 /*User Registration Handler
 
 	"firstName","lastName","emailAddress","password","phoneNumber"
 */
+
+//FIVE-->
+
 exports.registerNewUser =  functions.https.onRequest((req,res) => {
 
 		newUserHandler.register(req,res);
 	});
 
+
+//SIX---->
 exports.genreViewer =  functions.https.onRequest((req,res) => {
 
 	genreView.showByGenres(req,res);
 
 });
 
+
+/* Cloud Function-
+	*
+	*
+	*
+	*
+
+// */
+// exports.placeOrderForuser = functions.https.onRequest((req,res) => {
+// 	userOrderHandler.placeOrderForuser(req,res);
+// };
 /*A Database Trigger Function , This Function is Called Whenever a new  Order is Inserted*/
 
 exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
@@ -170,6 +145,13 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
  });
 
 
+
+// SEVEN
+exports.getPartnerHome = functions.https.onRequest((req,res) => {
+	 var partnerId = req.body.partnerId;
+	 var partnerPath = "partners/"+partnerId;
+	 var partnerRef = db.ref(partnerPath);
+});
 
 function broadcast(order){
 

@@ -35,7 +35,11 @@ exports.deliveredOrder = function (req,res) {
   var riderId = req.body.riderId;
   var userId  = req.body.userId;
   var orderId = req.body.orderId;
-  var orderPath = 'orders/'+orderId+'/deliveryStatus/';
+  var orderPath = 'orders/'+orderId;
+  var ordersRef = db.ref(orderPath);
+  ordersRef.on("value",snap => {
+    console.log("Order Vairables : "+snap.data);
+  });
 
 
   // body...
