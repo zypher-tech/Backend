@@ -8,6 +8,8 @@ var admin = require("firebase-admin");
 
 var db = admin.database();
 
+var response;
+var request;
 
 
 var userSchema = {
@@ -25,7 +27,7 @@ var userSchema = {
 };
 
 var failed = {
-	status :'0'
+	status :0
 };
 
 
@@ -33,6 +35,8 @@ var failed = {
 
 exports.register =  function(req,res) {
 
+	response = res;
+	request = req;
 
 	///Get Details
 	userSchema.firstName = req.body.firstName;
@@ -43,7 +47,7 @@ exports.register =  function(req,res) {
 
  	var usersRef = db.ref("users");
  	
-    usersRef.on("value",function(snap) {
+    usersRef.once("value",function(snap) {
   		 pushUser(snap.numChildren());
 	});
  	
@@ -54,10 +58,10 @@ exports.register =  function(req,res) {
 
 function pushUser(userId){
 
-	console.log("pushing user at "+userCount);
+	console.log("pushing user at "+userId);
 
 	//Adding Count to user Object
-	userSchema.userId = userCount;
+	userSchema.userId = userId;
 
 
 	//Pushing to User Ref
@@ -68,11 +72,16 @@ function pushUser(userId){
      	//pushed, user object, is now "snap"
      	//Appending operation status to result
      		userSchema.status = '1';
-     		res.send(userSchema);
+     		if (!response.headersSent) {
+				response.send(userSchema);
+     		}
+     		
      })
      .catch(function(error){
      	console.log("Error at Pushing Registartion "+error);
-     	res.send(failed);
+     	if (!response.headersSent) {
+				response.send(failed);
+     		}
 
      });
 };

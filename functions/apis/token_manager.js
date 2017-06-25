@@ -9,7 +9,7 @@ var request ;
 var response;
 var failedStatus =  {
 
-	status : '0'
+	status : 0
 
 };
 
@@ -19,11 +19,11 @@ exports.saveToken = function(req,res) {
 
 	response = res;
 	var fromWhere = req.body.fromWhere;
-	var receivedToked = req.body.tokenId;
+	var receivedToken = req.body.tokenId;
 	var profileId = req.body.profileId;
  	 	if (fromWhere == '0') {
  	 		//From User
-			saveUserToken(receivedToked,profileId);
+			saveUserToken(receivedToken,profileId);
  	 	}
  	 	else if(fromWhere == '1'){
  	 		//from Partners
@@ -42,7 +42,7 @@ exports.saveToken = function(req,res) {
 };
 
 var success = {
-	status : '1'
+	status : 1
 };
 
 
@@ -51,6 +51,7 @@ function saveUserToken(receivedToken,profileId){
 	  
 	  //Append user Id to Profile directory
 	  var proPath = '/users/'+profileId;
+	  console.log("loading Data for "+proPath);
 
 	  //Refer the profile Path
 
@@ -64,9 +65,12 @@ function saveUserToken(receivedToken,profileId){
 			});
 
 			//Display
-			profileRef.on("value",snap=>{
+			profileRef.once("value",snap=>{
 				console.log("User Token Updated for user "+snap.val().userId);
-				response.send(success);
+				if(!response.headersSent){
+					response.send(success);				
+				}
+				
 
 			});
 	  		
@@ -94,12 +98,11 @@ function saveUserToken(receivedToken,profileId){
 		catch (e) {
 
 					console.log("Error in saving User Token: "+e);
-					response.send(failedStatus);
+					if(!response.headersSent){
+					response.send(failedStatus);				
+				}
 		} 
-		finally {
-
-			console.log("priniting finally");
-		}
+		
 
 };
 
@@ -118,9 +121,11 @@ function savePartnerToken(receivedToken,profileId){
 			});
 
 			//Display
-			partnerRef.on("value",snap=>{
+			partnerRef.once("value",snap=>{
 				console.log("Token Updated for Rider Id:"+snap.val().userId);
-				response.send(success);
+				if(!response.headersSent){
+					response.send(success);				
+				}
 
 			});
 		}
@@ -129,13 +134,10 @@ function savePartnerToken(receivedToken,profileId){
 		catch (e) {
 
 					console.log("Error in saving Rider  Token: "+e);
-					response.send(failedStatus);
+					if(!response.headersSent){
+					response.send(failedStatus);				
+				}
 		} 
-		finally {
-
-			console.log("priniting finally");
-			
-		}
 	  		
 
 
@@ -163,7 +165,9 @@ function saveRiderToken(receivedToken,profileId){
 			//Display
 			riderRef.on("value",snap=>{
 				console.log("Token Updated for Rider Id:"+snap.val().userId);
-				response.send(success);
+				if(!response.headersSent){
+					response.send(success);				
+				}
 
 			});
 		}
@@ -172,13 +176,11 @@ function saveRiderToken(receivedToken,profileId){
 		catch (e) {
 
 					console.log("Error in saving Rider  Token: "+e);
-					response.send(failedStatus);
+					if(!response.headersSent){
+					response.send(failedStatus);				
+				}
 		} 
-		finally {
-
-			console.log("priniting finally");
-			
-		}
+		
 };
 
 

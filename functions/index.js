@@ -14,7 +14,7 @@ admin.initializeApp(functions.config().firebase);
 */
 // User Related Modules
 
-// var newUserHandler = require('./apis/register_new_user');
+
 // var loginHandler = require('./apis/login_handler');
 // var genreView = require('./apis/genres_viewer_api');
 // var userOrderHandler = require('./apis/place_order_api');
@@ -60,13 +60,14 @@ admin.initializeApp(functions.config().firebase);
 
 
 // =====================================================
+ 
+  ////// WORKING//////////////////////////////
 
+// exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
+// 			var userOrderHandler = require('./apis/place_order_api');
 
-exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
-			var userOrderHandler = require('./apis/place_order_api');
-
-		userOrderHandler.placeOrderForuser(request,response);
-});
+// 		userOrderHandler.placeOrderForuser(request,response);
+// });
 
 // =====================================================
 
@@ -84,12 +85,12 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 
 // =====================================================
 
-// exports.saveFCMToken = functions.https.onRequest((req,res) => {
-// 	 	//First get from where FCM is Received
-// 	 	var tokenManager = require('./apis/token_manager');
+exports.saveFCMToken = functions.https.onRequest((req,res) => {
+	 	//First get from where FCM is Received
+	 	var tokenManager = require('./apis/token_manager');
 
-// 	 	tokenManager.saveToken(req,res);
-// 	});
+	 	tokenManager.saveToken(req,res);
+	});
 
 // =====================================================
 
@@ -102,10 +103,11 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 
 //FIVE-->
 // =====================================================
+////// WORKING//////////////////////////////
 
 // exports.registerNewUser =  functions.https.onRequest((req,res) => {
-
-// 		// newUserHandler.register(req,res);
+// 		var newUserHandler = require('./apis/register_new_user');
+// 		newUserHandler.register(req,res);
 // 	});
 
 //======================================================
@@ -119,93 +121,86 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 // =====================================================
 
 
-/* Cloud Function-
-	*
-	*
-	*
-	*
+/* 
+	SEVEN
 
 // */
-// exports.placeOrderForuser = functions.https.onRequest((req,res) => {
-// 	userOrderHandler.placeOrderForuser(req,res);
-// };
-/*A Database Trigger Function , This Function is Called Whenever a new  Order is Inserted*/
 
+//================================================================
+////// WORKING//////////////////////////////
 
-exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
+// exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
 
-      // Grab the current value of what was written to the Realtime Database.
+//       // Grab the current value of what was written to the Realtime Database.
      
-		var orderSchema = {
-			isAccepted:'',
-			orderId : '',
-			userId :'',
-			firstName:'',
-			lastName:'',
-			phoneNumber:'',
-			deliveryStatus:'',
-			orderLat:'',
-			orderLon :'',
-			products:[
+// 		var orderSchema = {
+// 			isAccepted:'',
+// 			orderId : '',
+// 			userId :'',
+// 			firstName:'',
+// 			lastName:'',
+// 			phoneNumber:'',
+// 			deliveryStatus:'',
+// 			orderLat:'',
+// 			orderLon :'',
+// 			products:[
 
-			],
-			orderStatus:'',
-			rider:{
-				riderId:'',
-				riderPhoneNumber:'',
-				riderName:''
-			},
-			payment:{
-				amount:'',
-				isCod:'',
-				codCollected:''
-			},
-			timingEngine:{
-				orderInsertedAt:'',
-				orderAcceptedAt:'',
-				riderAcceptedAt:'',
-				dispatchedAt:'',
-				deliveredAt:'',
-				returnDate:'',
-			},
-			orderFulfillment:{
-				returnedAt:'',
-				returnCondition:''
-				}
-		};
+// 			],
+// 			orderStatus:'',
+// 			rider:{
+// 				riderId:'',
+// 				riderPhoneNumber:'',
+// 				riderName:''
+// 			},
+// 			payment:{
+// 				amount:'',
+// 				isCod:'',
+// 				codCollected:''
+// 			},
+// 			timingEngine:{
+// 				orderInsertedAt:'',
+// 				orderAcceptedAt:'',
+// 				riderAcceptedAt:'',
+// 				dispatchedAt:'',
+// 				deliveredAt:'',
+// 				returnDate:'',
+// 			},
+// 			orderFulfillment:{
+// 				returnedAt:'',
+// 				returnCondition:''
+// 				}
+// 		};
 
-      console.log("Broadcasting orderId : "+snapshot.data.val().orderId);
+//       console.log("Broadcasting orderId : "+snapshot.data.val().orderId);
 
-      //
-      orderSchema.orderId  = snapshot.data.val().orderId;
-      orderSchema.firstName = snapshot.data.val().firstName;
-      orderSchema.lastName = snapshot.data.val().lastName;
+//       //
+//       orderSchema.orderId  = snapshot.data.val().orderId;
+//       orderSchema.firstName = snapshot.data.val().firstName;
+//       orderSchema.lastName = snapshot.data.val().lastName;
 
-      orderSchema.phoneNumber = snapshot.data.val().phoneNumber;
-      orderSchema.orderLat = snapshot.data.val().orderLat;
-      orderSchema.orderLon = snapshot.data.val().orderLon;
-      orderSchema.payment.amount = snapshot.data.val().payment.amount;
-      orderSchema.timingEngine.orderAcceptedAt = snapshot.data.val().timingEngine.orderAcceptedAt;
-      var productsCount  = snapshot.data.val().products.length;
+//       orderSchema.phoneNumber = snapshot.data.val().phoneNumber;
+//       orderSchema.orderLat = snapshot.data.val().orderLat;
+//       orderSchema.orderLon = snapshot.data.val().orderLon;
+//       orderSchema.payment.amount = snapshot.data.val().payment.amount;
+//       orderSchema.timingEngine.orderAcceptedAt = snapshot.data.val().timingEngine.orderAcceptedAt;
+//       var productsCount  = snapshot.data.val().products.length;
 
-      for (var i = 0;i<productsCount ;i++) {
-      	 var pidval = snapshot.data.val().products[i].pid;
-       	 var productNameval =  snapshot.data.val().products[i].productName;
-       	 orderSchema.products.push({pid: pidval, productName: productNameval});
-        // orderSchema.products[i].pid = pid;
-        // orderSchema.products[i].productName = productName;
-      }
-      var updateRider = require('./apis/update_rider');
-	  var updatePartner = require('./apis/update_partner');
-      // updatePartner.broadcastToPartner(orderSchema);
-      updateRider.broadcastToRiders(orderSchema);
- });
-
-
+//       for (var i = 0;i<productsCount ;i++) {
+//       	 var pidval = snapshot.data.val().products[i].pid;
+//        	 var productNameval =  snapshot.data.val().products[i].productName;
+//        	 orderSchema.products.push({pid: pidval, productName: productNameval});
+//         // orderSchema.products[i].pid = pid;
+//         // orderSchema.products[i].productName = productName;
+//       }
+//       var updateRider = require('./apis/update_rider');
+// 	  var updatePartner = require('./apis/update_partner');
+//       // updatePartner.broadcastToPartner(orderSchema);
+//       updateRider.broadcastToRiders(orderSchema);
+//  });
 
 // =====================================================
 
-// // SEVEN
+// // EIGHT
 // exports.getPartnerHome = functions.https.onRequest((req,res) => {
 // 	 var partnerId = req.body.partnerId;
 // 	 var partnerPath = "partners/"+partnerId;
@@ -213,12 +208,6 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
 // });
 
 // =====================================================
-
-function broadcast(order){
-
-
-	
-};
 
 
 /*Save user FCM TOken
