@@ -9,6 +9,7 @@ var admin = require("firebase-admin");
 var db = admin.database();
 
 
+
 var userSchema = {
 	userId:'',
 	firstName:'',
@@ -40,14 +41,18 @@ exports.register =  function(req,res) {
 	userSchema.password= req.body.password;
 	userSchema.phoneNumber = req.body.phoneNumber;
 
- 	userSchema.usersRef  = db.ref("users");
- 	var userCount = 0;
+ 	var usersRef = db.ref("users");
+ 	
+    usersRef.on("value",function(snap) {
+  		 pushUser(snap.numChildren());
+	});
+ 	
 };
 
 
 
 
-function pushUser(userCount){
+function pushUser(userId){
 
 	console.log("pushing user at "+userCount);
 

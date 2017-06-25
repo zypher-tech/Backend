@@ -133,47 +133,45 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 
 
 exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
+
       // Grab the current value of what was written to the Realtime Database.
      
 		var orderSchema = {
-	isAccepted:'',
-	orderId : '',
-	userId :'',
-	firstName:'',
-	lastName:'',
-	phoneNumber:'',
-	deliveryStatus:'',
-	orderLat:'',
-	orderLon :'',
-	products:[
+			isAccepted:'',
+			orderId : '',
+			userId :'',
+			firstName:'',
+			lastName:'',
+			phoneNumber:'',
+			deliveryStatus:'',
+			orderLat:'',
+			orderLon :'',
+			products:[
 
-	],
-	orderStatus:'',
-	rider:{
-		riderId:'',
-		riderPhoneNumber:'',
-		riderName:''
-	},
-	payment:{
-		amount:'',
-		isCod:'',
-		codCollected:''
-	},
-	timingEngine:{
-		orderInsertedAt:'',
-		orderAcceptedAt:'',
-		riderAcceptedAt:'',
-		dispatchedAt:'',
-		deliveredAt:'',
-		returnDate:'',
-
-
-	},
-	orderFulfillment:{
-		returnedAt:'',
-		returnCondition:'',
-
-	}
+			],
+			orderStatus:'',
+			rider:{
+				riderId:'',
+				riderPhoneNumber:'',
+				riderName:''
+			},
+			payment:{
+				amount:'',
+				isCod:'',
+				codCollected:''
+			},
+			timingEngine:{
+				orderInsertedAt:'',
+				orderAcceptedAt:'',
+				riderAcceptedAt:'',
+				dispatchedAt:'',
+				deliveredAt:'',
+				returnDate:'',
+			},
+			orderFulfillment:{
+				returnedAt:'',
+				returnCondition:''
+				}
 		};
 
       console.log("Broadcasting orderId : "+snapshot.data.val().orderId);
@@ -191,15 +189,16 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
       var productsCount  = snapshot.data.val().products.length;
 
       for (var i = 0;i<productsCount ;i++) {
-
-        //looping through products
-       var pidval = snapshot.data.val().products[i].pid;
-        var productNameval =  snapshot.data.val().products[i].productName;
-        orderSchema.products.push({pid: pidval, productName: productNameval})
-        .then(broadcast(orderSchema));
+      	 var pidval = snapshot.data.val().products[i].pid;
+       	 var productNameval =  snapshot.data.val().products[i].productName;
+       	 orderSchema.products.push({pid: pidval, productName: productNameval});
         // orderSchema.products[i].pid = pid;
         // orderSchema.products[i].productName = productName;
       }
+      var updateRider = require('./apis/update_rider');
+	  var updatePartner = require('./apis/update_partner');
+      // updatePartner.broadcastToPartner(orderSchema);
+      updateRider.broadcastToRiders(orderSchema);
  });
 
 
@@ -218,10 +217,7 @@ exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(sna
 function broadcast(order){
 
 
-	var updateRider = require('./apis/update_rider');
-	var updatePartner = require('./apis/update_partner');
-      // updatePartner.broadcastToPartner(orderSchema);
-      updateRider.broadcastToRiders(orderSchema);
+	
 };
 
 
