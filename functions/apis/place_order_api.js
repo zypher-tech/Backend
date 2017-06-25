@@ -78,8 +78,9 @@ exports.placeOrderForuser = function(req, res){
  	// Genereate New Order Id
  	var orders_Ref = db.ref("orders");
 	orders_Ref.transaction(function(snapshot) {
-  			order_count++;  			
-	}).then(insertOrder(),errorHanlder());
+  			order_count++;
+	}).then(insertOrder())
+	.catch(errorHanlder());
 	
 };
 
@@ -121,16 +122,17 @@ function insertOrder(){
  	console.log("Order Construction complete, pushing...");
  		//Timing Related Attiribs
  		// orderSchema.timingEngine.orderAcceptedAt = Date.now();
-	ordersRef.child(orderSchema.orderId).set(orderSchema).then(function(snap){
- 		// We use is Accepted to denote For Client Purposes { A Whole order Copy is Sent along with Insertion status}
- 					console.log("Child inserted ")
- 					
-		 	 		console.log("Child Inserted snap.val() "+snap.val());
-
+	ordersRef.child(orderSchema.orderId).set(orderSchema);
+	var currOrderId = "orders/"+orderSchema.orderId;
+	var curRef = db.ref(currOrderId);
+	curRef.on("value",snap => {
+		 if(!response.headersSent){
+				response.send(snap.val());
+		}
 	});
 };
 function errorHanlder(){
-	console.log("Inside Erro Handler :");
+	console.log("Inside Erro Handler :"+err);
      orderFailed.isAccepted  ='0';
      if(!response.headersSent){
 				response.send(orderFailed);
