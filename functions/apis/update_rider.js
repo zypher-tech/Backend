@@ -22,7 +22,7 @@ exports.broadcastToRiders = function(order) {
   try {
     ridersRef.on("child_added",snap => {
         var riderName = snap.val().riderName;
-        var token = snap.val().tokeId;
+        var token = snap.val().tokenId;
         pushNewOrder(token,order);
 
     });
@@ -39,8 +39,31 @@ exports.broadcastToRiders = function(order) {
   function pushNewOrder(tokenId,order){
     var registrationTokens = tokenId;
     var orderId = order.orderId;
-    console.log("Pushing orderId:"+order.orderId + " to :"+tokenId);
+    console.log("Pushing orderId:"+order.orderId + " to : "+tokenId);
     
+
+// See the "Defining the message payload" section below for details
+// on how to define a message payload.
+  var payload = {
+     data: {
+        orderId:""+order.orderId ,
+        orderLat:""+order.orderLat,
+        orderLon:""+order.orderLon
+    }
+  };
+
+  // Send a message to the device corresponding to the provided
+  // registration token.
+  admin.messaging().sendToDevice(tokenId, payload)
+    .then(function(response) {
+      // See the MessagingDevicesResponse reference documentation for
+      // the contents of response.
+      console.log("Successfully sent message:", response);
+    })
+    .catch(function(error) {
+      console.log("Error sending message:", error);
+    });
+
   // See the "Defining the message payload" section below for details
   // on how to define a message payload.
 
