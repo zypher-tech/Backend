@@ -42,7 +42,7 @@ exports.home =functions.https.onRequest((request, response) => {
 /*View a Single Product
 	Req Params:
 		{"pid" : ""}
- */
+*/
 
  // TWO ------->
 

@@ -9,11 +9,11 @@ var admin = require("firebase-admin");
 
 // Get a database reference to our blog
 var db = admin.database();
-var request ;
+var request;
 var response;
 
 var ordersRef = db.ref("orders");
-var order_count = 0;
+var order_count = 1;
 
 var orderSchema = {
 	isAccepted:'',
@@ -54,7 +54,6 @@ var orderSchema = {
 		returnCondition:'',
 
 	}
-
 };
 var orderFailed = {
 	isAccepted:''
@@ -73,70 +72,68 @@ exports.placeOrderForuser = function(req, res){
 
 	response = res;
 	request = req;
-	console.log("Inside Order Placer");
+	// console.log("Inside Order Placer");
 
+	console.log("Placing Order");
+ 	// Genereate New Order Id
+ 	var orders_Ref = db.ref("orders");
+	orders_Ref.transaction(function(snapshot) {
+  			order_count++;  			
+	}).then(insertOrder(),errorHanlder());
+	
 };
-// 	console.log("Placing Order");
-//
-//
-//
-//
-// 	order_count++;
-//  	// Genereate New Order Id
-// 	ordersRef.once("value",snapshot ={
-// 		snapshot.forEach(function (singleData) {
-// 				// var bookName = singleData.key;
-// 				order_count++;
-// 		 }).then(insertOrder())
-// 		 .catch(errorHanlder());
-// 	});
-//
-// function insertOrder(){
-// 	console.log("Initlizing Order Id "+order_count);
-// 	orderSchema.orderId = order_count;
-//  	orderSchema.userId = request.body.userId;
-//  	orderSchema.firstName = request.body.firstName;
-//  	orderSchema.lastName  = request.body.lastName;
-//  	orderSchema.orderLat = request.body.orderLat;
-//  	orderSchema.orderLon = request.body.orderLon;
-//  	orderSchema.phoneNumber = request.body.phoneNumber;
-//  	//get the List of products
-//  	console.log("Got Varaibles " + orderSchema.phoneNumber);
-//  	var productsChosenCount = request.body.products.length;
-//  	for (var i =0;i < productsChosenCount;i++) {
-//  			console.log('inside loop');
-// 			try{
-// 		 		//Individual Products in Response
-// 	 			var pid = request.body.products[i].pid;
-//
-// 	 			//Insert into this Order
-// 	 			//Prepare Packing
-// 	 			//Add to PartnerBroadcast Tables
-// 				var pName = request.body.products[i].productName;
-// 				console.log("Getting Products [i] "+pName);
-//  				//parePacking(pid);
-//  		 		orderSchema.products.push({pid: pid, productName: pName});
-// 	 	}
-// 	 	catch(err){
-// 	 			console.log("Error "+err);
-// 	 	}
-//  		//orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
-//   }
-//  	// update Order Status
-//  	orderSchema.orderStatus = '1';
-//
-//
-//  	console.log("Order Construction complete, pushing...");
-//  	//Timing Related Attiribs
-//  	// orderSchema.timingEngine.orderAcceptedAt = Date.now();
-//   ordersRef.child(orderSchema.orderId).set(orderSchema).then(function(snap){
-//  		// We use is Accepted to denote For Client Purposes { A Whole order Copy is Sent along with Insertion status}
-// 		 	  orderSchema.isAccepted = '1';
-// 				 console.log("Order Inserted ");
-// 		 	  response.send(orderSchema);
-// 	 });
-// };
-// function errorHanlder(){
-//      orderFailed.isAccepted  ='0';
-// 		 response.send(orderFailed);
-// };
+
+function insertOrder(){
+	console.log("Insert Order Method  Order Id "+order_count);
+	orderSchema.orderId = order_count;
+ 	orderSchema.userId = request.body.userId;
+ 	orderSchema.firstName = request.body.firstName;
+ 	orderSchema.lastName  = request.body.lastName;
+ 	orderSchema.orderLat = request.body.orderLat;
+ 	orderSchema.orderLon = request.body.orderLon;
+ 	orderSchema.phoneNumber = request.body.phoneNumber;
+ 	//get the List of products
+ 	console.log("Got Varaibles " + orderSchema.phoneNumber);
+ 	var productsChosenCount = request.body.products.length;
+ 	for (var i =0;i < productsChosenCount;i++) {
+ 			console.log('inside loop');
+			try{
+		 		//Individual Products in Response
+	 			var pid = request.body.products[i].pid;
+
+	 			//Insert into this Order
+	 			//Prepare Packing
+	 			//Add to PartnerBroadcast Tables
+				var pName = request.body.products[i].productName;
+				console.log("Getting Products [i] "+pName);
+ 				//parePacking(pid);
+ 		 		orderSchema.products.push({pid: pid, productName: pName});
+	 		}
+	 		catch(err){
+	 			console.log("Error "+ err);
+	 		}
+ 		//orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
+     }
+ 	// update Order Status
+ 	orderSchema.orderStatus = '1';
+
+
+ 	console.log("Order Construction complete, pushing...");
+ 		//Timing Related Attiribs
+ 		// orderSchema.timingEngine.orderAcceptedAt = Date.now();
+	ordersRef.child(orderSchema.orderId).set(orderSchema).then(function(snap){
+ 		// We use is Accepted to denote For Client Purposes { A Whole order Copy is Sent along with Insertion status}
+ 					console.log("Child inserted ")
+ 					
+		 	 		console.log("Child Inserted snap.val() "+snap.val());
+
+	});
+};
+function errorHanlder(){
+	console.log("Inside Erro Handler :");
+     orderFailed.isAccepted  ='0';
+     if(!response.headersSent){
+				response.send(orderFailed);
+		}
+		
+};
