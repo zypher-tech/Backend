@@ -270,8 +270,18 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
 //     console.log(snapshot.val());
 // });
+//===============================
+
+exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+		// var riderId = req.body.riderId;
+		// var orderAssignRef = db.ref("orderAssignation/"+riderId+'/orders');
+		// orderAssignRef.once("value",snap => {
+				
+		// });
+});
 
 
+//==========================================================
 
 function getParent(snapshot) {
   // You can get the reference (A Firebase object) from a snapshot
@@ -281,15 +291,40 @@ function getParent(snapshot) {
   console.log()
 };
 
-//========================================
+//========================================================
+	
+
+exports.getMyOrders = functions.https.onRequest((req,res)=> {
+	var userId = req.body.userId;
+	var ordersRef = db.ref("orders");
+	ordersRef.orderbyChild("userId").equalTo(userId).once("value",snap => {
+		console.log("Order Count So Far "+snap.val().orderId);
+	});
+});
+
+//========================================================
+
+
+exports.donatebooks = functions.https.onRequest((req,res)=> {
+	var userId;
+	var imageUrl;
+	var bookName;
+	var phoneNumber;
+	var firstName;
+	var bookCount;
+});
+
+
+//========================================================
 
   // partnerAmount Update
 exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
 
 		
-		var ref = snapshot.data.ref;
-		var refparent = ref.parent;
-		console.log("ref :"+refparent);
+		var ref = snapshot.data.ref.parent;
+		
+		
+		console.log("ref :"+ref);
 		// // console.log("Name of the parent: "+getParent(snapshot));
 
 		// try{
@@ -324,10 +359,10 @@ exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliv
 		// catch(e){
 		// 	console.log("Error "+e);
 		// }
-  		// var updatePartner = require('./apis/update_partner');
+  // 		var updatePartner = require('./apis/update_partner');
 
-  		// var productsCount = snapshot.val().products.length;
-  		// var productsToNotify ={};
+  // 		var productsCount = snapshot.val().products.length;
+  // 		var productsToNotify ={};
   		// console.log("Product Counts are "+productsCount);
   		// for(int i =0;i<productsCount;i++){
   		// 	var pidVal = snapshot.val().products[i].pid;
@@ -412,3 +447,32 @@ exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliv
 
 //     	console.log("Error in Pushing Order");
 // };
+
+
+//============================================
+
+exports.getGenres = functions.https.onRequest((req,res)=>{
+		var genRef = "genres";
+		genRef.once("value",snap=>{
+			console.log("Genres :"+snap.val());
+		});
+	});
+exports.explore = functions.https.onRequest((req,res)=>{
+
+		var exploreHandler = require('./apis/explore');
+		exploreHandler.showExploreProducts(req,res);
+});
+
+
+//=====================================================
+
+exports.addBook = functions.https.onRequest((req,res)=>{
+	var partnerId = req.body.partnerId;
+	// Get his Phone Number , push it to a DashBoard
+});
+
+
+exports.checkoutMoney = functions.https.onRequest((req,res)=>{
+	// var partnerId = req.body.partnerId;
+	// Get the Amount to be paid , get his location and Phone
+});
