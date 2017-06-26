@@ -6,7 +6,7 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 //The Root path of Db
-
+var db = admin.database();
 // Individual Modeules
 /*These are Individual Modules which take care of
 	*specific tasks
@@ -49,10 +49,11 @@ admin.initializeApp(functions.config().firebase);
  // TWO ------->
 // =====================================================
 
- 
+ ////// WORKING//////////////////////////////
+//
 // exports.showProduct = functions.https.onRequest((request, response) => {
 // 		var showProduct = require('./apis/show_product');
-
+//
 // 		showProduct.sendProduct(request,response);
 // 	});
 
@@ -60,7 +61,7 @@ admin.initializeApp(functions.config().firebase);
 
 
 // =====================================================
- 
+
   ////// WORKING//////////////////////////////
 
 // exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
@@ -85,12 +86,14 @@ admin.initializeApp(functions.config().firebase);
 
 // =====================================================
 
-exports.saveFCMToken = functions.https.onRequest((req,res) => {
-	 	//First get from where FCM is Received
-	 	var tokenManager = require('./apis/token_manager');
+////// WORKING//////////////////////////////
 
-	 	tokenManager.saveToken(req,res);
-	});
+// exports.saveFCMToken = functions.https.onRequest((req,res) => {
+// 	 	//First get from where FCM is Received
+// 	 	var tokenManager = require('./apis/token_manager');
+
+// 	 	tokenManager.saveToken(req,res);
+// 	});
 
 // =====================================================
 
@@ -121,7 +124,7 @@ exports.saveFCMToken = functions.https.onRequest((req,res) => {
 // =====================================================
 
 
-/* 
+/*
 	SEVEN
 
 // */
@@ -132,7 +135,7 @@ exports.saveFCMToken = functions.https.onRequest((req,res) => {
 // exports.orderIsRecevied = functions.database.ref('/orders/{pushId}').onWrite(snapshot => {
 
 //       // Grab the current value of what was written to the Realtime Database.
-     
+
 // 		var orderSchema = {
 // 			isAccepted:'',
 // 			orderId : '',
@@ -205,17 +208,68 @@ exports.saveFCMToken = functions.https.onRequest((req,res) => {
 // 	 var partnerId = req.body.partnerId;
 // 	 var partnerPath = "partners/"+partnerId;
 // 	 var partnerRef = db.ref(partnerPath);
+//    partnerRef.once("value",snap=>{
+
+//      if (!res.headersSent) {
+//           res.send(snap.val());
+//         }
+//      }
+//    });
 // });
 
 // =====================================================
 
+//NINE
 
-/*Save user FCM TOken
- * It handles 3 Types of  Token Management
- pass in "tokenId","profileId","fromWhere":0-->user,1-->rider,2-->partner
+exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
-*/
+    var orderId = req.body.orderId;
+    var riderId = req.body.riderId;
+    var riderName = req.body.riderName;
+    var riderNumber  = req.body.phoneNumber;
+    var orderPath = 'orders/'+orderId;
+    var ordersRef = db.ref(orderPath);
+    var updateOrderStatus =  {
+    	deliveryStatus:1,
+    	rider:{
+    		riderId:riderId,
+    		riderName:riderName,
+    		riderNumber:riderNumber
+    	},
+    	deliveredAt:Date.now(),
+    	timingEngine:{
+			
+			deliveredAt:Date.now()
+		}
+    };
+    ordersRef.update(updateOrderStatus,err => {
+    	console.log("inside callback ");
+    		if (err) {
+    			if (!res.headersSent) {
+    				res.send({status:0});
+    			}
+    		}
+    }).then(function(){
+    	console.log("inside then ");
+    	if (!res.headersSent) {
+    		res.send({status:1});
+    	}
+    });
+    
 
+
+});
+
+
+
+
+// ======================================================
+//TEN
+// //RIDER ORDER Handler
+// exports.RiderAcceptedOrder = functions.database.ref('/orders/{pushId}/rider').onWrite(snapshot => {
+
+//     console.log(snapshot.val());
+// });
 
 
 
