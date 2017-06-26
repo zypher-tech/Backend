@@ -32,11 +32,14 @@ exports.doLogin = function(req,res) {
 		//Run it through user Loops
 		var usersRef = db.ref("users");
 		usersRef.on("child_added",(snap,prevKey) => {
+			console.log("Email Address "+snap.val().emailAddress);
 				if (snap.val().emailAddress == email) {
+					console.log("Password "+snap.val().password);
 						if (snap.val().password == password ) {
 								//Right Password
-								if (!res.HeaderSent) {
-									res.send(snap.val());
+								if (!res.headersSent) {
+									console.log("response Sent 1");
+									// res.send(snap.val());
 								}
 								
 								
@@ -44,34 +47,21 @@ exports.doLogin = function(req,res) {
 						}
 						else{
 							//Wrong Password
-							if (!res.HeaderSent) {
-							     res.send({status:0});
+							if (!res.headersSent) {
+							     console.log("response Sent 0");
 								}
 						
 						}
 
 				}
 				else{
-					//No Match
-					if (!res.HeaderSent) {
-							     res.send({status:01});
-								}
-					
 
 				}
 
-		})
-		.then(noUser(),function(error)=>{
-			if (!res.HeaderSent) {
-			res.send({status:001});
-			}	
 		});
+		
 };
 
-function noUser(){
-
-if (!res.HeaderSent) {
-			res.send({status:0001});
-	}	
-	
+function newMethod(){
+	console.log("NEw Method");
 };

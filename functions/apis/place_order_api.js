@@ -45,13 +45,11 @@ var orderSchema = {
 		riderAcceptedAt:'',
 		dispatchedAt:'',
 		deliveredAt:'',
-		returnDate:'',
-
-
-	},
+		returnDate:''
+},
 	orderFulfillment:{
 		returnedAt:'',
-		returnCondition:'',
+		returnCondition:''
 
 	}
 };

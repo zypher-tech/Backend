@@ -221,6 +221,8 @@ var db = admin.database();
 
 //NINE
 
+////// WORKING//////////////////////////////
+
 exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
     var orderId = req.body.orderId;
@@ -238,7 +240,6 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
     	},
     	deliveredAt:Date.now(),
     	timingEngine:{
-			
 			deliveredAt:Date.now()
 		}
     };
@@ -257,7 +258,6 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
     });
     
 
-
 });
 
 
@@ -273,6 +273,140 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
 
 
+function getParent(snapshot) {
+  // You can get the reference (A Firebase object) from a snapshot
+  // using .ref().
+  var ref = snapshot.ref;
+  // Now simply find the parent and return the name.
+  console.log()
+};
+
+//========================================
+
+  // partnerAmount Update
+exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
+
+		
+		var ref = snapshot.data.ref;
+		var refparent = ref.parent;
+		console.log("ref :"+refparent);
+		// // console.log("Name of the parent: "+getParent(snapshot));
+
+		// try{
+		// 	console.log()
+  // // 		console.log("Invoking Update snap.parent.name "+snapshot.data.parent.name);
+
+		// }
+		// catch(e){
+		// 	console.log("Error "+e);
+		// }
+		// try{
+
+  // 		console.log("Invoking Update snap.parent.key "+snapshot.data.parent.key);
+
+		// }
+		// catch(e){
+		// 	console.log("Error "+e);
+		// }
+		// try{
+
+  // 		console.log("Invoking Update snap.parent "+snapshot.data.parent);
+
+		// }
+		// catch(e){
+		// 	console.log("Error "+e);
+		// }
+		// try{
+
+  // 		console.log("Invoking Update snap.key "+snapshot.data.key.parent.name);
+
+		// }
+		// catch(e){
+		// 	console.log("Error "+e);
+		// }
+  		// var updatePartner = require('./apis/update_partner');
+
+  		// var productsCount = snapshot.val().products.length;
+  		// var productsToNotify ={};
+  		// console.log("Product Counts are "+productsCount);
+  		// for(int i =0;i<productsCount;i++){
+  		// 	var pidVal = snapshot.val().products[i].pid;
+  		// 	var pidName = snapshot.val().products[i].productName;
+  		// 	console.log("for Loop - Broadcasting: "+pid);
+  		// 	updatePartner.broadcastToPartner(pidVal,25,pidName,"2 Weeks");
+  		// 	// var amountCharged = snapshot.val().products[i].amount;
+  		// 	// var duration = snapshot.val().products[i].duration
+  		// 	// productsToNotify.push({pid: pid, productName: pName});
+  		// // We have a list of Products , get those Partner Id and Update his Amount Record
+
+
+  			
+  		// }
+
+
+  });
+
+//==============================================================
+ 
+
+// exports.login = functions.https.onRequest((req,res) => {
+// 	var loginHandler = require('./apis/login_handler');
+// 	loginHandler.doLogin(req,res);
+// });
+
+
+//===============================================================
+
+// exports.likebook = functions.https.onRequest((req,res) => {
+// 	var likeHandler = require('./apis/like_handler');
+// 	like_handler.performLike(req,res);
+// });
+
+
+//===============================================================
+
+// exports.saveDefaultLocation = functions.https.onRequest((req,res)=>{
+// 	var defLat = req.body.defLat;
+// 	var defLon  = req.body.defLon;
+// 	var userId = req.body.userId;
+// 	var userPath = 'users/'+userId;
+// 	var updateLat = {
+// 		defLon:defLon,
+// 		defLat:defLon
+// 	};
+// 	var userRef = db.ref(userPath);
+// 	userRef.update(updateLat,err=>{
+// 		if (err) {
+// 			console.log("Error");
+// 		}
+// 	});
+// });
+
+
+
+//============================================================
+
+
+// exports.searchProduct = functions.https.onRequest((req,res)=>{
+
+// 		var searchText = req.body.searchText;
+// 		var booksRef = db.ref("books");
+// 		booksRef.once("value",snapshot=>{
+// 				// if (snapshot.val().productName) {
+// 						// Add to return Json;
+// 						// See Also Paginated Request
+// 				// }
+// 		});
+// 	});
+
+//==============================================================
+	//Request a Book
+
+// exports.requestNewBook = functions.https.onRequest((req,res) => {
+// 	var bookHandler  = require('./apis/book_requester');
+// 	bookHandler.requestingBook(req,res);
+
+// });
 // // The General Error Handler
 // function error(){
 
