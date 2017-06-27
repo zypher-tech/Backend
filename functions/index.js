@@ -204,17 +204,13 @@ var db = admin.database();
 // =====================================================
 
 // // EIGHT
-// exports.getPartnerHome = functions.https.onRequest((req,res) => {
-// 	 var partnerId = req.body.partnerId;
-// 	 var partnerPath = "partners/"+partnerId;
-// 	 var partnerRef = db.ref(partnerPath);
-//    partnerRef.once("value",snap=>{
+//WORKING//////////////////////////////////////////////////////////////
+// PULLS /partners/{partnerId}/home/{bookCount,orderedTimes,AmountEarned,ranking}
 
-//      if (!res.headersSent) {
-//           res.send(snap.val());
-//         }
-//      }
-//    });
+// exports.getPartnerHome = functions.https.onRequest((req,res) => {
+	
+// 	var partnerHome = require('./apis/partner_home');
+// 	partnerHome.showHome(req,res);
 // });
 
 // =====================================================
@@ -222,43 +218,45 @@ var db = admin.database();
 //NINE
 
 ////// WORKING//////////////////////////////
+//used when Rider delivering and Collectiing the amount for  order
+// // It changes delivery status
 
-exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
+// exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
-    var orderId = req.body.orderId;
-    var riderId = req.body.riderId;
-    var riderName = req.body.riderName;
-    var riderNumber  = req.body.phoneNumber;
-    var orderPath = 'orders/'+orderId;
-    var ordersRef = db.ref(orderPath);
-    var updateOrderStatus =  {
-    	deliveryStatus:1,
-    	rider:{
-    		riderId:riderId,
-    		riderName:riderName,
-    		riderNumber:riderNumber
-    	},
-    	deliveredAt:Date.now(),
-    	timingEngine:{
-			deliveredAt:Date.now()
-		}
-    };
-    ordersRef.update(updateOrderStatus,err => {
-    	console.log("inside callback ");
-    		if (err) {
-    			if (!res.headersSent) {
-    				res.send({status:0});
-    			}
-    		}
-    }).then(function(){
-    	console.log("inside then ");
-    	if (!res.headersSent) {
-    		res.send({status:1});
-    	}
-    });
+//     var orderId = req.body.orderId;
+//     var riderId = req.body.riderId;
+//     var riderName = req.body.riderName;
+//     var riderNumber  = req.body.phoneNumber;
+//     var orderPath = 'orders/'+orderId;
+//     var ordersRef = db.ref(orderPath);
+//     var updateOrderStatus =  {
+//     	deliveryStatus:1,
+//     	rider:{
+//     		riderId:riderId,
+//     		riderName:riderName,
+//     		riderNumber:riderNumber
+//     	},
+//     	deliveredAt:Date.now(),
+//     	timingEngine:{
+// 			deliveredAt:Date.now()
+// 		}
+//     };
+//     ordersRef.update(updateOrderStatus,err => {
+//     	console.log("inside callback ");
+//     		if (err) {
+//     			if (!res.headersSent) {
+//     				res.send({status:0});
+//     			}
+//     		}
+//     }).then(function(){
+//     	console.log("inside then ");
+//     	if (!res.headersSent) {
+//     		res.send({status:1});
+//     	}
+//     });
     
 
-});
+// });
 
 
 
@@ -283,13 +281,6 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
 //==========================================================
 
-function getParent(snapshot) {
-  // You can get the reference (A Firebase object) from a snapshot
-  // using .ref().
-  var ref = snapshot.ref;
-  // Now simply find the parent and return the name.
-  console.log()
-};
 
 //========================================================
 	
@@ -317,48 +308,38 @@ function getParent(snapshot) {
 
 //========================================================
 
-  // partnerAmount Update
-exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
 
-		
-		
-		var orderId;
+  //WORKING////////////////////////////////////////////////////
+  /* Database Trigger - Invoked Whenever DeliveryStatus is Written 
+  	{ Delivery Status Happens in only place, When rider Has delivered Order.
+  		//Driver has Amount of Which Half('=') should go to Partners
+  	}
+   *
+   *
+//   */
+
+// exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
+
+// 		// All Products must have parnters
+// 		//get the Order that was delivered
+// 		var orderId;
 			
-  // Now simply find the parent and return the name.
-		try{
-			orderId =  snapshot.data.ref.parent.key;
-		}
-		catch(e){
-				console.log("Error "+e);
-		}
+ 	
+// 		try{
+// 			orderId =  snapshot.data.ref.parent.key;
+// 		}
+// 		catch(e){
+// 				console.log("Error "+e);
+// 		}
 		
 
 
 
-  		var updatePartner = require('./apis/update_partner');
-  		// Since Order is fullfilled , we Have Money 
-  		//Send The Money Info to Partner
-  		updatePartner.broadcastToPartner(orderId);
-
-  		// var productsCount = snapshot.val().products.length;
-  		// var productsToNotify ={};
-  		// console.log("Product Counts are "+productsCount);
-  		// for(int i =0;i<productsCount;i++){
-  		// 	var pidVal = snapshot.val().products[i].pid;
-  		// 	var pidName = snapshot.val().products[i].productName;
-  		// 	console.log("for Loop - Broadcasting: "+pid);
-  		// 	updatePartner.broadcastToPartner(pidVal,25,pidName,"2 Weeks");
-  		// 	var amountCharged = snapshot.val().products[i].amount;
-  		// 	var duration = snapshot.val().products[i].duration
-  		// 	productsToNotify.push({pid: pid, productName: pName});
-  		// We have a list of Products , get those Partner Id and Update his Amount Record
-
-
-  			
-  		// }
-
-
-  });
+//   		var updatePartner = require('./apis/update_partner');
+//   		// Since Order is fullfilled , we Have Money 
+//   		//Send The Money Info to Partner
+//   		updatePartner.broadcastToPartner(orderId);
+//   });
 
 //==============================================================
  
@@ -447,11 +428,51 @@ exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliv
 
 
 //=====================================================
+// Working --- Partner/ user Adds a new Renting Collection
+exports.rentMyCollection = functions.https.onRequest((req,res)=>{
+	// A Partner Has sent a Image Link, saying he has new Image
+	// 
+	var id = req.body.profileId;
+	var imageURL = req.body.imageURL;
+	var partnerName = req.body.partnerName;
+	var phoneNumber = req.body.phoneNumber;
+	var fromWhere = req.body.fromWhere;
+	var followId;
+	var newSource = {
+		followId:0,
+		fromWhere:fromWhere,
+		id:partnerId,
+		imageURL:imageURL,
+		partnerName:partnerName,
+		phoneNumber:phoneNumber
+	};
+	var sourcePath = "platform/books/new";
+	var sourceRef = db.ref(sourcePath);
+	sourceRef.once("value",snap=>{
+		followId = snap.numChildren();
+	}).then(function(){
+		newSource.followId = followId;
+		console.log("Found  Follow Id "+followId);
+		sourceRef.child(followId).set(newSource,err=>{
+			if (err) {
+				if (!res.headersSent) {
+				res.send({status:0});
+				}
+			}
+			else{
+				if (!res.headersSent) {
+				res.send({status:1});
+				}
+			}
+		});	
+	}).catch(function(){
+		if (!res.headersSent) {
+				res.send({status:0});
+			}
+	});
 
-// exports.addBook = functions.https.onRequest((req,res)=>{
-// 	var partnerId = req.body.partnerId;
-// 	// Get his Phone Number , push it to a DashBoard
-// });
+	
+});
 
 
 // exports.checkoutMoney = functions.https.onRequest((req,res)=>{
@@ -459,5 +480,33 @@ exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliv
 // 	// Get the Amount to be paid , get his location and Phone
 // });
 
+// ============================================================
 
 
+// WORKING ////////////////////////////////////////////
+
+// exports.getPartnerBook = functions.https.onRequest((req,res) =>{
+
+// 	var partnerHome = require('./apis/partner_home');
+// 	partnerHome.getBooksByPartnerId(req,res);
+
+// });
+
+
+//===========================================================
+
+
+//WORKING//////////////////////////////////////
+
+// exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
+// 	// Get his home Page
+// 	var partnerId = req.body.partnerId;
+// 	var d =new Date();
+// 	var month = d.getMonth();
+// 	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+month;
+// 	var transRef = db.ref(transactionPath);
+// 	transRef.once("value", snap =>{
+// 		res.send(snap.val());
+// 	});
+
+// });

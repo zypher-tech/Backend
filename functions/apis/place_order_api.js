@@ -156,9 +156,7 @@ function insertOrder(order_count){
  		//orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
      }
  	// update Order Status
- 	
-
-
+ 	oScheme.timingEngine.orderInsertedAt = Date.now();
  	console.log("Order Construction complete, pushing...");
  		//Timing Related Attiribs
  		// orderSchema.timingEngine.orderAcceptedAt = Date.now();
