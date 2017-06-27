@@ -79,7 +79,7 @@ var db = admin.database();
  	{
 		"profileId":"",
 		"tokenId","",
-		"fromWhere": can be "0"- user ,"1" -- rider,"2"-->partner
+		"fr omWhere": can be "0"- user ,"1" -- rider,"2"-->partner
  	}
 */
 // FOUR-->
@@ -285,13 +285,15 @@ var db = admin.database();
 //========================================================
 	
 
-// exports.getMyOrders = functions.https.onRequest((req,res)=> {
-// 	var userId = req.body.userId;
-// 	var ordersRef = db.ref("orders");
-// 	ordersRef.orderbyChild("userId").equalTo(userId).once("value",snap => {
-// 		console.log("Order Count So Far "+snap.val().orderId);
-// 	});
-// });
+exports.getMyOrders = functions.https.onRequest((req,res)=> {
+	var userId = req.body.userId;
+	var ordersRef = db.ref("orders");
+	ordersRef.orderByChild("userId").equalTo(userId).once("value",snap => {
+		if (!res.headersSent) {
+			res.send(snap.val());
+		}
+	});
+});
 
 //========================================================
 
@@ -429,50 +431,49 @@ var db = admin.database();
 
 //=====================================================
 // Working --- Partner/ user Adds a new Renting Collection
-exports.rentMyCollection = functions.https.onRequest((req,res)=>{
-	// A Partner Has sent a Image Link, saying he has new Image
-	// 
-	var id = req.body.profileId;
-	var imageURL = req.body.imageURL;
-	var partnerName = req.body.partnerName;
-	var phoneNumber = req.body.phoneNumber;
-	var fromWhere = req.body.fromWhere;
-	var followId;
-	var newSource = {
-		followId:0,
-		fromWhere:fromWhere,
-		id:partnerId,
-		imageURL:imageURL,
-		partnerName:partnerName,
-		phoneNumber:phoneNumber
-	};
-	var sourcePath = "platform/books/new";
-	var sourceRef = db.ref(sourcePath);
-	sourceRef.once("value",snap=>{
-		followId = snap.numChildren();
-	}).then(function(){
-		newSource.followId = followId;
-		console.log("Found  Follow Id "+followId);
-		sourceRef.child(followId).set(newSource,err=>{
-			if (err) {
-				if (!res.headersSent) {
-				res.send({status:0});
-				}
-			}
-			else{
-				if (!res.headersSent) {
-				res.send({status:1});
-				}
-			}
-		});	
-	}).catch(function(){
-		if (!res.headersSent) {
-				res.send({status:0});
-			}
-	});
-
-	
-});
+//Common for both partner and user
+// exports.rentMyCollection = functions.https.onRequest((req,res)=>{
+// 	// A Partner Has sent a Image Link, saying he has new Image
+// 	// 
+// 	var id = req.body.profileId;
+// 	var imageURL = req.body.imageURL;
+// 	var partnerName = req.body.partnerName;
+// 	var phoneNumber = req.body.phoneNumber;
+// 	var fromWhere = req.body.fromWhere;
+// 	var followId;
+// 	var newSource = {
+// 		followId:0,
+// 		fromWhere:fromWhere,
+// 		id:partnerId,
+// 		imageURL:imageURL,
+// 		partnerName:partnerName,
+// 		phoneNumber:phoneNumber
+// 	};
+// 	var sourcePath = "platform/books/new";
+// 	var sourceRef = db.ref(sourcePath);
+// 	sourceRef.once("value",snap=>{
+// 		followId = snap.numChildren();
+// 	}).then(function(){
+// 		newSource.followId = followId;
+// 		console.log("Found  Follow Id "+followId);
+// 		sourceRef.child(followId).set(newSource,err=>{
+// 			if (err) {
+// 				if (!res.headersSent) {
+// 				res.send({status:0});
+// 				}
+// 			}
+// 			else{
+// 				if (!res.headersSent) {
+// 				res.send({status:1});
+// 				}
+// 			}
+// 		});	
+// 	}).catch(function(){
+// 		if (!res.headersSent) {
+// 				res.send({status:0});
+// 			}
+// 	});	
+// });
 
 
 // exports.checkoutMoney = functions.https.onRequest((req,res)=>{
