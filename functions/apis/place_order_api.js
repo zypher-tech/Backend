@@ -25,6 +25,7 @@ var orderSchema = {
 	deliveryStatus:'',
 	orderLat:'',
 	orderLon :'',
+	
 	products:[
 
 	],

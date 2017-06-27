@@ -11,10 +11,10 @@ exports.performLike = function (req,res) {
 	var userPath = 'users/'+userId;
 	var like = {
 		
-	}
-	1/likes/
-	1/comments
-	1/orderredtimes
-	1/sharecount
+	};
+	// 1/likes/
+	// 1/comments
+	// 1/orderredtimes
+	// 1/sharecount
 
 };

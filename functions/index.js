@@ -272,13 +272,13 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 // });
 //===============================
 
-exports.getRiderOrders =  functions.https.onRequest((req,res) => {
-		// var riderId = req.body.riderId;
-		// var orderAssignRef = db.ref("orderAssignation/"+riderId+'/orders');
-		// orderAssignRef.once("value",snap => {
+// exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+// 		// var riderId = req.body.riderId;
+// 		// var orderAssignRef = db.ref("orderAssignation/"+riderId+'/orders');
+// 		// orderAssignRef.once("value",snap => {
 				
-		// });
-});
+// 		// });
+// });
 
 
 //==========================================================
@@ -294,25 +294,25 @@ function getParent(snapshot) {
 //========================================================
 	
 
-exports.getMyOrders = functions.https.onRequest((req,res)=> {
-	var userId = req.body.userId;
-	var ordersRef = db.ref("orders");
-	ordersRef.orderbyChild("userId").equalTo(userId).once("value",snap => {
-		console.log("Order Count So Far "+snap.val().orderId);
-	});
-});
+// exports.getMyOrders = functions.https.onRequest((req,res)=> {
+// 	var userId = req.body.userId;
+// 	var ordersRef = db.ref("orders");
+// 	ordersRef.orderbyChild("userId").equalTo(userId).once("value",snap => {
+// 		console.log("Order Count So Far "+snap.val().orderId);
+// 	});
+// });
 
 //========================================================
 
 
-exports.donatebooks = functions.https.onRequest((req,res)=> {
-	var userId;
-	var imageUrl;
-	var bookName;
-	var phoneNumber;
-	var firstName;
-	var bookCount;
-});
+// exports.donatebooks = functions.https.onRequest((req,res)=> {
+// 	var userId;
+// 	var imageUrl;
+// 	var bookName;
+// 	var phoneNumber;
+// 	var firstName;
+// 	var bookCount;
+// });
 
 
 //========================================================
@@ -321,58 +321,37 @@ exports.donatebooks = functions.https.onRequest((req,res)=> {
 exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
 
 		
-		var ref = snapshot.data.ref.parent;
 		
+		var orderId;
+			
+  // Now simply find the parent and return the name.
+		try{
+			orderId =  snapshot.data.ref.parent.key;
+		}
+		catch(e){
+				console.log("Error "+e);
+		}
 		
-		console.log("ref :"+ref);
-		// // console.log("Name of the parent: "+getParent(snapshot));
 
-		// try{
-		// 	console.log()
-  // // 		console.log("Invoking Update snap.parent.name "+snapshot.data.parent.name);
 
-		// }
-		// catch(e){
-		// 	console.log("Error "+e);
-		// }
-		// try{
 
-  // 		console.log("Invoking Update snap.parent.key "+snapshot.data.parent.key);
+  		var updatePartner = require('./apis/update_partner');
+  		// Since Order is fullfilled , we Have Money 
+  		//Send The Money Info to Partner
+  		updatePartner.broadcastToPartner(orderId);
 
-		// }
-		// catch(e){
-		// 	console.log("Error "+e);
-		// }
-		// try{
-
-  // 		console.log("Invoking Update snap.parent "+snapshot.data.parent);
-
-		// }
-		// catch(e){
-		// 	console.log("Error "+e);
-		// }
-		// try{
-
-  // 		console.log("Invoking Update snap.key "+snapshot.data.key.parent.name);
-
-		// }
-		// catch(e){
-		// 	console.log("Error "+e);
-		// }
-  // 		var updatePartner = require('./apis/update_partner');
-
-  // 		var productsCount = snapshot.val().products.length;
-  // 		var productsToNotify ={};
+  		// var productsCount = snapshot.val().products.length;
+  		// var productsToNotify ={};
   		// console.log("Product Counts are "+productsCount);
   		// for(int i =0;i<productsCount;i++){
   		// 	var pidVal = snapshot.val().products[i].pid;
   		// 	var pidName = snapshot.val().products[i].productName;
   		// 	console.log("for Loop - Broadcasting: "+pid);
   		// 	updatePartner.broadcastToPartner(pidVal,25,pidName,"2 Weeks");
-  		// 	// var amountCharged = snapshot.val().products[i].amount;
-  		// 	// var duration = snapshot.val().products[i].duration
-  		// 	// productsToNotify.push({pid: pid, productName: pName});
-  		// // We have a list of Products , get those Partner Id and Update his Amount Record
+  		// 	var amountCharged = snapshot.val().products[i].amount;
+  		// 	var duration = snapshot.val().products[i].duration
+  		// 	productsToNotify.push({pid: pid, productName: pName});
+  		// We have a list of Products , get those Partner Id and Update his Amount Record
 
 
   			
@@ -451,28 +430,34 @@ exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliv
 
 //============================================
 
-exports.getGenres = functions.https.onRequest((req,res)=>{
-		var genRef = "genres";
-		genRef.once("value",snap=>{
-			console.log("Genres :"+snap.val());
-		});
-	});
-exports.explore = functions.https.onRequest((req,res)=>{
+// exports.getGenres = functions.https.onRequest((req,res)=>{
+// 		var genRef = "genres";
+// 		genRef.once("value",snap=>{
+// 			console.log("Genres :"+snap.val());
+// 		});
+// 	});
 
-		var exploreHandler = require('./apis/explore');
-		exploreHandler.showExploreProducts(req,res);
-});
+//==============================================
+
+// exports.explore = functions.https.onRequest((req,res)=>{
+
+// 		var exploreHandler = require('./apis/explore');
+// 		exploreHandler.showExploreProducts(req,res);
+// });
 
 
 //=====================================================
 
-exports.addBook = functions.https.onRequest((req,res)=>{
-	var partnerId = req.body.partnerId;
-	// Get his Phone Number , push it to a DashBoard
-});
+// exports.addBook = functions.https.onRequest((req,res)=>{
+// 	var partnerId = req.body.partnerId;
+// 	// Get his Phone Number , push it to a DashBoard
+// });
 
 
-exports.checkoutMoney = functions.https.onRequest((req,res)=>{
-	// var partnerId = req.body.partnerId;
-	// Get the Amount to be paid , get his location and Phone
-});
+// exports.checkoutMoney = functions.https.onRequest((req,res)=>{
+// 	// var partnerId = req.body.partnerId;
+// 	// Get the Amount to be paid , get his location and Phone
+// });
+
+
+
