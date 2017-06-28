@@ -31,34 +31,64 @@ exports.doLogin = function(req,res) {
 
 		//Run it through user Loops
 		var usersRef = db.ref("users");
-		usersRef.on("child_added",(snap,prevKey) => {
-			console.log("Email Address "+snap.val().emailAddress);
-				if (snap.val().emailAddress == email) {
-					console.log("Password "+snap.val().password);
-						if (snap.val().password == password ) {
-								//Right Password
-								if (!res.headersSent) {
-									console.log("response Sent 1");
-									// res.send(snap.val());
-								}
-								
-								
 
-						}
-						else{
-							//Wrong Password
-							if (!res.headersSent) {
-							     console.log("response Sent 0");
-								}
-						
-						}
+		//query the users ref by Email 
 
-				}
-				else{
-
-				}
+		usersRef.orderByChild("emailAddress").equalTo(email).once("value",snap =>{
+			res.send(snap.val());
 
 		});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		// usersRef.on("child_added",(snap,prevKey) => {
+		// 	console.log("Email Address "+snap.val().emailAddress);
+		// 		if (snap.val().emailAddress == email) {
+		// 			console.log("Password "+snap.val().password);
+		// 				if (snap.val().password == password ) {
+		// 						//Right Password
+		// 						if (!res.headersSent) {
+		// 							console.log("response Sent 1");
+		// 							// res.send(snap.val());
+		// 						}
+								
+								
+
+		// 				}
+		// 				else{
+		// 					//Wrong Password
+		// 					if (!res.headersSent) {
+		// 					     console.log("response Sent 0");
+		// 						}
+						
+		// 				}
+
+		// 		}
+		// 		else{
+
+		// 		}
+
+		// });
 		
 };
 

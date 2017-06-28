@@ -284,18 +284,22 @@ var db = admin.database();
 
 //========================================================
 	
+	//WORKING/////////////////////////////////
+	//get the Orders of user , Queries order Node by userId
 
-exports.getMyOrders = functions.https.onRequest((req,res)=> {
-	var userId = req.body.userId;
-	var ordersRef = db.ref("orders");
-	ordersRef.orderByChild("userId").equalTo(userId).once("value",snap => {
-		if (!res.headersSent) {
-			res.send(snap.val());
-		}
-	});
-});
+// exports.getMyOrders = functions.https.onRequest((req,res)=> {
+// 	var userId = req.body.userId;
+// 	var ordersRef = db.ref("orders");
+// 	ordersRef.orderByChild("userId").equalTo(userId).once("value",snap => {
+// 		if (!res.headersSent) {
+// 			res.send(snap.val());
+// 		}
+// 	});
+// });
 
 //========================================================
+
+
 
 
 // exports.donatebooks = functions.https.onRequest((req,res)=> {
@@ -346,9 +350,11 @@ exports.getMyOrders = functions.https.onRequest((req,res)=> {
 //==============================================================
  
 
+
+// , {emailAddress,password, f}
 // exports.login = functions.https.onRequest((req,res) => {
-// 	var loginHandler = require('./apis/login_handler');
-// 	loginHandler.doLogin(req,res);
+	// var loginHandler = require('./apis/login_handler');
+	// loginHandler.doLogin(req,res);
 // });
 
 
@@ -361,7 +367,8 @@ exports.getMyOrders = functions.https.onRequest((req,res)=> {
 
 
 //===============================================================
-
+	// Working///////////////////////////////////////////
+	// returns status:1/0
 // exports.saveDefaultLocation = functions.https.onRequest((req,res)=>{
 // 	var defLat = req.body.defLat;
 // 	var defLon  = req.body.defLon;
@@ -369,12 +376,20 @@ exports.getMyOrders = functions.https.onRequest((req,res)=> {
 // 	var userPath = 'users/'+userId;
 // 	var updateLat = {
 // 		defLon:defLon,
-// 		defLat:defLon
+// 		defLat:defLat
 // 	};
 // 	var userRef = db.ref(userPath);
 // 	userRef.update(updateLat,err=>{
 // 		if (err) {
 // 			console.log("Error");
+// 			if (!res.headersSent) {
+// 			res.send({status:0});
+// 			}
+// 		}
+// 		else{
+// 			if (!res.headersSent) {
+// 			res.send({status:1});
+// 		}
 // 		}
 // 	});
 // });

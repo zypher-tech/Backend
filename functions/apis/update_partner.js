@@ -8,7 +8,7 @@ var db = admin.database();
 
 
 
-
+// get Partner Id from OrderId
 exports.broadcastToPartner = function(orderId){
 
 		console.log("Broadcasting OrderId: "+orderId);
@@ -33,13 +33,18 @@ exports.broadcastToPartner = function(orderId){
   					// Udpate Every Partner in the Order
   					updatePartner(pidVal,25,pidName,"2 Weeks",oId);
   					// var amountCharged = snapshot.val().products[i].amount;
+  					// have some Fraction
   	// 				// var duration = snapshot.val().products[i].duration
+  				//var who
   				}
   	
   		});
-  		// 	productsToNotify.push({pid: pid, productName: pName});
+  		
 			
 };
+
+
+
 function updatePartner(pid,amount,productName,duration,orderId) {
 	console.log("getting Parter Details for "+pid);
 		var bookpath = "books/"+pid;
