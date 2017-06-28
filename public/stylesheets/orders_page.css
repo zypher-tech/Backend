@@ -12,6 +12,32 @@
 }
 
 
+
+
+#map {
+   width: 80%;
+   height: 300px;
+   margin-left: 30px;
+   margin-right: 30px;
+
+   background-color: grey;
+ }
+
+.top_cotainer{
+	margin-top: 20px;
+	width: 80%;
+	height: 40px;
+	margin-left: 16px;
+}
+.root_cotainer{
+	margin-top: 20px;
+	width: 80%;
+	height: 40px;
+	margin-left: 16px;
+
+}
+
+
 #orders_count{
 	margin-left: 50px;
 	text-align: center;

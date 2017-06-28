@@ -5,6 +5,11 @@ const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
+const cors = require('cors')({
+  origin: true
+});
+
+
 //The Root path of Db
 var db = admin.database();
 // Individual Modeules
@@ -279,17 +284,19 @@ var db = admin.database();
 // });
 //===============================
 
-exports.getRiderOrders =  functions.https.onRequest((req,res) => {
-		var riderId  = req.body.riderId;
-		var ordersRef = db.ref("orders");
-		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
-		.once("value",snap => {
-				if (!res.headersSent) {
-					res.send(snap.val());
-				}
-		});
+// WORKING ,
+// CHANGE RETURN object
+// exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+// 		var riderId  = req.body.riderId;
+// 		var ordersRef = db.ref("orders");
+// 		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
+// 		.once("value",snap => {
+// 				if (!res.headersSent) {
+// 					res.send(snap.val());
+// 				}
+// 		});
 
-});
+// });
 
 
 //==========================================================
@@ -534,3 +541,28 @@ exports.getRiderOrders =  functions.https.onRequest((req,res) => {
 // });
 
 
+
+//--------------------------------------------------------
+
+//ADmin Page
+exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
+		  cors((req, res, () => {
+				var ordersRef = db.ref("orders");
+				ordersRef.orderByChild("deliveryStatus").equalTo(0)
+					.once("value",snap=>{
+					if (!res.headersSent) {
+						res.send(snap.val());
+					}
+				});
+    	}));
+});
+
+
+exports.getRiders = functions.https.onRequest((req,res)=>{
+	
+	var ridersRef = db.ref("riders");
+	ridersRef.once("value",snap=>{
+		console.log(snap.val());
+	});
+
+});
