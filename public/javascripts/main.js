@@ -185,16 +185,16 @@ AdminManager.prototype.setPid = function (db) {
             snapshot.forEach(function (singleData) {
                 // var bookName = singleData.key;
                 count++;
-            };
+            });
            var mPid  = document.getElementById('pid_text');
            mPid.value = count;
-         );
+        });
 
 
 
             // this.setPidToEntity(count);
             // mPid.focus();
-        });
+
 
 };
 

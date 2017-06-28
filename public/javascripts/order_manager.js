@@ -37,7 +37,7 @@ orderManager.prototype.doLogin = function () {
         .catch(function(error) {
         // Handle Errors here.
           console.log('Not Logged In');
-        var errorCode = error.code;
+          var errorCode = error.code;
 
 
         var errorMessage = error.message;
@@ -74,18 +74,11 @@ orderManager.prototype.checkSigin = function () {
 
 function getOrders(){
 
+      console.log("Inside get Orders");
 
-
-  console.log("Inside get Orders Function");
-
-  var ordersRef  = firebase.database().ref('orders');
-  ordersRef.on("child_added",function(snap){
-      console.log(("Order Id "+snap.orderId));
-      console.log("val().orderId "+snap.val().orderId);
-  });
-
-
+        window.location='orders_page.html';
 };
+
 
 
 

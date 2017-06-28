@@ -338,26 +338,19 @@ exports.getRiderOrders =  functions.https.onRequest((req,res) => {
 //   */
 
 // exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
-
 // 		// All Products must have parnters
 // 		//get the Order that was delivered
 // 		var orderId;
-			
- 	
 // 		try{
 // 			orderId =  snapshot.data.ref.parent.key;
 // 		}
 // 		catch(e){
 // 				console.log("Error "+e);
 // 		}
-		
-
-
-
-//   		var updatePartner = require('./apis/update_partner');
-//   		// Since Order is fullfilled , we Have Money 
-//   		//Send The Money Info to Partner
-//   		updatePartner.broadcastToPartner(orderId);
+//  	var updatePartner = require('./apis/update_partner');
+//      // Since Order is fullfilled , we Have Money 
+//   	//Send The Money Info to Partner
+//   	updatePartner.broadcastToPartner(orderId);
 //   });
 
 //==============================================================

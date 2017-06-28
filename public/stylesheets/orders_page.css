@@ -1,0 +1,20 @@
+
+
+.top_header{
+
+	margin-top: 40px;
+	margin-left: 40px;
+	height: 80px;
+	float: left;
+	width: 80%;
+	display: inline-block;
+
+}
+
+
+#orders_count{
+	margin-left: 50px;
+	text-align: center;
+	margin-top: 10px;
+	font-size: 20px;
+}

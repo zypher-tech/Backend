@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html xmlns:border="http://www.w3.org/1999/xhtml">
   <head>
@@ -6,17 +9,15 @@
     <title>Orders Management</title>
 
       <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-      <script src="https://cdn.firebase.com/libs/firebaseui/2.1.1/firebaseui.js"></script>
+      
       <!--<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">-->
-      <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css" />
+      <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"/>
       <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
-
-
+      <link rel="stylesheet" href="../public/stylesheets/orders_page.css"/>
     <script>
       // Initialize Firebase
-      var config = {
+     var config = {
         apiKey: "AIzaSyCGzuPdXHPpeqzZGVkXzHF7rKjxre7I_Aw",
         authDomain: "bookaholic-786.firebaseapp.com",
         databaseURL: "https://bookaholic-786.firebaseio.com",
@@ -26,49 +27,33 @@
       };
       firebase.initializeApp(config);
     </script>
+    </head>
 
 
     <body>
-
-              <div class="mdl-card mdl-shadow--8dp root_container">
-                  <div class="mdl-card__title ">
-                      <h2 class="mdl-card__title-text">Welcome! are you ready to rock?.</h2>
-                  </div>
-
-
-                  <div class="mdl-card__supporting-text">
-                  <!--Email-->
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="email_div">
-                      <input class="mdl-textfield__input" type="email" id="o_email" >
-                      <label class="mdl-textfield__label" for="o_email">Email...</label>
-                  </div>
-                  <!--Password-->
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="password_div">
-                      <input class="mdl-textfield__input" type="text" id="o_password" >
-                      <label class="mdl-textfield__label" for="o_password">Password...</label>
-                  </div>
-                  <!--Login-->
-                  <button class="mdl-button mdl-js-button
-                   mdl-button--raised mdl-js-ripple-effect mdl-button--accent " id="o_login_button">
-                      Login
-                  </button>
-
-
-
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="secret_code_div">
-                      <input class="mdl-textfield__input" type="text" id="o_secret_code" >
-                      <label class="mdl-textfield__label" for="o_secret_code">Secret Code...</label>
-                  </div>
-                  <!--Sign Up-->
-                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent sign_up_button" id="o_sign_up_buttton">
-                     Sign Up
-                  </button>
-                      </div>
-              </div>
-
-
-
-
+			<!-- Simple header with fixed tabs. -->
+		<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header
+        		    mdl-layout--fixed-tabs">
+  			<header class="mdl-layout__header">
+    			<div class="mdl-layout__header-row">
+      			<!-- Title -->
+      			<h5>Orders Console</h5>
+    			</div>
+    <!-- Tabs -->
+			    <div class="mdl-layout__tab-bar mdl-js-ripple-effect">
+      				<a href="#fixed-tab-1" class="mdl-layout__tab is-active">New orders</a>
+      				<a href="#fixed-tab-2" class="mdl-layout__tab">Returns</a>
+    			</div>
+  			</header>
+  			
+  			<main class="mdl-layout__content">
+    			<section class="mdl-layout__tab-panel is-active" id="fixed-tab-1">
+      				<div class="page-content"><!-- Your content goes here --></div>
+    			</section>
+    			<section class="mdl-layout__tab-panel" id="fixed-tab-2">
+      				<div class="page-content"><!-- Your content goes here --></div>
+    			</section>
+  			</main>
+</div>    	
     </body>
-      <script src="./javascripts/order_manager.js"></script>
 </html>
