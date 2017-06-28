@@ -259,6 +259,15 @@ var db = admin.database();
 // });
 
 
+//=================================================================
+// Assign Rider Attributes to Order 
+// // 
+
+// exports.assignOrderToRider = functions.https.onRequest((req,res) => {
+// 		var assignOrderToRider = require('./apis/assign_order_to_rider');
+// 		assignOrderToRider.updateOrder(req,res);
+// });
+
 
 
 // ======================================================
@@ -270,13 +279,17 @@ var db = admin.database();
 // });
 //===============================
 
-// exports.getRiderOrders =  functions.https.onRequest((req,res) => {
-// 		// var riderId = req.body.riderId;
-// 		// var orderAssignRef = db.ref("orderAssignation/"+riderId+'/orders');
-// 		// orderAssignRef.once("value",snap => {
-				
-// 		// });
-// });
+exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+		var riderId  = req.body.riderId;
+		var ordersRef = db.ref("orders");
+		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
+		.once("value",snap => {
+				if (!res.headersSent) {
+					res.send(snap.val());
+				}
+		});
+
+});
 
 
 //==========================================================
@@ -526,3 +539,5 @@ var db = admin.database();
 // 	});
 
 // });
+
+
