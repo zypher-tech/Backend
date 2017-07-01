@@ -5,9 +5,7 @@ const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-const cors = require('cors')({
-  origin: true
-});
+const cors = require('cors')({origin: "https:us-central1-bookaholic-786.cloudfunctions.net"});
 
 
 //The Root path of Db
@@ -39,11 +37,11 @@ var db = admin.database();
 // ONE----->
 
 
-// exports.home =functions.https.onRequest((request, response) => {
-// 		var homemod = require('./apis/home_api');
+exports.home =functions.https.onRequest((request, response) => {
+		var homemod = require('./apis/home_api');
 
-// 		homemod.initialize(request,response);
-//   });
+		homemod.initialize(request,response);
+  });
 // =====================================================
 
 /*View a Single Product
@@ -69,11 +67,11 @@ var db = admin.database();
 
   ////// WORKING//////////////////////////////
 
-// exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
-// 			var userOrderHandler = require('./apis/place_order_api');
+exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
+			var userOrderHandler = require('./apis/place_order_api');
 
-// 		userOrderHandler.placeOrderForuser(request,response);
-// });
+		userOrderHandler.placeOrderForuser(request,response);
+});
 
 // =====================================================
 
@@ -212,11 +210,11 @@ var db = admin.database();
 //WORKING//////////////////////////////////////////////////////////////
 // PULLS /partners/{partnerId}/home/{bookCount,orderedTimes,AmountEarned,ranking}
 
-// exports.getPartnerHome = functions.https.onRequest((req,res) => {
+exports.getPartnerHome = functions.https.onRequest((req,res) => {
 	
-// 	var partnerHome = require('./apis/partner_home');
-// 	partnerHome.showHome(req,res);
-// });
+	var partnerHome = require('./apis/partner_home');
+	partnerHome.showHome(req,res);
+});
 
 // =====================================================
 
@@ -226,42 +224,41 @@ var db = admin.database();
 //used when Rider delivering and Collectiing the amount for  order
 // // It changes delivery status
 
-// exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
+exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
-//     var orderId = req.body.orderId;
-//     var riderId = req.body.riderId;
-//     var riderName = req.body.riderName;
-//     var riderNumber  = req.body.phoneNumber;
-//     var orderPath = 'orders/'+orderId;
-//     var ordersRef = db.ref(orderPath);
-//     var updateOrderStatus =  {
-//     	deliveryStatus:1,
-//     	rider:{
-//     		riderId:riderId,
-//     		riderName:riderName,
-//     		riderNumber:riderNumber
-//     	},
-//     	deliveredAt:Date.now(),
-//     	timingEngine:{
-// 			deliveredAt:Date.now()
-// 		}
-//     };
-//     ordersRef.update(updateOrderStatus,err => {
-//     	console.log("inside callback ");
-//     		if (err) {
-//     			if (!res.headersSent) {
-//     				res.send({status:0});
-//     			}
-//     		}
-//     }).then(function(){
-//     	console.log("inside then ");
-//     	if (!res.headersSent) {
-//     		res.send({status:1});
-//     	}
-//     });
+    var orderId = req.body.orderId;
+    var riderId = req.body.riderId;
+    var riderName = req.body.riderName;
+    var riderNumber  = req.body.phoneNumber;
+    var orderPath = 'orders/'+orderId;
+    var ordersRef = db.ref(orderPath);
+    var updateOrderStatus =  {
+    	deliveryStatus:1,
+    	rider:{
+    		riderId:riderId,
+    		riderName:riderName,
+    		riderNumber:riderNumber
+    	},
+       	timingEngine:{
+			deliveredAt:Date.now()
+		}
+    };
+    ordersRef.update(updateOrderStatus,err => {
+    	console.log("inside callback ");
+    		if (err) {
+    			if (!res.headersSent) {
+    				res.send({status:0});
+    			}
+    		}
+    		else{
+    			if (!res.headersSent) {
+    				res.send({status:1});
+    			}
+    		}
+    });
     
 
-// });
+});
 
 
 //=================================================================
@@ -286,17 +283,21 @@ var db = admin.database();
 
 // WORKING ,
 // CHANGE RETURN object
-// exports.getRiderOrders =  functions.https.onRequest((req,res) => {
-// 		var riderId  = req.body.riderId;
-// 		var ordersRef = db.ref("orders");
-// 		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
-// 		.once("value",snap => {
-// 				if (!res.headersSent) {
-// 					res.send(snap.val());
-// 				}
-// 		});
+exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+		var returnJson = {
+			"orders":[]
+		};
+		var riderId  = req.body.riderId;
+		var ordersRef = db.ref("orders");
+		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
+		.once("value",snap => {
+				// We hAve snap with Child
+				snap.forEach(singlesnap =>{
+					console.log("Single Snap "+singlesnap.val().orderId);
+				});
+		});
 
-// });
+});
 
 
 //==========================================================
@@ -514,12 +515,12 @@ var db = admin.database();
 
 // WORKING ////////////////////////////////////////////
 
-// exports.getPartnerBook = functions.https.onRequest((req,res) =>{
+exports.getPartnerBook = functions.https.onRequest((req,res) =>{
 
-// 	var partnerHome = require('./apis/partner_home');
-// 	partnerHome.getBooksByPartnerId(req,res);
+	var partnerHome = require('./apis/partner_home');
+	partnerHome.getBooksByPartnerId(req,res);
 
-// });
+});
 
 
 //===========================================================
@@ -527,42 +528,67 @@ var db = admin.database();
 
 //WORKING//////////////////////////////////////
 
-// exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
-// 	// Get his home Page
-// 	var partnerId = req.body.partnerId;
-// 	var d =new Date();
-// 	var month = d.getMonth();
-// 	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+month;
-// 	var transRef = db.ref(transactionPath);
-// 	transRef.once("value", snap =>{
-// 		res.send(snap.val());
-// 	});
+exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
+	// Get his home Page
+	var returnJson = {
+		"transactions":[]
+	};
+	var partnerId = req.body.partnerId;
+	var d =new Date();
+	var month = d.getMonth();
+	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+7;
+	console.log("Getting Transasctio Path "+transactionPath);
+	var transRef = db.ref(transactionPath);
+	transRef.once("value", snap =>{
+		 snap.forEach(s=>{
+		 		var amount =  s.val().amount;
+		 		var duration = s.val().duration;
+		 		var productName = s.val().productName;
+		 		var trans = {
+		 			amount:amount,
+		 			duration:duration,
+		 			productName:productName
+		 		};
+		 		returnJson.transactions.push(trans);
 
-// });
+		 });
+		 if (!res.headersSent) {
+		 	res.send(returnJson);
+		 }
+	});
+
+});
 
 
 
 //--------------------------------------------------------
 
-//ADmin Page
-exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
-		  cors((req, res, () => {
-				var ordersRef = db.ref("orders");
-				ordersRef.orderByChild("deliveryStatus").equalTo(0)
-					.once("value",snap=>{
-					if (!res.headersSent) {
-						res.send(snap.val());
-					}
-				});
-    	}));
-});
+// //ADmin Page
+// exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
+// 		  cors((req, res, () => {
+// 				var ordersRef = db.ref("orders");
+// 				ordersRef.orderByChild("deliveryStatus").equalTo(0)
+// 					.once("value",snap=>{
+// 					if (!res.headersSent) {
+// 						  res.header("Access-Control-Allow-Origin", "*");
+//   							res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+//   							res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+// 	  					res.status(200).send(snap.val());
+
+// 					}
+// 				});
+//     	}));
+// });
 
 
-exports.getRiders = functions.https.onRequest((req,res)=>{
+// exports.getRiders = functions.https.onRequest((req,res)=>{
 	
-	var ridersRef = db.ref("riders");
-	ridersRef.once("value",snap=>{
-		console.log(snap.val());
-	});
+// 	var ridersRef = db.ref("riders");
+// 	ridersRef.once("value",snap=>{
+// 				if (!res.headersSent) {
+// 					res.setHeader()
+// 						res.status(200).send(snap.val());
+// 				}
+// 	});
 
-});
+// });

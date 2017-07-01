@@ -22,17 +22,35 @@ exports.showHome = function(req, res){
         	  res.send(snap.val());
         	}
      });
-  };
+};
 
 
   exports.getBooksByPartnerId = function(req,res){
 
+      var returnJson = {
+        "books":[]
+      }
   		var partnerId = req.body.partnerId;
   		console.log("Getting books for parnter Id "+partnerId);
   		var booksRef = db.ref("books");
   		booksRef.orderByChild("partnerId")
   		.equalTo(partnerId).once("value",snap=>{
-  				res.send(snap.val());
+  				snap.forEach(s =>{
+              var pid =s.val().pid;
+              var pName = s.val().pName;
+              var image = s.val().imageURL;
+              var Mrp = s.val().MRP;
+
+              returnJson.books.push({
+                pid:pid,
+                pName:pName,
+                imageURL:image,
+                MRP:Mrp
+              });
+          });
+          if (!res.headersSent) {
+            res.send(returnJson);
+          }
   		});
 
   };

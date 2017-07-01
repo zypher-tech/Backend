@@ -58,6 +58,9 @@ window.onload = function (event){
 
 function createCORSRequest(method, url) {
   var xhr = new XMLHttpRequest();
+	// xhr.setRequestHeader(“Access-Control-Allow-Origin”, “https:us-central1-bookaholic-786.cloudfunctions.net”);
+	// xhr.setRequestHeader(“Access-Control-Allow-Credentials”, “true”);
+	// xhr.setRequestHeader(“Access-Control-Allow-Methods”, “GET”);
   if ("withCredentials" in xhr) {
 
     // Check if the XMLHttpRequest object has a "withCredentials" property.
