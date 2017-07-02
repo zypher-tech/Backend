@@ -23,13 +23,17 @@ exports.updateOrder = function(req,res){
 			};
 			orderRef.update(riderObj,err=>{
 					if (err) {
-						if (!res.headersSent) {}
+						// Error Happened
+						if (!res.headersSent) {
+
 							res.send({status:0});
+						}
 					}
 					else{
 						// Written Successfully
-						if (!res.headersSent) {}
+						if (!res.headersSent) {
 							res.send({status:1});
+						}
 					}
 			});
 };

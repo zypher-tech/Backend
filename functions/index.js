@@ -199,7 +199,7 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 //         // orderSchema.products[i].productName = productName;
 //       }
 //       var updateRider = require('./apis/update_rider');
-// 	  var updatePartner = require('./apis/update_partner');
+	 
 //       // updatePartner.broadcastToPartner(orderSchema);
 //       updateRider.broadcastToRiders(orderSchema);
 //  });
@@ -265,10 +265,10 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 // Assign Rider Attributes to Order 
 // // 
 
-// exports.assignOrderToRider = functions.https.onRequest((req,res) => {
-// 		var assignOrderToRider = require('./apis/assign_order_to_rider');
-// 		assignOrderToRider.updateOrder(req,res);
-// });
+exports.assignOrderToRider = functions.https.onRequest((req,res) => {
+		var assignOrderToRider = require('./apis/assign_order_to_rider');
+		assignOrderToRider.updateOrder(req,res);
+});
 
 
 
@@ -283,21 +283,21 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
 // WORKING ,
 // CHANGE RETURN object
-exports.getRiderOrders =  functions.https.onRequest((req,res) => {
-		var returnJson = {
-			"orders":[]
-		};
-		var riderId  = req.body.riderId;
-		var ordersRef = db.ref("orders");
-		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
-		.once("value",snap => {
-				// We hAve snap with Child
-				snap.forEach(singlesnap =>{
-					console.log("Single Snap "+singlesnap.val().orderId);
-				});
-		});
+// exports.getRiderOrders =  functions.https.onRequest((req,res) => {
+// 		var returnJson = {
+// 			"orders":[]
+// 		};
+// 		var riderId  = req.body.riderId;
+// 		var ordersRef = db.ref("orders");
+// 		ordersRef.orderByChild("rider/riderId").equalTo(riderId)
+// 		.once("value",snap => {
+				
+// 				snap.forEach(singlesnap =>{
+					
+// 				});
+// 		});
 
-});
+// });
 
 
 //==========================================================
@@ -345,21 +345,21 @@ exports.getRiderOrders =  functions.https.onRequest((req,res) => {
    *
 //   */
 
-// exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
-// 		// All Products must have parnters
-// 		//get the Order that was delivered
-// 		var orderId;
-// 		try{
-// 			orderId =  snapshot.data.ref.parent.key;
-// 		}
-// 		catch(e){
-// 				console.log("Error "+e);
-// 		}
-//  	var updatePartner = require('./apis/update_partner');
-//      // Since Order is fullfilled , we Have Money 
-//   	//Send The Money Info to Partner
-//   	updatePartner.broadcastToPartner(orderId);
-//   });
+exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
+		// All Products must have parnters
+		//get the Order that was delivered
+		var orderId;
+		try{
+			orderId =  snapshot.data.ref.parent.key;
+		}
+		catch(e){
+				console.log("Error "+e);
+		}
+ 	var updatePartner = require('./apis/update_partner');
+     // Since Order is fullfilled , we Have Money 
+  	//Send The Money Info to Partner
+  	updatePartner.broadcastToPartner(orderId);
+  });
 
 //==============================================================
  
@@ -563,22 +563,36 @@ exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
 
 //--------------------------------------------------------
 
-// //ADmin Page
-// exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
-// 		  cors((req, res, () => {
-// 				var ordersRef = db.ref("orders");
-// 				ordersRef.orderByChild("deliveryStatus").equalTo(0)
-// 					.once("value",snap=>{
-// 					if (!res.headersSent) {
-// 						  res.header("Access-Control-Allow-Origin", "*");
-//   							res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
-//   							res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
-// 	  					res.status(200).send(snap.val());
+//Rider Home  Page
+exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
+		
+				var returnJson = {
+						"orders":[]
+				};
+				var ordersRef = db.ref("orders");
+				ordersRef.orderByChild("deliveryStatus").equalTo(0)
+					.once("value",snap=>{
+						// Full Order Child
+						snap.forEach(snapshot => {
+							// Get The Values and add it to return String 
+							returnJson.orders.push({
+							 	orderId:snapshot.val().orderId,
+							 	userId:snapshot.val().userId,
+							 	firstName:snapshot.val().firstName,
+							 	lastName:snapshot.val().lastName,
+							 	orderLat:snapshot.val().orderLat,
+							 	orderLon:snapshot.val().orderLon,
+							 	products: snapshot.val().products,
+							 	amount:snapshot.val().payment.amount,
+							 	orderInsertedAt:snapshot.val().timingEngine.orderInsertedAt
+							});
+						});
+						if (!res.headersSent) {
+							res.send(returnJson);
+						}
+				});
+});
 
-// 					}
-// 				});
-//     	}));
-// });
 
 
 // exports.getRiders = functions.https.onRequest((req,res)=>{

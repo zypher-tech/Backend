@@ -22,7 +22,7 @@ var orderSchema = {
 	firstName:'',
 	lastName:'',
 	phoneNumber:'',
-	deliveryStatus:'',
+	
 	orderLat:'',
 	orderLon :'',
 	
@@ -123,13 +123,15 @@ function insertOrder(order_count){
 		}
 	};
 	console.log("Insert Order Method  Order Id "+order_count);
-	oScheme.orderId = order_count;
+	oScheme.orderId = order_count+1;
  	oScheme.userId = request.body.userId;
  	oScheme.firstName = request.body.firstName;
  	oScheme.lastName  = request.body.lastName;
  	oScheme.orderLat = request.body.orderLat;
  	oScheme.orderLon = request.body.orderLon;
+ 	oScheme.payment.amount = request.body.amount;
  	oScheme.phoneNumber = request.body.phoneNumber;
+ 	oScheme.timingEngine.orderInsertedAt = Date.now();
  	//get the List of products
 
  	console.log("Got Varaibles " + oScheme.phoneNumber);
@@ -139,14 +141,15 @@ function insertOrder(order_count){
 			try{
 		 		//Individual Products in Response
 	 			var pid = request.body.products[i].pid;
-
 	 			//Insert into this Order
 	 			//Prepare Packing
 	 			//Add to PartnerBroadcast Tables
+
 				var pName = request.body.products[i].productName;
-				console.log("Getting Products [i] "+pName);
+				var pImage = request.body.products[i].imageURL;
+				
  				//parePacking(pid);
- 		 		oScheme.products.push({pid: pid, productName: pName});
+ 		 		oScheme.products.push({pid: pid, productName: pName,imageURL: pImage});
 	 		}
 	 		catch(err){
 	 			if(!response.headersSent){
@@ -157,6 +160,7 @@ function insertOrder(order_count){
      }
  	// update Order Status
  	oScheme.timingEngine.orderInsertedAt = Date.now();
+ 	oScheme.deliveryStatus = 0;
  	console.log("Order Construction complete, pushing...");
  		//Timing Related Attiribs
  		// orderSchema.timingEngine.orderAcceptedAt = Date.now();

@@ -46,11 +46,13 @@ function getCombos(snapshot){
   	  console.log("Value from Combos Table "+ snapshot.val());
   	  returnJson.combos = snapshot.val();
 
-	}).then(sendJson,error);
+	}).then(sendJson);
 };
 
 function sendJson(){
 	//get Individual Products
 	console.log("Final Json "+returnJson);
-	response.send(returnJson);
+	if (!response.headersSent) {
+		response.send(returnJson);
+	}
 };

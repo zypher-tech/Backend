@@ -1,0 +1,30 @@
+
+
+
+
+
+// pLACE oRDER
+
+{
+
+	
+      "userId":4,
+        "phoneNumber":"9688612122",
+          "firstName":"Nandha",
+            "lastName":"Kumar",
+              "orderLat":45.65,
+                "orderLon":50.44,
+                "amount":455
+                  "products":[
+                    {
+                  	 "pid":4,
+                      "productName":"Losing My Virginity",
+                      "imageURL":"http://ecx.images-amazon.com/images/I/51r4m5pEVwL._SX323_BO1,204,203,200_.jpg"
+					         },
+                    {
+                     "pid":4,
+                     "productName":"Losing My Virginity",
+                       "imageURL":"http://ecx.images-amazon.com/images/I/51r4m5pEVwL._SX323_BO1,204,203,200_.jpg"
+                    }
+                   ]
+}

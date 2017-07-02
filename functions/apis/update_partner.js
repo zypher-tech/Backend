@@ -70,6 +70,7 @@ function updatePartner(pid,amount,productName,duration,orderId) {
 
 // };
 
+97507 99444
 function writeamount(partnerId,productName,amount,duration,orderId) {
 	console.log("Writing Amount to Partner");
 	var partnerPath = "partners/"+partnerId;
