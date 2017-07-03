@@ -577,7 +577,7 @@ exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
 							// Get The Values and add it to return String 
 							returnJson.orders.push({
 							 	orderId:snapshot.val().orderId,
-							 	userId:snapshot.val().userId,
+								 	userId:snapshot.val().userId,
 							 	firstName:snapshot.val().firstName,
 							 	lastName:snapshot.val().lastName,
 							 	orderLat:snapshot.val().orderLat,
@@ -594,6 +594,102 @@ exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
 });
 
 
+
+exports.registerRider = functions.https.onRequest((req,res)=>{
+
+
+	var riderName = req.body.riderName;
+	var riderPhoneNumber = req.body.phoneNumber;
+	var emailAddress = req.body.emailAddress;
+	var password = req.body.password;
+	var ridersRef = db.ref("riders");
+
+	var returnJson = {
+		
+	};
+	var newRider = {
+		status:0,
+		riderId:0,
+		riderName:riderName,
+		phoneNumber:riderPhoneNumber,
+		emailAddress:emailAddress,
+		password:password
+	};
+ 	
+     ridersRef.once("value",function(snap){
+  				var riderCount = snap.numChildren()+1;
+  				console.log("Pushing Order At "+riderCount);
+  				newRider.riderId = riderCount;
+  				ridersRef.child(riderCount).set(newRider)
+  				.then(snapshot => {
+
+     				//pushed, user object, is now "snap"
+     				//Appending operation status to result
+     				console.log("Pushed User ");
+     				
+     				if (!res.headersSent) {
+							newRider.status = 1;
+							res.send(newRider);
+     				}
+     		
+    			 })
+     			.catch(function(error){
+     				console.log("Error at Pushing Registartion "+error);
+     				if (!res.headersSent) {
+						res.send({status:0});
+     				}
+     			});
+     		});
+
+
+});
+
+exports.registerPartner = functions.https.onRequest((req,res)=>{
+
+
+	var partnerName = req.body.partnerName;
+	var partnerPhoneNumber = req.body.phoneNumber;
+	var emailAddress = req.body.emailAddress;
+	var password = req.body.password;
+	var partnerRef = db.ref("partners");
+
+	var returnJson = {
+		
+	};
+	var newPartner = {
+		status:0,
+		partnerId:0,
+		partnerName:partnerName,
+		phoneNumber:partnerPhoneNumber,
+		emailAddress:emailAddress,
+		password:password
+	};
+ 	
+     partnerRef.once("value",function(snap){
+  				var partnerCount = snap.numChildren()+1;
+  				console.log("Pushing Order At "+partnerCount);
+  				newPartner.partnerId = partnerCount;
+  				partnerRef.child(partnerCount).set(newPartner)
+  				.then(snapshot => {
+
+     				//pushed, user object, is now "snap"
+     				//Appending operation status to result
+     				console.log("Pushed Partner ");
+     				
+     				if (!res.headersSent) {
+							newPartner.status = 1;
+							res.send(newPartner);
+     				}
+     		
+    			 })
+     			.catch(function(error){
+     				console.log("Error at Pushing Registartion "+error);
+     				if (!res.headersSent) {
+						res.send({status:0});
+     				}
+     			});
+     		});
+});
 
 // exports.getRiders = functions.https.onRequest((req,res)=>{
 	
