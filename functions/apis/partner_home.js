@@ -8,16 +8,19 @@ var db = admin.database();
 var response;
 
 
-exports.showHome = function(req, res){
+exports.showHome = function(req,res){
 	var partnerId = req.body.partnerId;
 	// show
 	//  var partnerId = req.body.partnerId;
-	 var partnerPath = "partners/"+partnerId+'/home';
+	 var partnerPath = "partners/" + partnerId;
+   console.log("Partner Path "+partnerPath);
 
 	 // show him book pages, ordered Times , amount Earned from book
 	 //show him his rank,free pic
 	 var partnerRef = db.ref(partnerPath);
-  	 partnerRef.once("value",snap=>{
+
+  	 partnerRef.once("value",snap => { 
+      console.log("Value obtained "+snap.val());
     	 if (!res.headersSent) {
         	  res.send(snap.val());
         	}

@@ -226,8 +226,11 @@ exports.getPartnerHome = functions.https.onRequest((req,res) => {
 
 exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
 
+try{
+
+
     var orderId = req.body.orderId;
-    var riderId = req.body.riderId;
+    var riderId = req.body.riderId;	
     var riderName = req.body.riderName;
     var riderNumber  = req.body.phoneNumber;
     var orderPath = 'orders/'+orderId;
@@ -237,7 +240,7 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
     	rider:{
     		riderId:riderId,
     		riderName:riderName,
-    		riderNumber:riderNumber
+    		phoneNumber:riderNumber
     	},
        	timingEngine:{
 			deliveredAt:Date.now()
@@ -246,16 +249,22 @@ exports.changeDeliveryStatus = functions.https.onRequest((req,res) => {
     ordersRef.update(updateOrderStatus,err => {
     	console.log("inside callback ");
     		if (err) {
+    			console.log("Error in Changing Delivery Status: "+err);
     			if (!res.headersSent) {
     				res.send({status:0});
     			}
     		}
     		else{
+    			console.log("Good hit");
     			if (!res.headersSent) {
     				res.send({status:1});
     			}
     		}
     });
+}
+catch(e){
+	console.log("Error in Changing Delivery Status:"+e);
+}
     
 
 });
@@ -348,12 +357,20 @@ exports.assignOrderToRider = functions.https.onRequest((req,res) => {
 exports.updatePartnerAboutOrder = functions.database.ref('/orders/{pushId}/deliveryStatus').onWrite(snapshot => {
 		// All Products must have parnters
 		//get the Order that was delivered
+
+		// todo: if delivery Value is 0 // Leave
+		console.log("DeliveryStatus Changed "+ snapshot.data.val());
+		if(snapshot.data.val() == 0){
+
+			return;
+		}
 		var orderId;
 		try{
 			orderId =  snapshot.data.ref.parent.key;
+			console.log("Updating Partner About OrderId "+orderId);
 		}
 		catch(e){
-				console.log("Error "+e);
+				console.log("Error  "+e);
 		}
  	var updatePartner = require('./apis/update_partner');
      // Since Order is fullfilled , we Have Money 
@@ -547,7 +564,8 @@ exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
 		 		var trans = {
 		 			amount:amount,
 		 			duration:duration,
-		 			productName:productName
+		 			productName:productName,
+		 			imageURL:pid
 		 		};
 		 		returnJson.transactions.push(trans);
 
@@ -577,7 +595,7 @@ exports.getUndeliveredOrders = functions.https.onRequest((req,res)=>{
 							// Get The Values and add it to return String 
 							returnJson.orders.push({
 							 	orderId:snapshot.val().orderId,
-								 	userId:snapshot.val().userId,
+								userId:snapshot.val().userId,
 							 	firstName:snapshot.val().firstName,
 							 	lastName:snapshot.val().lastName,
 							 	orderLat:snapshot.val().orderLat,
@@ -647,7 +665,8 @@ exports.registerRider = functions.https.onRequest((req,res)=>{
 exports.registerPartner = functions.https.onRequest((req,res)=>{
 
 
-	var partnerName = req.body.partnerName;
+	var partnerFirstName = req.body.firstName;
+	var partnerLastName = req.body.lastName;
 	var partnerPhoneNumber = req.body.phoneNumber;
 	var emailAddress = req.body.emailAddress;
 	var password = req.body.password;
@@ -659,7 +678,9 @@ exports.registerPartner = functions.https.onRequest((req,res)=>{
 	var newPartner = {
 		status:0,
 		partnerId:0,
-		partnerName:partnerName,
+		currentAmount:0,
+		firstName:partnerFirstName,
+		lastName:partnerLastName,
 		phoneNumber:partnerPhoneNumber,
 		emailAddress:emailAddress,
 		password:password
@@ -667,7 +688,7 @@ exports.registerPartner = functions.https.onRequest((req,res)=>{
  	
      partnerRef.once("value",function(snap){
   				var partnerCount = snap.numChildren()+1;
-  				console.log("Pushing Order At "+partnerCount);
+  				console.log("Pushing Partner At "+partnerCount);
   				newPartner.partnerId = partnerCount;
   				partnerRef.child(partnerCount).set(newPartner)
   				.then(snapshot => {
@@ -688,7 +709,7 @@ exports.registerPartner = functions.https.onRequest((req,res)=>{
 						res.send({status:0});
      				}
      			});
-     		});
+     });
 });
 
 // exports.getRiders = functions.https.onRequest((req,res)=>{

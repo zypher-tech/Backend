@@ -77,7 +77,7 @@ exports.placeOrderForuser = function(req, res){
  	// Genereate New Order Id
  	var ordersRef = db.ref("orders");
  	ordersRef.once("value", function(snap) {
-  		 insertOrder(snap.numChildren());
+  		 insertOrder(snap.numChildren()+1);
 	});
 	// orders_Ref.transaction(function(snapshot) {
  //  			order_count++;
@@ -85,6 +85,8 @@ exports.placeOrderForuser = function(req, res){
 };
 
 function insertOrder(order_count){
+
+	// Order Model
 	var oScheme = {
 		isAccepted:'',
 		orderId : '',
@@ -100,8 +102,8 @@ function insertOrder(order_count){
 		],
 		orderStatus:'',
 		rider:{
-			riderId:'',
-			riderPhoneNumber:'',
+			riderId:0,
+			phoneNumber:'',
 			riderName:''
 		},
 		payment:{
@@ -123,50 +125,57 @@ function insertOrder(order_count){
 		}
 	};
 	console.log("Insert Order Method  Order Id "+order_count);
-	oScheme.orderId = order_count+1;
+	oScheme.orderId = order_count;
  	oScheme.userId = request.body.userId;
  	oScheme.firstName = request.body.firstName;
  	oScheme.lastName  = request.body.lastName;
  	oScheme.orderLat = request.body.orderLat;
  	oScheme.orderLon = request.body.orderLon;
- 	oScheme.payment.amount = request.body.amount;
+ 	oScheme.payment.amount = request.body.amount;   // The Total Amount of The Transaction
  	oScheme.phoneNumber = request.body.phoneNumber;
  	oScheme.timingEngine.orderInsertedAt = Date.now();
  	//get the List of products
-
- 	console.log("Got Varaibles " + oScheme.phoneNumber);
+ 	console.log("Getting Products for Order "+oScheme)
  	var productsChosenCount = request.body.products.length;
  	for (var i =0;i < productsChosenCount;i++) {
  			console.log('inside loop');
 			try{
-		 		//Individual Products in Response
+		 		//Get product Variables
 	 			var pid = request.body.products[i].pid;
-	 			//Insert into this Order
-	 			//Prepare Packing
-	 			//Add to PartnerBroadcast Tables
-
 				var pName = request.body.products[i].productName;
 				var pImage = request.body.products[i].imageURL;
-				
- 				//parePacking(pid);
- 		 		oScheme.products.push({pid: pid, productName: pName,imageURL: pImage});
+				var windowId = request.body.products[i].windowId;
+				var partnerId =  request.body.products[i].partnerId;
+				var amountForWindow = request.body.products[i].amountForWindow;   // The Cost for the Window
+ 		 		oScheme.products.push(
+ 		 			{
+ 		 			pid: pid,
+ 		 	        productName:pName,
+ 		 			imageURL: pImage,
+ 		 			partnerId:partnerId,
+ 		 			windowId:windowId,
+ 		 			amountForWindow:amountForWindow
+ 		 		   });  	// Push to Products Array
 	 		}
 	 		catch(err){
 	 			if(!response.headersSent){
 					response.send(orderFailed);
 				}
 	 		}
- 		//orderSchema.products.product[i].imageUrl = response.products[i].imageUrl;
+ 	
      }
  	// update Order Status
+
+ 	//todo Update Return Status
  	oScheme.timingEngine.orderInsertedAt = Date.now();
  	oScheme.deliveryStatus = 0;
  	console.log("Order Construction complete, pushing...");
  		//Timing Related Attiribs
  		// orderSchema.timingEngine.orderAcceptedAt = Date.now();
  	var ordersRef = db.ref("orders");
-	ordersRef.child(oScheme.orderId).set(oScheme)
+	ordersRef.child(order_count).set(oScheme)
 		.then(snap=>{
+			console.log("Order Pushed , Sending response");
 			if(!response.headersSent){
 				oScheme.isAccepted = 1;
 				response.send(oScheme);
@@ -182,9 +191,10 @@ function insertOrder(order_count){
 	
 };
 function errorHanlder(){
-	console.log("Inside Erro Handler :");
+	console.log("Inside Error Handler ");
      orderFailed.isAccepted  = 0;
      if(!response.headersSent){
+
 				response.send(orderFailed);
 		}
 		

@@ -11,7 +11,7 @@ var db = admin.database();
 // get Partner Id from OrderId
 exports.broadcastToPartner = function(orderId){
 
-		console.log("Broadcasting OrderId: "+orderId);
+		console.log("Updating Partner About OrderId: "+orderId);
 		var orderPath = "orders/"+orderId;
 		var ordersRef = db.ref(orderPath);
 		var oId = orderId;
@@ -23,21 +23,19 @@ exports.broadcastToPartner = function(orderId){
 
 				//Get The products
 				var productsCount = snapshot.val().products.length;
-
-  				console.log("Product Counts are "+ productsCount);
-	  			for (var i =0;i < productsCount;i++) {
+  				console.log("The Product Counts in Order is "+ productsCount);
+	  			for (var i =0;i < productsCount; i++) {
   					var pidVal = snapshot.val().products[i].pid;
+  					var partnerId = snapshot.val().products[i].partnerId;
   					var pidName = snapshot.val().products[i].productName;
-  					console.log("for Loop - Broadcasting: pid "+pidVal);
+  					var imageURL = snapshot.val().products[i].imageURL;
+  					var amount = snapshot.val().products[i].amountForWindow;
+  					var windowId = snapshot.val().products[i].windowId;
+  					console.log("Updating Partner  " + partnerId);
 
   					// Udpate Every Partner in the Order
-  					updatePartner(pidVal,25,pidName,"2 Weeks",oId);
-  					// var amountCharged = snapshot.val().products[i].amount;
-  					// have some Fraction
-  	// 				// var duration = snapshot.val().products[i].duration
-  				//var who
+  					updatePartner(pidVal,pidName,imageURL,windowId,amount,oId,partnerId);
   				}
-  	
   		});
   		
 			
@@ -45,16 +43,9 @@ exports.broadcastToPartner = function(orderId){
 
 
 
-function updatePartner(pid,amount,productName,duration,orderId) {
-	console.log("getting Parter Details for "+pid);
-		var bookpath = "books/"+pid;
-		var booksRef = db.ref(bookpath);
-		booksRef.once("value",snap => {
-			console.log("Loaded Book");
-			var partnerId = snap.val().partnerId;
-			console.log("PartnerId :"+partnerId);
-			writeamount(partnerId,productName,amount,duration,orderId);
-		});
+function updatePartner(pid,productName,imageURL,windowId,amount,oId,partnerId) {
+		console.log("Updating Rs "+amount +" to Partner "+partnerId);
+		writeamount(partnerId,productName,imageURL,amount,windowId,oId);
 };
 
 
@@ -70,31 +61,71 @@ function updatePartner(pid,amount,productName,duration,orderId) {
 
 // };
 
-97507 99444
-function writeamount(partnerId,productName,amount,duration,orderId) {
-	console.log("Writing Amount to Partner");
+
+function writeamount(partnerId,productName,imageURL,new_amount,windowId,orderId) {
+	console.log("Writing Amount ");
 	var partnerPath = "partners/"+partnerId;
+
 	var partnerRef = db.ref(partnerPath);
+
+
+	// Write Amont to Parnter home
+
+	partnerRef.once("value",snap =>{
+			var currentAmount = snap.val().currentAmount;
+
+			console.log("The Current Amount in his balance is "+currentAmount);
+			var updatedamount = new_amount + currentAmount;
+			var updatedamountObj = {
+				currentAmount:updatedamount
+			};
+
+			console.log(" Updating new Amount to "+updatedamount);
+			partnerRef.update(updatedamountObj,err =>{
+
+				if (err) {
+					console.log("Error Happend in updating Emaount "+err);
+				}
+
+				console.log("Writen Home Amount SuccessFully");
+			});
+	});
+
+
+
+
+	console.log("Saving Trsanction");
+	// Save the Trsanction in Partner Montly 
 	var newTransaction = {
 		partnerId:partnerId,
 		orderId:orderId,
 		productName:productName,
-		amount:amount,
-		duration:duration,
+		imageURL:imageURL,
+		amount:new_amount,
+		windowId:windowId,
 		timeStamp:Date.now()
 	};
+
+
+
+
+
 
 	var d = new Date();
 	var month = d.getMonth();
 	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+month;
-	console.log("Pusing :"+transactionPath);
+	console.log("Saving Transaction at :"+transactionPath);
 
 	var transRef = db.ref(transactionPath);
 	transRef.push(newTransaction,err => {
-		console.log("Written Transaction");
+		
 		if (err) {
-			console.log("Error "+err);
+			console.log("Error at Updating Transaction "+err);
 
 		}
+		console.log("Written Transaction");
+		console.log("Partner Updated");
 	});
+
+
 }; 
