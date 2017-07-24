@@ -46,11 +46,12 @@ exports.register =  function(req,res) {
 	userSchema.phoneNumber = req.body.phoneNumber;
 
  	var usersRef = db.ref("users");
- 	
-    usersRef.once("value",function(snap) {
-  		 pushUser(snap.numChildren());
-	});
- 	
+   // We Got The Varaibles
+   // if Phone Numbers or Email Already Exists
+   // Notify them
+   
+
+
 };
 
 

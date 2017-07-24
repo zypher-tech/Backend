@@ -111,21 +111,42 @@ exports.placeOrderForuser =  functions.https.onRequest((request, response) => {
 // =====================================================
 ////// WORKING//////////////////////////////
 
-// exports.registerNewUser =  functions.https.onRequest((req,res) => {
-// 		var newUserHandler = require('./apis/register_new_user');
-// 		newUserHandler.register(req,res);
-// 	});
+exports.registerNewUser =  functions.https.onRequest((req,res) => {
+		var newUserHandler = require('./apis/register_new_user');
+		newUserHandler.register(req,res);
+	});
 
 //======================================================
 //SIX---->
 
-// exports.genreViewer =  functions.https.onRequest((req,res) => {
+exports.genreViewer =  functions.https.onRequest((req,res) => {
 
-// 	// genreView.showByGenres(req,res);
+	var genView = require('./apis/genres_viewer_api');
+	genView.showByGenres(req,res);
 
-// });
+});
 // =====================================================
 
+
+
+exports.checkifBooksPresent = functions.https.onRequest((req,res) => {
+
+		var isbn = req.body.isbn;
+		var isbn10  = req.body.isten;
+		var booksRef  = db.ref("books");
+		if (isbn10 == 1 ) {
+			booksRef.orderByChild("details/ISBN").equalTo(isbn).once("value",snap => {
+					console.log("Child Exists  with isbn10");
+			});
+		}
+		else{
+			booksRef.orderByChild("details/ISBN13").equalTo(isbn).once("value",snap => {
+					console.log("Child Exists with isbn13 ");
+			});
+		}
+		
+
+});
 
 /*
 	SEVEN
@@ -553,19 +574,17 @@ exports.getPartnerTransactions =  functions.https.onRequest((req,res)=>{
 	var partnerId = req.body.partnerId;
 	var d =new Date();
 	var month = d.getMonth();
-	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+7;
+	var transactionPath = "partnerTransactions/"+partnerId+'/earnings/'+month;
 	console.log("Getting Transasctio Path "+transactionPath);
 	var transRef = db.ref(transactionPath);
 	transRef.once("value", snap =>{
 		 snap.forEach(s=>{
-		 		var amount =  s.val().amount;
-		 		var duration = s.val().duration;
-		 		var productName = s.val().productName;
 		 		var trans = {
-		 			amount:amount,
-		 			duration:duration,
-		 			productName:productName,
-		 			imageURL:pid
+		 			amount:s.val().amount,
+		 			duration:s.val().windowId,
+		 			productName:s.val().productName,
+		 			imageURL:s.val().imageURL,
+		 			timestamp:s.val().timeStamp
 		 		};
 		 		returnJson.transactions.push(trans);
 
@@ -721,5 +740,39 @@ exports.registerPartner = functions.https.onRequest((req,res)=>{
 // 						res.status(200).send(snap.val());
 // 				}
 // 	});
+
+// });
+
+
+// Get Exam details
+
+exports.getExamDetails = functions.https.onRequest((req,res)=>{
+
+	var examCode = req.body.examCode;
+	var examsRef = db.ref("exams/examCode");
+	examsRef.once("value",snap => {
+
+			if (!res.headersSent) {
+				res.send(snap.val());
+			}
+	});
+
+
+});
+
+
+// Save Exam Details
+
+// exports.saveExamDetails = functions.https.onRequest((req,res)=>{
+// 	var examName  = req.body.examName;
+// 	var examBaseCat  = req.body.exambaseCat;
+// 	var examSubCat = req.body.examSubCat;
+// 	var nextDate = req.body.time;
+// 	var type = req.body.type;
+// 	var about = req.body.about;
+// 	var count = req.body.count;
+// 	var topics = 
+
+
 
 // });

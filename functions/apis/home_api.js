@@ -29,12 +29,9 @@ exports.initialize = function(req, res){
   	  returnJson.products = snapshot.val();
 
 	})
-	.then(getCombos,error);
+	.then(getCombos);
 };
 
-function error(){
-	console.log("Error "+error);
-};
 
 
 
