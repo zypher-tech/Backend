@@ -67,6 +67,12 @@ body{
 
 }
 
+/*Add Books*/
+.add_books_root{
+    margin-top: 40px;
+    margin-left: 10%;
+}
+
 
 .left_side{
     margin-bottom: 60px;

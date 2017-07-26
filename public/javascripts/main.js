@@ -27,6 +27,13 @@ function AdminManager() {
 
 
 
+    // ThE First Page of Add Books
+    // Get ISBN or is ten or 13
+    this.isbnToAddValue = document.getElementById('isbn_to_add');
+    this.add_book_button = document.getElementById('isbn_add_button');
+    this.add_book_button.addEventListener('click', this.addBookRequest.bind(this));
+
+
 
     //Add Book page variables
     this.productName = document.getElementById('pname');
@@ -80,6 +87,9 @@ function AdminManager() {
     this.mediaCapture.addEventListener('change',this.saveImage.bind(this));
         // Setting Pi -  NumChildren+1 in "books";
     this.setPid(this.database);
+
+
+
 
 
 
@@ -257,6 +267,69 @@ var mSubCat;
 
 AdminManager.prototype.isImageUploded = false;
 
+
+
+
+
+// Used In ISBN PAGE , Makes Request SHow Repsonse
+// Modifies Div if needed
+AdminManager.prototype.addBookRequest = function (event) {
+    event.preventDefault();
+    var isbnToAdd  = document.getElementById('isbn_to_add').value;
+    console.log("making Req for isbn "+isbnToAdd);
+    var jsonData = {
+        'isbn': parseInt(isbnToAdd),
+        'isten':1
+
+    };
+    console.log("Sending Request Body : "+JSON.stringify(jsonData));
+    $.ajax({
+          url:'http://localhost:5000/api/isBooksPresent',
+          type: "POST",
+          data: JSON.stringify(jsonData),
+          dataType: 'json',
+          contentType: "application/json",
+          success: function(data) {
+           // processMyData(data);
+           console.log("Got Response");
+           var response = data;
+           console.log("POJO :"+data);
+           var pdi = data.pid;
+           console.log("Pdi "+pdi);
+           var pdd = data['pid'];
+           console.log("pdd "+pdd);
+            
+           // showProductPage(response);
+
+        }
+      });
+
+    //       beforeSend: function(x) {
+    //         if (x && x.overrideMimeType) {
+    //           x.overrideMimeType("application/j-son;charset=UTF-8");
+    //         }
+    //       },
+    //       success: function(result) {
+    //      //Write your code here
+
+    //      console.log("Success: "+result);
+    //     }
+    // });      
+};
+
+
+function showProductPage(data) {
+    console.log("Showinf Product Page");
+    // body...
+    try{
+           
+            console.log("Pid is "+ data['pid']);
+           
+    }
+    catch(e){
+        console.log("error Happed "+e);
+    }
+};
 
 
 AdminManager.prototype.matched_PID_Array = [];

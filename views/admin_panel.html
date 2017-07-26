@@ -53,7 +53,7 @@
         <!-- The Href Should point to the Id of Div below Each tab Must Have Differet div and Diffrenrt Id-->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
           <a href="#overview" class="mdl-layout__tab is-active">Admin</a>
-          <a href="#addBook" class="mdl-layout__tab">Add Book</a>
+          <a href="#isbnRoot" class="mdl-layout__tab">Add Book</a>
           <a href="#Search" class="mdl-layout__tab">Search</a>
           <a href="#c_combo" class="mdl-layout__tab">Create Combo</a>
           <a href="#edit_book" class="mdl-layout__tab">Edit Book</a>
@@ -271,7 +271,7 @@
 
               </form>
             </div>
-        </div>
+          </div>
           <!--The Right Side Div Which Holds Image and price Details-->
           <div class="right_side">
 
@@ -282,15 +282,15 @@
               </div>
               <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
                 <thead>
-                <tr>
+                  <tr>
                   <th class="mdl-data-table__cell--non-numeric">Unit</th>
                   <th>Time unit</th>
                   <th>Price</th>
-                </tr>
+                  </tr>
                 </thead>
 
                 <tbody class="table_body">
-                <tr>
+                  <tr>
                   <td><input class="mdl-textfield__input c_class"  pattern="[0-9]*" type="number" style="border:1px solid #36353F"  id="unit_one_text"></td>
                   <td> <select class="mdl-select__input c_class select_class"  id="time_value1" name="TimeUnit">
                     <option value="0">Select Time Unit</option>
@@ -299,9 +299,9 @@
                     <option value="3">Month</option>
                   </select></td>
                   <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_one_text"></td>
-                </tr>
+                  </tr>
 
-                <tr>
+                  <tr>
                   <td><input class="mdl-textfield__input c_class"  type="number" style="border:1px solid #36353F"  id="unit_two_text"></td>
                   <td> <select class="mdl-select__input c_class select_class"  id="time_value2" name="TimeUnit">
                     <option value="0">Select Time Unit</option>
@@ -310,8 +310,8 @@
                     <option value="3">Month</option>
                   </select></td>
                   <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_two_text"></td>
-                </tr>
-                <tr>
+                  </tr>
+                  <tr>
                   <td><input class="mdl-textfield__input c_class"  type="number" style="border:1px solid #36353F"  id="unit_three_text"></td>
                   <td> <select class="mdl-select__input c_class select_class"  id="time_value13" name="TimeUnit">
                     <option value="0">Select Time Unit</option>
@@ -320,17 +320,11 @@
                     <option value="3">Month</option>
                   </select></td>
                   <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_three_text"></td>
-                </tr>
+                  </tr>
                 </tbody>
-                             </table>
+              </table>
               <!-- Colored raised button -->
-
-
             </div>
-
-
-
-
             <div class="mdl-card mdl-shadow--8dp image_card">
               <div class="mdl-card__title ">
                 <h2 class="mdl-card__title-text">Upload Image</h2>
@@ -353,15 +347,8 @@
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
              id="submit_button">Insert Book</button>
             </div>
-
-
-
-
-
-
-
-
           </div>
+
         <!--3rd  Tab Searching Tabs-->
         <div class="mdl-layout__tab-panel" id="Search">
 
@@ -529,9 +516,11 @@
 
 
             <!--The Title Of Card-->
+
             <div class="mdl-card__title ">
               <h2 class="mdl-card__title-text">Edit  Product </h2>
             </div>
+
             <div class="mdl-card__supporting-text edit_p_desc_container">
               <form id="edit_form">
 
@@ -574,7 +563,7 @@
 
                 <!--Book Smmary -->
                 <div class="mdl-textfield mdl-js-textfield">
-                <textarea class="mdl-textfield__input" type="text" rows="3" maxrows="6" id="ebsummary" pattern="[A-Z,a-z, ]*"></textarea>
+                 <textarea class="mdl-textfield__input" type="text" rows="3" maxrows="6" id="ebsummary" pattern="[A-Z,a-z, ]*"></textarea>
                   <label class="mdl-textfield__label" for="ebsummary">Book Brief Description(back of The Book)</label>
                 </div>
                 <!--Publiser Name-->
@@ -597,14 +586,10 @@
                 </div>
                   <br>
                 <div>
-
-
-
-                  <p>Sub Category</p>
-                  <select class="mdl-select__input c_class"  id="sub_category" name="Subcategory">
-                    <option value="0">Select Main Category</option>
-
-                  </select>
+                <p>Sub Category</p>
+                <select class="mdl-select__input c_class"  id="sub_category" name="Subcategory">
+                <option value="0">Select Main Category</option>
+                </select>
 
                 </div>
 
@@ -677,7 +662,8 @@
 
               </form>
             </div>
-        </div>
+          </div>
+
           <!--The Right Side Div Which Holds Image and price Details-->
           <div class="right_side">
 
@@ -687,12 +673,13 @@
 
               </div>
               <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
+
                 <thead>
-                <tr>
-                  <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                  <th>Time unit</th>
-                  <th>Price</th>
-                </tr>
+                  <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Unit</th>
+                    <th>Time unit</th>
+                    <th>Price</th>
+                  </tr>
                 </thead>
 
                 <tbody class="table_body">
@@ -728,17 +715,14 @@
                   <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="eprice_three_text"></td>
                 </tr>
                 </tbody>
-                             </table>
+
+             </table>
               <!-- Colored raised button -->
               <!-- Accent-colored raised button with ripple -->
-
-
             </div>
 
-
-
-
             <div class="mdl-card mdl-shadow--8dp image_card">
+
               <div class="mdl-card__title ">
                 <h2 class="mdl-card__title-text">Upload Image</h2>
               </div>
@@ -758,37 +742,44 @@
             <br>
             <br>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="submit_button">Insert Database</button>
-            </div>
-
-
-
-
-
-
-
-
           </div>
-
-
-
         </div>
 
+        <div class="mdl-layout__tab-panel add_books_root" id="isbnRoot">
 
+           <!-- The Card Which Holds ISBN /TAg and submit Button Inside -->
+           <div class=" mdl-card mdl-shadow--8dp add_book_card">
 
+            <!-- The Tiltle Area of the Card -->
+              <div class="mdl-card__title ">
+                <h2 class="mdl-card__title-text">Add Books</h2>
 
+              </div>
+              <!-- The Body  Area of the Card -->
+
+              <div class="mdl-card__supporting-text">
+
+              <!-- The ISBN Text Field -->
+
+                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                      <input class="mdl-textfield__input" type="text" id="isbn_to_add" >
+                       <label class="mdl-textfield__label" for="isbn_to_add">Enter the New ISBN To Add Books</label>
+                    </div>
+
+              <!-- Button -->
+
+                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                mdl-button--accent isbn_button" id='isbn_add_button'>
+                      Add Book
+                 </button>
+
+             </div>
+           </div>
         </div>
+            <!--ISBN-->
 
-
-
-
-
-
-        </main>
-      </div>
-
-
-
-
+      </main>
+  </div>
         <!--<footer class="mdl-mega-footer">-->
           <!--<div class="mdl-mega-footer&#45;&#45;middle-section">-->
             <!--<div class="mdl-mega-footer&#45;&#45;drop-down-section">-->

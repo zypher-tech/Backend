@@ -34,6 +34,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -81,22 +82,50 @@ app.get('/orderspanel',function(req,res){
        "pid":45
     }
 */
-app.get('/api/showproduct',function(req,res){
-    showProduct.viewProduct(req,res);
+
+app.post('/api/isBooksPresent',function(req,res){
+  // Get a database reference to our posts
+  console.log("Inside ISBN Check");
+  var isbn = req.body.isbn;
+  var isten  = req.body.isten;
+  var db = admin.database();
+  var returnJson = {};
+  var booksRef = db.ref("books");
+  if (isten == 1) {
+    booksRef.orderByChild("ISBN").equalTo(isbn).on("value", function(snapshot) {
+      // If First Value is 0
+        snapshot.forEach(snap => {
+            if (!snap.exists) {
+
+            }
+            else{
+              returnJson.pid = snap.val().pid;
+            }
+        });
+
+         if (!res.headersSent) {
+            res.send(returnJson);
+
+        }
+        else{
+          console.log("Response Already Sent");
+        }
+      }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });  
+  }
+  else{
+      booksRef.orderByChild("ISBN").equalTo(isbn).on("value", function(snapshot) {
+       res.send(snapshot.val());
+      }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });  
+  }
+  
 });
 
 
 
-
-app.get('/adminpanel',function(req, res) {
-	console.log('inside Functions');
-	showAdminPage.showAdmin(req,res);
-});
-
-app.get('/newReleases',function(req, res) {
-	console.log('inside Functions');
-	newReleases.initialize(req,res);
-});
 
 
 
@@ -106,12 +135,6 @@ app.get('/newReleases',function(req, res) {
   // placeOrder.placeOrderForuser(req,res);
 // });
 
-
-app.get('/books/:pid',function(req, res) {
-	var pid  = req.params.pid;
-	console.log(pid);
-	showProduct.show(req,res,pid);
-});
 
 const server = app.listen(5000, () => {
   const host = server.address().address;

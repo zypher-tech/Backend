@@ -14,8 +14,8 @@ var request;
 
 var userSchema = {
 	userId:'',
-	firstName:'',
-	lastName:'',
+	fullName:'',
+	userName:'',
 	emailAddress:'',
 	phoneNumber:'',
 	password:'',
@@ -39,16 +39,23 @@ exports.register =  function(req,res) {
 	request = req;
 
 	///Get Details
-	userSchema.firstName = req.body.firstName;
-	userSchema.lastName = req.body.lastName;
+	userSchema.fullName = req.body.fullName;
 	userSchema.emailAddress = req.body.emailAddress;
 	userSchema.password= req.body.password;
 	userSchema.phoneNumber = req.body.phoneNumber;
 
  	var usersRef = db.ref("users");
-   // We Got The Varaibles
-   // if Phone Numbers or Email Already Exists
-   // Notify them
+  	usersRef.orderByChild("emailAddress").equalTo(userSchema.emailAddress).once("value",snap=>{
+  		if (snap) {
+
+  		console.log("Child Already Exists");
+  		}
+  		else{
+  			console.log("Inside callback , But No Snap");
+  		}
+  	});
+
+  	console.log("Outside Callback, moving on to other things");
    
 
 
@@ -72,7 +79,7 @@ function pushUser(userId){
 
      	//pushed, user object, is now "snap"
      	//Appending operation status to result
-     		userSchema.status = '1';
+     		userSchema.status = 1;
      		if (!response.headersSent) {
 				response.send(userSchema);
      		}
