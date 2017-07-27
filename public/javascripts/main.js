@@ -196,8 +196,8 @@ AdminManager.prototype.setPid = function (db) {
                 // var bookName = singleData.key;
                 count++;
             });
-           var mPid  = document.getElementById('pid_text');
-           mPid.value = count;
+          // var mPid  = document.getElementById('pid_text');
+           // mPid.value = count;
         });
 
 
@@ -273,6 +273,10 @@ AdminManager.prototype.isImageUploded = false;
 
 // Used In ISBN PAGE , Makes Request SHow Repsonse
 // Modifies Div if needed
+
+/** Add Book Makes a Ajax Request and if the book exists , goes to book Page , else
+ goes to Replaces div container by insert new Book 
+*/
 AdminManager.prototype.addBookRequest = function (event) {
     event.preventDefault();
     var isbnToAdd  = document.getElementById('isbn_to_add').value;
@@ -291,17 +295,25 @@ AdminManager.prototype.addBookRequest = function (event) {
           contentType: "application/json",
           success: function(data) {
            // processMyData(data);
-           console.log("Got Response");
-           var response = data;
-           console.log("POJO :"+data);
+         
            var pdi = data.pid;
-           console.log("Pdi "+pdi);
-           var pdd = data['pid'];
-           console.log("pdd "+pdd);
-            
-           // showProductPage(response);
+           console.log("Got Response");
+        
+           // div id : add_book_main_root
+           // div id content :addBook
+           // $('#addBook').attr('id','add_book_main_root'); 
+            // var a = document.getElementById('addBook');
+            // var b = document.getElementById('add_book_main_root');
+            // b.
+           // document.getElementById("add_book_main_root").innerHTML = document.getElementById("addBook").innerHTML;
 
-        }
+
+
+                     
+            
+           showProductPage(data);
+
+       } 
       });
 
     //       beforeSend: function(x) {
@@ -319,16 +331,13 @@ AdminManager.prototype.addBookRequest = function (event) {
 
 
 function showProductPage(data) {
-    console.log("Showinf Product Page");
-    // body...
-    try{
-           
-            console.log("Pid is "+ data['pid']);
-           
-    }
-    catch(e){
-        console.log("error Happed "+e);
-    }
+    console.log("Inside Function");
+       // $("#isbn_div").hide();
+       //  $("#insertNewBook").show();
+ 
+                 // $('#insertNewBook').style.display='block';
+                 // $('#isbn_div').style.display='none';
+
 };
 
 
@@ -387,8 +396,8 @@ AdminManager.prototype.comboEntity = {
 };
 AdminManager.prototype.productEntitiy = {
     pid:'',
-    pName:'',
-    productDescription:'',
+    productName:'',
+    oneLiner:'',
     authorName:'',
     publisherName:'',
     MRP : '',
@@ -397,39 +406,14 @@ AdminManager.prototype.productEntitiy = {
     bookSummary:'',
     baseCategory:'',
     subCategory:'',
-    genre:'',
-     ourPrice:'',
-    //todo add quantity
     quantity : '',
-    tags:{
-      tag1:'fdsaf',
-      tag2:'afssd'
+    ISBN:'',
+    pages:'',
+    readingDuration:'',
+    language:'',
+    sources:[],
+    pricing:[]
 
-    },
-    details:{
-        ISBN : '',
-        ISBN13:'',
-
-    },
-    pricing:{
-        pricing1:{
-            unit:'',
-            timeUnit:'',
-            price :''
-
-        },  pricing2:{
-            unit:'',
-            timeUnit:'',
-            price:''
-
-        },
-        pricing3:{
-            unit:'',
-            timeUnit:'',
-            price:''
-
-        }
-    }
 };
 AdminManager.prototype.showImageUploadedToast = function () {
     var data = {

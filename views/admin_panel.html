@@ -52,7 +52,7 @@
         </div>
         <!-- The Href Should point to the Id of Div below Each tab Must Have Differet div and Diffrenrt Id-->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#overview" class="mdl-layout__tab is-active">Admin</a>
+          <a href="#overview" class="mdl-layout__tab ">Admin</a>
           <a href="#isbnRoot" class="mdl-layout__tab">Add Book</a>
           <a href="#Search" class="mdl-layout__tab">Search</a>
           <a href="#c_combo" class="mdl-layout__tab">Create Combo</a>
@@ -72,12 +72,14 @@
         </div>
 
 
-
+<!-- - - - - =============================TAB====================== -->
         <!--Whole Tab COntent Here eveything under Div id-->
         <!--1st Child  OverView Tab-->
-        <div class="mdl-layout__tab-panel is-active" id="overview">
+        <div class="mdl-layout__tab-panel " id="overview">
 
           <!--The Dahs Board Section-->
+
+
 
           <!--The Total Product Section -->
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp top_section">
@@ -131,225 +133,229 @@
           </section>
         </div>
 
-        <!--2nd Tab Adding Books-->
-        <div class="mdl-layout__tab-panel add_book_root" id="addBook">
+        <!-- The Top Insert Book Page , has ISBN and a Button t -->
+
+        <!-- - - - - =============================TAB====================== -->
+          <div class="mdl-layout__tab-panel add_books_root" id="isbnRoot">
 
 
+           <div id="add_book_main_root"> 
+           <!-- The Card Which Holds ISBN /TAg and submit Button Inside -->
+               <div class=" mdl-card mdl-shadow--8dp add_book_card"  style="visibility: hidden;" id="isbn_div">
 
-          <!--Must have two Cards for Convenience side By Side-->
-          <!--The Container Card for Add Books-->
+              <!-- The  Area of the Card -->
+                <div class="mdl-card__title ">
 
-          <!--Left Hand Card-->
-          <div class="mdl-card mdl-shadow--8dp left_side">
+                   <h2 class="mdl-card__title-text">Add Books</h2>
 
-
-            <!--The Title Of Card-->
-            <div class="mdl-card__title ">
-              <h2 class="mdl-card__title-text">Create a New Entry</h2>
-            </div>
-            <div class="p_desc_container">
-              <form id="add_form">
-
-
-                <div class="mdl-card-title">
-                  <h7 class="mdl-card__title-text">Product Basic Info</h7>
                 </div>
-                <!-- Pid -->
-                <div class="pid_container">
-                  <p id="pid_text_para">Pid (Generated)</p>
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pid_div">
-                        <input class="mdl-textfield__input" type="text" id="pid_text" >
+               <!-- The Body  Area of the Card -->
+
+               <div class="mdl-card__supporting-text">
+
+               <!-- The ISBN Text Field -->
+                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                        <input class="mdl-textfield__input" type="text" id="isbn_to_add" >
+                         <label class="mdl-textfield__label" for="isbn_to_add">Enter the New ISBN To Add Books</label>
+                      </div>
+
+               <!-- Button -->
+
+                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                 mdl-button--accent isbn_button" id='isbn_add_button'>
+                        Add Book
+                   </button>
+
+                </div>
+               </div>
+
+              <!-- THe Layout Whihc Shows when books In first Entry -->
+
+               <div id="insertNewBook"  style="visibility: visible;">
+
+                    <!--Left Hand Card-->
+                 <div class="mdl-card mdl-shadow--8dp left_side">
+
+
+                    <!--The Title Of Card-->
+                    <div class="mdl-card__title ">
+                      <h2 class="mdl-card__title-text">Create a New Entry</h2>
+                    </div>
+                    <div class="p_desc_container mdl-card__supporting-text">
+                      <form id="add_form">
+
+
+                        <div class="mdl-card-title">
+                          <h7 class="mdl-card__title-text">Product Basic Info</h7>
+                        </div>
+                        <!-- Pid -->
+                        <div class="pid_container">
+                          <p id="pid_text_para">Pid (Generated)</p>
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pid_div">
+                                <input class="mdl-textfield__input" type="text" id="pid_text" >
+                              
+                          </div>
+                        </div>
+
+                        <!--Product Name-->
+
+
+
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="pname">
+                            <label class="mdl-textfield__label" for="pname">Product Name</label>
+                          </div>
+
+                        <!--Product Description-->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="pdesc" >
+                          <label class="mdl-textfield__label" for="pdesc">One Liner</label>
+                        </div>
+                        <!--Author Name-->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="aname" >
+                          <label class="mdl-textfield__label" for="aname">Author Name</label>
+                        </div>
+                        <!--Publiser Name-->
+
+                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="pubname" >
+                          <label class="mdl-textfield__label" for="pubname">Publisher Name</label>
+                        </div>
+
+
+                        <!--Book Smmary -->
+
+                        <div class="mdl-textfield mdl-js-textfield">
+
+                           <textarea class="mdl-textfield__input" type="text" rows="3" maxrows="6" id="bsummary"></textarea>
+                          <label class="mdl-textfield__label" for="bsummary">Book Brief Description(back of The Book)</label>
+                        </div>
                       
+                       <!-- Base Category -->
+                        <div>
+                           <p>Base Category</p>
+                            <select class="mdl-select__input c_class"  onchange="baseCategorySelected(this)" id="base_category" name="Base Cateogry">
+                              <option value="0">Select Main Category</option>
+                              <option value="1">Competitive</option>
+                              <option value="2">General</option>
+                              <option value="3">Profession</option>
+                              <option value="4">College</option>
+                            </select>
+                        </div>
+                        <br>
+                        <!-- Sub Category -->
+                        <div>
+
+
+
+                          <p>Sub Category</p>
+                          <select class="mdl-select__input c_class"  id="sub_category" name="Subcategory">
+                            <option value="0">Select Main Category</option>
+
+                          </select>
+
+                        </div>
+
+
+                        <!--ISBN 10-->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="isbn10" pattern="[0-9]*">
+                          <label class="mdl-textfield__label" for="isbn10">ISBN 10</label>
+                        </div>
+                      
+                      
+
+                        <!--MRP Price-->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="mrp" pattern="[0-9]*">
+                          <label class="mdl-textfield__label" for="mrp">MRP</label>
+                        </div>
+
+
+                        <!--Our Buying Price-->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="our_price" pattern="[0-9]*">
+                          <label class="mdl-textfield__label" for="our_price">Our Price</label>
+                        </div>
+
+
+                        <p>Is Best seller</p>
+                        <select class="mdl-select__input c_class"  id="best_seller" name="Best Seller">
+                          <option value="0">Select a Value</option>
+                          <option value="1">Yes</option>
+                          <option value="2">No</option>
+                        </select>
+
+
+                          <br>
+
+                        <div>
+
+                          <p>Is Top  Rated</p>
+                          <select class="mdl-select__input c_class"  id="top_rate" name="Top Rated">
+                            <option value="0">Select a Value</option>
+                            <option value="1">Yes</option>
+                            <option value="2">No</option>
+                          </select>
+                        </div>
+
+                        <!-- Pricing Container -->
+
+                        <div>
+
+                          <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="cost7" pattern="[0-9]*">
+                            <label class="mdl-textfield__label" for="cost7"> 7 Days</label>
+
+                         </div>
+
+                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <input class="mdl-textfield__input" type="text" id="cost15" pattern="[0-9]*">
+                              <label class="mdl-textfield__label" for="cost15">15 Days</label>
+                          </div>
+                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="cost30" pattern="[0-9]*">
+                            <label class="mdl-textfield__label" for="cost30">30 Days</label>
+                          </div>
+                        </div>
+
+                        <!-- Image Container -->
+                         <div class="mdl-card mdl-shadow--8dp image_card">
+                               <div class="mdl-card__title ">
+                              <h2 class="mdl-card__title-text">Upload Image</h2>
+                          </div>
+
+                       <div class="image_form_class">
+
+                        <form id="image-form " action="#">
+                            <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+                               <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+                              <i class="material-icons">image</i>
+                              </button>
+                        </form>
+                    </div>
                   </div>
-                </div>
-
-                <!--Product Name-->
-
-
-
-                  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="pname">
-                    <label class="mdl-textfield__label" for="pname">Product Name</label>
-                  </div>
-
-                <!--Product Description-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="pdesc" >
-                  <label class="mdl-textfield__label" for="pdesc">Product Desc</label>
-                </div>
-                <!--Author Name-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="aname" >
-                  <label class="mdl-textfield__label" for="aname">Author Name</label>
-                </div>
-
-                <!--Book Smmary -->
-                <div class="mdl-textfield mdl-js-textfield">
-                <textarea class="mdl-textfield__input" type="text" rows="3" maxrows="6" id="bsummary"></textarea>
-                  <label class="mdl-textfield__label" for="bsummary">Book Brief Description(back of The Book)</label>
-                </div>
-                <!--Publiser Name-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="pubname" >
-                  <label class="mdl-textfield__label" for="pubname">Publisher Name</label>
-                </div>
-                <div>
-
-
-                  <p>Base Category</p>
-                  <select class="mdl-select__input c_class"  onchange="baseCategorySelected(this)" id="base_category" name="Base Cateogry">
-                    <option value="0">Select Main Category</option>
-                    <option value="1">Competitive</option>
-                    <option value="2">General</option>
-                    <option value="3">Startup</option>
-                    <option value="4">College</option>
-                  </select>
-
-                </div>
-                  <br>
-                <div>
-
-
-
-                  <p>Sub Category</p>
-                  <select class="mdl-select__input c_class"  id="sub_category" name="Subcategory">
-                    <option value="0">Select Main Category</option>
-
-                  </select>
-
-                </div>
-
-
-                <!--ISBN 10-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="isbn10" pattern="[0-9]*">
-                  <label class="mdl-textfield__label" for="isbn10">ISBN 10</label>
-                </div>
-                <!--ISBN 13-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="isbn13" pattern="[0-9]*">
-                  <label class="mdl-textfield__label" for="isbn13">ISBN 13</label>
-                </div>
-                <!--Published Date-->
-
-
-
-                <!--MRP Price-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="mrp" pattern="[0-9]*">
-                  <label class="mdl-textfield__label" for="mrp">MRP</label>
-                </div>
-
-
-                <!--Our Buying Price-->
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                  <input class="mdl-textfield__input" type="text" id="our_price" pattern="[0-9]*">
-                  <label class="mdl-textfield__label" for="our_price">Our Price</label>
-                </div>
-
-
-                <p>Is Best seller</p>
-                <select class="mdl-select__input c_class"  id="best_seller" name="Best Seller">
-                <option value="0">Select a Value</option>
-                <option value="1">Yes</option>
-                <option value="2">No</option>
-              </select>
-
-
-                <br>
-              <div>
-
-                <p>Is Top  Rated</p>
-                <select class="mdl-select__input c_class"  id="top_rate" name="Top Rated">
-                  <option value="0">Select a Value</option>
-                  <option value="1">Yes</option>
-                  <option value="2">No</option>
-                </select>
+                      <br>
+                      </form>
+                    </div>
+                 </div>
+              
               </div>
-
-              <br>
-
-              </form>
             </div>
           </div>
-          <!--The Right Side Div Which Holds Image and price Details-->
-          <div class="right_side">
 
-            <div class=" mdl-card mdl-shadow--8dp pricing_card">
-              <div class="mdl-card__title ">
-                <h2 class="mdl-card__title-text">Pricing</h2>
+    
 
-              </div>
-              <table class="mdl-data-table mdl-js-data-table  mdl-shadow--2dp">
-                <thead>
-                  <tr>
-                  <th class="mdl-data-table__cell--non-numeric">Unit</th>
-                  <th>Time unit</th>
-                  <th>Price</th>
-                  </tr>
-                </thead>
 
-                <tbody class="table_body">
-                  <tr>
-                  <td><input class="mdl-textfield__input c_class"  pattern="[0-9]*" type="number" style="border:1px solid #36353F"  id="unit_one_text"></td>
-                  <td> <select class="mdl-select__input c_class select_class"  id="time_value1" name="TimeUnit">
-                    <option value="0">Select Time Unit</option>
-                    <option value="1">Day</option>
-                    <option value="2">Week</option>
-                    <option value="3">Month</option>
-                  </select></td>
-                  <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_one_text"></td>
-                  </tr>
 
-                  <tr>
-                  <td><input class="mdl-textfield__input c_class"  type="number" style="border:1px solid #36353F"  id="unit_two_text"></td>
-                  <td> <select class="mdl-select__input c_class select_class"  id="time_value2" name="TimeUnit">
-                    <option value="0">Select Time Unit</option>
-                    <option value="1">Day</option>
-                    <option value="2">Week</option>
-                    <option value="3">Month</option>
-                  </select></td>
-                  <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_two_text"></td>
-                  </tr>
-                  <tr>
-                  <td><input class="mdl-textfield__input c_class"  type="number" style="border:1px solid #36353F"  id="unit_three_text"></td>
-                  <td> <select class="mdl-select__input c_class select_class"  id="time_value13" name="TimeUnit">
-                    <option value="0">Select Time Unit</option>
-                    <option value="1">Day</option>
-                    <option value="2">Week</option>
-                    <option value="3">Month</option>
-                  </select></td>
-                  <td> <input class="mdl-textfield__input c_class pric_text" style="border:1px solid #36353F" type="number" id="price_three_text"></td>
-                  </tr>
-                </tbody>
-              </table>
-              <!-- Colored raised button -->
-            </div>
-            <div class="mdl-card mdl-shadow--8dp image_card">
-              <div class="mdl-card__title ">
-                <h2 class="mdl-card__title-text">Upload Image</h2>
-              </div>
 
-              <div class="image_form_class">
 
-                <form id="image-form " action="#">
-                  <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-                  <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-                    <i class="material-icons">image</i>
-                  </button>
-                </form>
-              </div>
+       
 
-            </div>
-
-            <br>
-            <br>
-            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-             id="submit_button">Insert Book</button>
-            </div>
-          </div>
 
         <!--3rd  Tab Searching Tabs-->
+        <!-- - - - - =============================TAB====================== -->
         <div class="mdl-layout__tab-panel" id="Search">
 
           <div class="search_top_contaier">
@@ -370,6 +376,7 @@
             </div>
        </div>
 
+<!-- - - - - =============================TAB====================== -->
 
           <!--Fourth Tab Creating Combo , A Combo Can Have-->
            <!-- 1.Name -->
@@ -508,6 +515,7 @@
           </div>
         </div>
 
+<!-- - - - - =============================TAB====================== -->
         <!-- Fifth tab -->
 
         <div class="mdl-layout__tab-panel" id="edit_book">
@@ -745,38 +753,9 @@
           </div>
         </div>
 
-        <div class="mdl-layout__tab-panel add_books_root" id="isbnRoot">
-
-           <!-- The Card Which Holds ISBN /TAg and submit Button Inside -->
-           <div class=" mdl-card mdl-shadow--8dp add_book_card">
-
-            <!-- The Tiltle Area of the Card -->
-              <div class="mdl-card__title ">
-                <h2 class="mdl-card__title-text">Add Books</h2>
-
-              </div>
-              <!-- The Body  Area of the Card -->
-
-              <div class="mdl-card__supporting-text">
-
-              <!-- The ISBN Text Field -->
-
-                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                      <input class="mdl-textfield__input" type="text" id="isbn_to_add" >
-                       <label class="mdl-textfield__label" for="isbn_to_add">Enter the New ISBN To Add Books</label>
-                    </div>
-
-              <!-- Button -->
-
-                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
-                                mdl-button--accent isbn_button" id='isbn_add_button'>
-                      Add Book
-                 </button>
-
-             </div>
-           </div>
-        </div>
-            <!--ISBN-->
+<!--Add Books Root-->
+      
+            
 
       </main>
   </div>
