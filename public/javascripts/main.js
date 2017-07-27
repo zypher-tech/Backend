@@ -8,7 +8,7 @@ function AdminManager() {
     this.checkSetup();
     // this.isSignedIn();todo: Add sign In
 
-    pop('Initializing Variables');
+  console.log("Initialising..")
 
     //Firebase Varaibles
     this.auth = firebase.auth();
@@ -28,45 +28,43 @@ function AdminManager() {
 
 
     // ThE First Page of Add Books
-    // Get ISBN or is ten or 13
-    this.isbnToAddValue = document.getElementById('isbn_to_add');
-    this.add_book_button = document.getElementById('isbn_add_button');
-    this.add_book_button.addEventListener('click', this.addBookRequest.bind(this));
+    // // Get ISBN or is ten or 13
+    // this.isbnToAddValue = document.getElementById('isbn_to_add');
+    // this.add_book_button = document.getElementById('isbn_add_button');
+    // this.add_book_button.addEventListener('click', this.addBookRequest.bind(this));
 
 
 
     //Add Book page variables
     this.productName = document.getElementById('pname');
     this.pid = document.getElementById('pid_text');
-    this.pdesc = document.getElementById('pdesc');
+    this.oneLiner = document.getElementById('pdesc');
     this.authorName = document.getElementById('aname');
     this.bSumm = document.getElementById('bsummary');
     this.publiserName  = document.getElementById('pubname');
     this.baseCategory = document.getElementById('base_category');
     this.subCateogry  = document.getElementById('sub_category');
 
-    this.ISBN  = document.getElementById('isbn10');
-    this.ISBN13 = document.getElementById('isbn13');
+    this.ISBN  = document.getElementById('isbn');
+    
     this.MRP  = document.getElementById('mrp');
     this.ourPrice = document.getElementById('our_price');
-    this.isBestSeller  = document.getElementById('best_seller');;
-    this.isTopRated = document.getElementById('top_rate');;
-    this.searchTags = document.getElementById('tags') ;
+    this.isBestSeller  = document.getElementById('best_seller');
+    this.isTopRated = document.getElementById('top_rate');
+    // this.searchTags = document.getElementById('tags') ;
+    this.pricing7 =  document.getElementById('cost7');
+    this.pricing15 =  document.getElementById('cost15');
+    this.pricing30 =  document.getElementById('cost30');
 
-    //prcing
-    this.unit1 = document.getElementById('unit_one_text');
-    this.unit2 = document.getElementById('unit_two_text');
-    this.unit3 = document.getElementById('unit_three_text');
+    // Pages , Quantity , Reading Duration
 
-    //Time Unit
-    this.tm1 = document.getElementById('time_value1');
-    this.tm2 = document.getElementById('time_value2');
-    this.tm3 = document.getElementById('time_value13');
+    
 
-    //Price
-    this.price1 = document.getElementById('price_one_text');
-    this.price2 = document.getElementById('price_two_text');
-    this.price3 = document.getElementById('price_three_text');
+    this.pagesCount =  document.getElementById('pages');
+    this.quantity =  document.getElementById('quant');
+    this.readingDuration =  document.getElementById('reading_duration');
+    this.language = document.getElementById('language');
+  
     //Image Upload Related DoM's
     this.submitImageButton = document.getElementById('submitImage');
     this.imageForm = document.getElementById('image-form');
@@ -75,9 +73,7 @@ function AdminManager() {
 
     this.insetProductutton = document.getElementById('submit_button');
     this.insetProductutton.addEventListener('click',this.insertProduct.bind(this));
-    //snackBar
-    this.snackBar = document.getElementById('must-signin-snackbar');
-
+  
     // Image upload
     this.submitImageButton.addEventListener('click',function (e) {
         e.preventDefault();
@@ -87,7 +83,6 @@ function AdminManager() {
     this.mediaCapture.addEventListener('change',this.saveImage.bind(this));
         // Setting Pi -  NumChildren+1 in "books";
     this.setPid(this.database);
-
 
 
 
@@ -196,8 +191,8 @@ AdminManager.prototype.setPid = function (db) {
                 // var bookName = singleData.key;
                 count++;
             });
-          // var mPid  = document.getElementById('pid_text');
-           // mPid.value = count;
+          var mPid  = document.getElementById('pid_text');
+           mPid.value = count;
         });
 
 
@@ -255,7 +250,7 @@ var pricing= {
 
 AdminManager.prototype.insertProduct = function (event) {
 
-    pop(this.productEntitiy.imageURL);
+    console.log("Adding..")
     this.validateFields();
 
 };
@@ -404,6 +399,7 @@ AdminManager.prototype.productEntitiy = {
     isTopRated:'',
     isBestSeller:'',
     bookSummary:'',
+    imageURL:'',
     baseCategory:'',
     subCategory:'',
     quantity : '',
@@ -412,7 +408,15 @@ AdminManager.prototype.productEntitiy = {
     readingDuration:'',
     language:'',
     sources:[],
-    pricing:[]
+    price7:'',
+    price15:'',
+    price30:''
+
+};
+
+var sources = {
+'partnerId':'',
+
 
 };
 AdminManager.prototype.showImageUploadedToast = function () {
@@ -434,8 +438,8 @@ AdminManager.prototype.showEmptyText =function(text){
 
 AdminManager.prototype.saveImage = function (event) {
     event.preventDefault();
-
-
+    console.log("Uploading Image");
+    // $( "#progressbar" ).progressbar( "enable" );
     var file = event.target.files[0];
     this.imageForm.reset();
     if (!file.type.match('image.*')){
@@ -457,9 +461,13 @@ AdminManager.prototype.saveImage = function (event) {
 
 
             this.productEntitiy.imageURL = snapshot.downloadURL;
-            pop('file Inserted');
-            this.showImageUploadedToast();
             this.isImageUploded = true;
+            console.log("Image Uploaded..");
+            
+       
+         // $( "#progressbar" ).progressbar( "disable" );
+
+
 
 
             // console.log(snapshot.downloadURL);
@@ -676,17 +684,17 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.pName = pname;
+            this.productEntitiy.productName = pname;
         }
     //product Desc
-    var pDesc = this.pdesc.value;
-        if (!validateText(pDesc)) {
-            this.showEmptyText('Enter Product Description');
+    var ol = this.oneLiner.value;
+        if (!validateText(ol)) {
+            this.showEmptyText('Enter One Liner');
             showInsertButton();
             return
         }
         else{
-            this.productEntitiy.productDescription = pDesc;
+            this.productEntitiy.oneLiner = ol;
         }
     //Author Name
     var aName = this.authorName.value;
@@ -750,18 +758,11 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.details.ISBN = ISBN;
+            this.productEntitiy.ISBN = ISBN;
         }
 
-    var ISBN13 = this.ISBN13.value;
-        if (!validateText(ISBN13)) {
-            this.showEmptyText('Enter ISBN13');
-            showInsertButton();
-            return;
-        }
-        else{
-            this.productEntitiy.details.ISBN13 = ISBN13;
-        }
+
+// MRP
 
     var MRP = this.MRP.value;
     if (!validateText(MRP)) {
@@ -774,6 +775,64 @@ AdminManager.prototype.validateFields  = function (){
     }
 
 
+
+
+// this.quantity =  document.getElementById('quant');
+//     this.readingDuration =  document.getElementById('reading_duration');
+//     this.language = document.getElementById('language');
+  
+
+
+
+
+    // Pages Count
+    var pagest  = this.pagesCount.value;
+    if (!validateText(pagest)) {
+        this.showEmptyText('Enter Pages');
+        showInsertButton();
+        return;
+    }
+    else{
+        this.productEntitiy.pages = pagest;
+    }
+
+
+// Reading Duration
+    var readingDur = this.readingDuration.value;
+    if (!validateText(readingDur)) {
+        this.showEmptyText('Enter Reading Duration');
+        showInsertButton();
+        return;
+    }
+    else{
+        this.productEntitiy.readingDuration = readingDur;
+    }
+
+// Quantity
+    var quan = this.quantity.value;
+    if (!validateText(quan)) {
+        this.showEmptyText('Enter Quantity');
+        showInsertButton();
+        return;
+    }
+    else{
+        this.productEntitiy.quantity = quan;
+    }
+
+
+
+
+    var languageId  = this.language.value;
+      if (!validateText(languageId)) {
+        this.showEmptyText('Enter Language');
+        showInsertButton();
+        return;
+    }
+    else{
+        this.productEntitiy.language = languageId;
+    }
+
+
     var ourPrice  = this.ourPrice.value;
     if (!validateText(ourPrice)) {
         this.showEmptyText('Enter Bought Price');
@@ -781,7 +840,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.details.ourPrice = ourPrice;
+        this.productEntitiy.ourPrice = ourPrice;
     }
 
     if(this.isImageUploded == false){
@@ -812,93 +871,40 @@ AdminManager.prototype.validateFields  = function (){
         }
 
 
-    var munit1 = this.unit1.value;
-            if (!validateNumber(munit1))  {
-                this.showEmptyText('Enter Unit 1');
-                showInsertButton();
-                return;
-            }
-            else{
-                this.productEntitiy.pricing.pricing1.unit = munit1;
-            }
-    var munit2 = this.unit2.value;
-        if (!validateNumber(munit2)){
-            this.showEmptyText('Enter Unit 1');
-            showInsertButton();
-            return;
-        }
+            // Pricing Update
 
-        else{
-            this.productEntitiy.pricing.pricing2.unit = munit2;
-        }
-
-    var munit3 = this.unit3.value;
-    if (!validateNumber(munit3)) {
-        this.showEmptyText('Enter Unit 1');
-        showInsertButton();
-        return;
-    }
-
-    else{
-        this.productEntitiy.pricing.pricing3.unit = munit3;
-    }
-
-
-    var mTU1  =this.tm1.options[this.tm1.selectedIndex].value;
-        if (mTU1 == 0){
-            this.showEmptyText('Select 1st Time unit');
+        var price7  = this.pricing7.value;
+        if (!validateText(ourPrice)) {
+            this.showEmptyText('Enter 7 Days Price');
             showInsertButton();
             return;
         }
         else{
-            this.productEntitiy.pricing.pricing1.timeUnit = mTU1;
-        }
-    var mTU2  =this.tm2.options[this.tm2.selectedIndex].value;
-        if (mTU2 == 0){
-            this.showEmptyText('Select 2nd Time unit');
-            showInsertButton();
-            return;
-        }
-        else{
-            this.productEntitiy.pricing.pricing2.timeUnit = mTU2;
-        }
-    var mTU3  =this.tm3.options[this.tm3.selectedIndex].value;
-         if (mTU3 == 0){
-                this.showEmptyText('Select 3rd Time unit');
-             showInsertButton();
-             return;
-         }
-         else{
-             this.productEntitiy.pricing.pricing3.timeUnit = mTU3;
-         }
-    var price1 = this.price1.value;
-        if (!validateNumber(price1)){
-            this.showEmptyText('Enter PRice 1');
-            showInsertButton();
-            return;
-        }
-        else{
-            this.productEntitiy.pricing.pricing1.price = price1;
+            this.productEntitiy.price7 = ourPrice;
         }
 
-    var price2 = this.price2.value;
-        if (!validateNumber(price2)){
-            this.showEmptyText('Enter PRice 2');
+        var price15  = this.pricing15.value;
+        if (!validateText(ourPrice)) {
+            this.showEmptyText('Enter 7 Days Price');
             showInsertButton();
             return;
         }
         else{
-            this.productEntitiy.pricing.pricing2.price = price2;
+            this.productEntitiy.price15 = ourPrice;
         }
-    var price3 = this.price3.value;
-        if (!validateNumber(price3)){
-            this.showEmptyText('Enter PRice 2');
+
+
+        var price30  = this.pricing30.value;
+        if (!validateText(ourPrice)) {
+            this.showEmptyText('Enter 30 Days Price');
             showInsertButton();
             return;
         }
         else{
-            this.productEntitiy.pricing.pricing3.price = price3;
+            this.productEntitiy.price30 = price30;
         }
+
+
 
 
 
@@ -924,7 +930,14 @@ AdminManager.prototype.validateFields  = function (){
         //         });
 
             var booksRef = this.database.ref().child("books");
-            booksRef.child(this.productEntitiy.pid).set(this.productEntitiy).then(this.resetEverything(),pop('error'));
+            booksRef.child(this.productEntitiy.pid).set(this.productEntitiy,err=>{
+                if (err) {
+                    console.log("Not Inserted");
+                }
+                else{
+                    this.resetEverything();
+                }
+            });
 
         // this.database.ref().child("/products/books/")
         //     .push(this.productEntitiy)
@@ -951,21 +964,18 @@ AdminManager.prototype.clearFields = function () {
     this.pid.value = '';
     this.productName.value= '';
     this.publiserName.value = '';
+
     this.ISBN.value = '';
-    this.ISBN13.value = '';
     this.authorName.value = '';
     this.MRP.value = '';
     this.ourPrice.value = '';
-    this.pdesc.value = '';
-    this.unit1.value = '';
-    this.unit2.value = '';
-    this.unit3.value = '';
+    this.pricing7.value = '';
+    this.oneLiner.value = '';
+    this.pricing15.value = '';
+    this.pricing30.value = '';
 
-    this.price1.value = '';
-    this.price2.value = '';
-    this.price3.value = '';
+    this.quantity.value = '';
 
-    this.searchTags.value = '';
 };
 AdminManager.prototype.resetEverything = function () {
     this.clearFields();
@@ -1312,6 +1322,6 @@ function popAlert(data) {
 
 
 window.onload = function (event){
-    console.log('Initializing Admin manager');
+   
     window.admin = new AdminManager();
 };

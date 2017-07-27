@@ -30,17 +30,18 @@
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-light_blue.min.css"/>
     <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
   
-
-
-
-    <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-    </style>
   </head>
 
 
   <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+<!-- 
+  <div id="progressbar">
+    <div class="progress-label">Loading...</div>
+   </div>
+ -->
 
   <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
 
@@ -48,13 +49,13 @@
       <header class="mdl-layout__header mdl-layout__header--scroll mdl-color--primary">
 
         <div class="mdl-layout--large-screen-only mdl-layout__header-row">
-          <h3>DashBoard</h3>
+          <h3>BookAholic DashBoard</h3>
         </div>
         <!-- The Href Should point to the Id of Div below Each tab Must Have Differet div and Diffrenrt Id-->
         <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--primary-dark">
-          <a href="#overview" class="mdl-layout__tab ">Admin</a>
-          <a href="#isbnRoot" class="mdl-layout__tab">Add Book</a>
-          <a href="#Search" class="mdl-layout__tab">Search</a>
+          <a href="#overview" class="mdl-layout__tab ">Overview</a>
+          <a href="#isbnRoot" class="mdl-layout__tab"> New Book</a>
+          <a href="#Search" class="mdl-layout__tab">Search </a>
           <a href="#c_combo" class="mdl-layout__tab">Create Combo</a>
           <a href="#edit_book" class="mdl-layout__tab">Edit Book</a>
 
@@ -64,14 +65,6 @@
 
       <!--Mai Root , Holding Tabs , Kinda viewpager -->
       <main class="mdl-layout__content">
-
-
-        <div id="must-signin-snackbar" class="mdl-js-snackbar mdl-snackbar">
-          <div class="mdl-snackbar__text"></div>
-          <button class="mdl-snackbar__action" type="button"></button>
-        </div>
-
-
 <!-- - - - - =============================TAB====================== -->
         <!--Whole Tab COntent Here eveything under Div id-->
         <!--1st Child  OverView Tab-->
@@ -79,11 +72,7 @@
 
           <!--The Dahs Board Section-->
 
-
-
           <!--The Total Product Section -->
-          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp top_section">
-
 
             <div class = "top_header">
             <!--The First Card(The Total Product Count)-->
@@ -130,51 +119,24 @@
 
             </div>
 
-          </section>
+        
         </div>
 
         <!-- The Top Insert Book Page , has ISBN and a Button t -->
 
         <!-- - - - - =============================TAB====================== -->
-          <div class="mdl-layout__tab-panel add_books_root" id="isbnRoot">
+        <div class="mdl-layout__tab-panel" id="isbnRoot">
 
 
            <div id="add_book_main_root"> 
-           <!-- The Card Which Holds ISBN /TAg and submit Button Inside -->
-               <div class=" mdl-card mdl-shadow--8dp add_book_card"  style="visibility: hidden;" id="isbn_div">
 
-              <!-- The  Area of the Card -->
-                <div class="mdl-card__title ">
-
-                   <h2 class="mdl-card__title-text">Add Books</h2>
-
-                </div>
-               <!-- The Body  Area of the Card -->
-
-               <div class="mdl-card__supporting-text">
-
-               <!-- The ISBN Text Field -->
-                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                        <input class="mdl-textfield__input" type="text" id="isbn_to_add" >
-                         <label class="mdl-textfield__label" for="isbn_to_add">Enter the New ISBN To Add Books</label>
-                      </div>
-
-               <!-- Button -->
-
-                  <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
-                                 mdl-button--accent isbn_button" id='isbn_add_button'>
-                        Add Book
-                   </button>
-
-                </div>
-               </div>
 
               <!-- THe Layout Whihc Shows when books In first Entry -->
 
-               <div id="insertNewBook"  style="visibility: visible;">
+               <div id="insertNewBook">
 
                     <!--Left Hand Card-->
-                 <div class="mdl-card mdl-shadow--8dp left_side">
+                 <div class="mdl-card mdl-shadow--8dp abc_root">
 
 
                     <!--The Title Of Card-->
@@ -190,10 +152,10 @@
                         </div>
                         <!-- Pid -->
                         <div class="pid_container">
-                          <p id="pid_text_para">Pid (Generated)</p>
+                         
                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" id="pid_div">
                                 <input class="mdl-textfield__input" type="text" id="pid_text" >
-                              
+                                <label class="mdl-textfield__label" for="pid_text">pid (Auto- Genereated)</label>
                           </div>
                         </div>
 
@@ -206,7 +168,7 @@
                             <label class="mdl-textfield__label" for="pname">Product Name</label>
                           </div>
 
-                        <!--Product Description-->
+                        <!--One Liner-->
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                           <input class="mdl-textfield__input" type="text" id="pdesc" >
                           <label class="mdl-textfield__label" for="pdesc">One Liner</label>
@@ -260,10 +222,12 @@
 
                         <!--ISBN 10-->
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                          <input class="mdl-textfield__input" type="text" id="isbn10" pattern="[0-9]*">
-                          <label class="mdl-textfield__label" for="isbn10">ISBN 10</label>
+                          <input class="mdl-textfield__input" type="text" id="isbn" pattern="[0-9]*">
+                          <label class="mdl-textfield__label" for="isbn">ISBN</label>
                         </div>
                       
+
+
                       
 
                         <!--MRP Price-->
@@ -279,6 +243,30 @@
                           <label class="mdl-textfield__label" for="our_price">Our Price</label>
                         </div>
 
+                          <!-- Pages -->
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="pages">
+                            <label class="mdl-textfield__label" for="pages">Pages</label>
+                          </div>  
+
+                          <!-- Reading Duration -->
+
+                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="reading_duration">
+                            <label class="mdl-textfield__label" for="reading_duration">Reading Duration</label>
+                          </div>  
+
+                          <!-- Languaage -->
+
+                           <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                            <input class="mdl-textfield__input" type="text" id="language">
+                            <label class="mdl-textfield__label" for="language">Language</label>
+                          </div>  
+                            <!-- Quantity -->
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                              <input class="mdl-textfield__input" type="text" id="quant">
+                              <label class="mdl-textfield__label" for="quant">Quantity</label>
+                          </div>  
 
                         <p>Is Best seller</p>
                         <select class="mdl-select__input c_class"  id="best_seller" name="Best Seller">
@@ -321,29 +309,28 @@
                         </div>
 
                         <!-- Image Container -->
-                         <div class="mdl-card mdl-shadow--8dp image_card">
-                               <div class="mdl-card__title ">
-                              <h2 class="mdl-card__title-text">Upload Image</h2>
-                          </div>
+                  
+                              
+                        <div class="image_form_class">
 
-                       <div class="image_form_class">
-
-                        <form id="image-form " action="#">
-                            <input id="mediaCapture" type="file" accept="image/*,capture=camera">
-                               <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
-                              <i class="material-icons">image</i>
-                              </button>
-                        </form>
-                    </div>
-                  </div>
+                            <form id="image-form " action="#">
+                              <input id="mediaCapture" type="file" accept="image/*,capture=camera">
+                                 <button id="submitImage" title="Add an image" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-color--amber-400 mdl-color-text--white">
+                                <i class="material-icons">image</i>
+                                </button>
+                            </form>
+                        </div>
                       <br>
+
+                      <!-- Insert Book Button -->
+                       <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="submit_button">Insert Book</button>
                       </form>
                     </div>
                  </div>
               
               </div>
             </div>
-          </div>
+        </div>
 
     
 
@@ -757,7 +744,6 @@
       
             
 
-      </main>
   </div>
         <!--<footer class="mdl-mega-footer">-->
           <!--<div class="mdl-mega-footer&#45;&#45;middle-section">-->

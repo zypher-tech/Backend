@@ -9,27 +9,25 @@ $white: #eee;
 $width: 100px;
 
 body{
-@include linear-gradient(90deg, #360033 10%, #0b8793 90%);
+background: #36353F;
 }
+
+
+/*// PRogress Bar
+*/
 
 .top_header{
 
-    float: left;
-    display: inline-block;
-
+  
 
 
 }
 
 
-#insertNewBook{
-  
-  
-  min-width: 80%;
-}
-.insertNewBook{
-  min-width: 80%;
-
+.abc_root{
+  margin-left: 30px;
+  margin-top: 5px;
+  background: #36353F;
 }
 
 
@@ -84,6 +82,9 @@ body{
     margin-left: 10%;
 }
 
+#insertNewBook{
+  background: #36353F;
+}
 
 .left_side{
     margin-bottom: 60px;
@@ -566,3 +567,34 @@ body{
 
 
            </div>*/
+
+
+
+
+
+           /*-- The Card Which Holds ISBN /TAg and submit Button Inside -->
+             <div class=" mdl-card mdl-shadow--8dp add_book_card"  style="visibility: hidden;" id="isbn_div">
+                <!-- The Area of the Card -->
+                      <div class="mdl-card__title ">
+
+                        <h2 class="mdl-card__title-text">Add Books</h2>
+
+                    </div>
+                       <!-- The Body Area of the Card -->
+
+                   <div class="mdl-card__supporting-text">
+
+                     <!-- The ISBN Text Field -->
+                       <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                          <input class="mdl-textfield__input" type="text" id="isbn_to_add" >
+                           <label class="mdl-textfield__label" for="isbn_to_add">Enter the New ISBN To Add Books</label>
+                        </div>
+
+                     <!-- Button -->
+
+                        <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect 
+                                       mdl-button--accent isbn_button" id='isbn_add_button'>
+                              Add Book
+                         </button>
+                  </div>
+              </div>*/

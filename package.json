@@ -1,14 +1,22 @@
 {
-  "name": "dev",
+  "name": "BookAholic",
   "version": "1.0.0",
   "description": "The Dev backend",
   "main": "index.js",
-  "scripts": {
-    "test": "js"
-  },
-  "repository": {
+ "repository": {
     "type": "git",
-    "url": "js"
+    "url": "https://github.com/BookAholicc/Backend.git"
+  },
+
+  "scripts": {
+    "deploy": "gcloud app deploy",
+    "start": "node server.js",
+     "test": "js"
+    },
+
+
+  "engines": {
+    "node": ">=4.2.6"
   },
   "keywords": [
     "jks"
@@ -25,10 +33,12 @@
     "firebase-admin": "^5.0.0",
     "firebase-functions": "^0.5.7",
     "googleapis": "^19.0.0",
-    "jade": "~1.11.0",
+    
     "morgan": "~1.8.1"
   },
   "devDependencies": {
     "nodemon": "^1.11.0"
-  }
+  },
+    "requiresKeyFile": true,
+    "requiresProjectId": true
 }
