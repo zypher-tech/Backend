@@ -5,9 +5,8 @@ const functions = require('firebase-functions');
 
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
-const cors = require('cors')({origin: "https:us-central1-bookaholic-786.cloudfunctions.net"});
 const cors = require('cors')({origin: true});
-app.use(cors);
+
 
 
 //The Root path of Db

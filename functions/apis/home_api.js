@@ -6,6 +6,7 @@
 var express = require('express');
 var admin = require("firebase-admin");
 
+const cors = require('cors')({origin: true});
 
 var response ;
 var returnJson = {
@@ -18,6 +19,9 @@ var db = admin.database();
 const router = express.Router();
 
 exports.initialize = function(req, res){
+
+
+
 
 	response = res;
 	console.log("inside Home API");
@@ -50,6 +54,8 @@ function sendJson(){
 	//get Individual Products
 	console.log("Final Json "+returnJson);
 	if (!response.headersSent) {
-		response.send(returnJson);
+		 response.set('Access-Control-Allow-Origin', "*")
+  		response.set('Access-Control-Allow-Methods', 'GET, POST')
+		response.status(200).send(returnJson);
 	}
 };

@@ -758,7 +758,7 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.ISBN = ISBN;
+            this.productEntitiy.ISBN = parseInt(ISBN);
         }
 
 
@@ -771,7 +771,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.MRP = MRP;
+        this.productEntitiy.MRP = parseInt(MRP);
     }
 
 
@@ -793,7 +793,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.pages = pagest;
+        this.productEntitiy.pages = parseInt(pagest);
     }
 
 
@@ -805,7 +805,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.readingDuration = readingDur;
+        this.productEntitiy.readingDuration = parseInt(readingDur);
     }
 
 // Quantity
@@ -816,7 +816,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.quantity = quan;
+        this.productEntitiy.quantity = parseInt(quan);
     }
 
 
@@ -840,7 +840,7 @@ AdminManager.prototype.validateFields  = function (){
         return;
     }
     else{
-        this.productEntitiy.ourPrice = ourPrice;
+        this.productEntitiy.ourPrice = parseInt(ourPrice);
     }
 
     if(this.isImageUploded == false){
@@ -880,7 +880,7 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.price7 = ourPrice;
+            this.productEntitiy.price7 = parseInt(price7);
         }
 
         var price15  = this.pricing15.value;
@@ -890,7 +890,7 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.price15 = ourPrice;
+            this.productEntitiy.price15 = parseInt(price15);
         }
 
 
@@ -901,7 +901,7 @@ AdminManager.prototype.validateFields  = function (){
             return;
         }
         else{
-            this.productEntitiy.price30 = price30;
+            this.productEntitiy.price30 = parseInt(price30);
         }
 
 
